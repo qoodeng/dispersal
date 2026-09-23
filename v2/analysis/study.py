@@ -47,6 +47,7 @@ PRIORS = {
 NO_EVIDENCE_KA = 30.0  # encoding for "nothing in 120-40 ka"; 10 ka beyond the window edge
 NEVER_KA = 30.0
 T_TESTS = 250
+RECORDED_REGIONS = ("arabia", "levant")  # plus Africa north of 15N and east of 25E (Nile, Red Sea margin)
 MAX_PER_SITE_SUMMARIES = 12  # above this, observations are reduced to summary statistics
 ACCEPT_FRACTION = 0.03  # nearest 3%: wider-than-ideal posteriors, i.e. conservative contraction
 
@@ -89,7 +90,10 @@ def resolve_designs():
             candidates = [c for c in range(len(g["regions"])) if g["regions"][c] in r["regions"] and always_land[c]]
             picks = np.random.default_rng(r["seed"]).choice(candidates, size=r["count"], replace=False)
             sites = [{"name": f"random_{c}", "cell": int(c), "region": g["regions"][c]} for c in sorted(picks)]
-        for s in d.get("sites", []):
+        site_list = d.get("sites", [])
+        if "evidence" in d:
+            site_list = evidence_sites(d["evidence"])
+        for s in site_list:
             row, col = cell_of(g, s["lat"], s["lon"])
             own = row * w + col
             best, best_km = None, None
@@ -106,8 +110,10 @@ def resolve_designs():
             if best is None:
                 sys.exit(f"site {s['name']} has no land cell within two cells")
             merged = next((x for x in sites if x["cell"] == best), None)
-            if merged:  # one cell has one record; keep the first name and note the merge
+            if merged:  # one cell has one record: keep the oldest site's error, note the merge
                 merged["name"] += "+" + s["name"]
+                if s.get("ageKa", 0) > merged.get("ageKa", 0):
+                    merged.update({k: s[k] for k in ("ageKa", "sigmaYears") if k in s})
                 continue
             sites.append(
                 {
@@ -116,6 +122,7 @@ def resolve_designs():
                     "ownCellLand": bool(ever_land[own]),
                     "kmFromCellCentre": round(float(best_km), 1),
                     "region": g["regions"][best],
+                    **{k: s[k] for k in ("ageKa", "sigmaYears", "records") if k in s},
                 }
             )
         resolved[name] = {"sigma": d["sigma"], "sites": sites}
@@ -123,6 +130,39 @@ def resolve_designs():
         if "same_sites_as" in d:
             resolved[name] = {"sigma": d["sigma"], "sites": resolved[d["same_sites_as"]]["sites"]}
     return g, resolved
+
+
+def one_sigma_years(row):
+    """1-sigma dating error in years from a register row; unknown conventions are read as 1 sigma (wider)."""
+    half_width = max(float(row["minus_ka"] or 0), float(row["plus_ka"] or 0)) * 1000
+    convention = row["uncertainty_convention"].lower()
+    two_sigma = any(tag in convention for tag in ("2 sigma", "2σ", "95"))
+    return half_width / 2 if two_sigma else half_width
+
+
+def evidence_sites(spec):
+    """Sites for a design built from the dated-site register: one entry per site, dated by its oldest record."""
+    import csv
+
+    rows = list(csv.DictReader((V2.parent / spec["file"]).open()))
+    keep = []
+    for r in rows:
+        try:
+            lat, lon, age = float(r["latitude"]), float(r["longitude"]), float(r["age_ka"])
+        except ValueError:
+            continue  # unverified coordinates or age: not usable
+        if not spec["minAgeKa"] <= age <= spec["maxAgeKa"]:
+            continue
+        if spec.get("attribution") and not any(a in r["hominin_attribution"].lower() for a in spec["attribution"]):
+            continue
+        keep.append((r["site"], lat, lon, age, one_sigma_years(r), r["record_id"]))
+    sites = {}
+    for site, lat, lon, age, sigma, rid in keep:
+        cur = sites.get(site)
+        if cur is None or age > cur["ageKa"]:
+            sites[site] = {"name": site, "lat": lat, "lon": lon, "ageKa": age, "sigmaYears": sigma, "records": []}
+        sites[site]["records"].append(rid)
+    return list(sites.values())
 
 
 def prepare(args):
@@ -135,7 +175,17 @@ def prepare(args):
         values = [from_unit(n, u[i, j]) for j, n in enumerate(PRIORS)]
         lines.append(f"{i},{int(rng.integers(1, 2**63))}," + ",".join(f"{v:.10g}" for v in values))
     (WORK / "params.csv").write_text("\n".join(lines) + "\n")
-    cells = sorted({s["cell"] for d in designs.values() for s in d["sites"]})
+    # Record every cell of the dispersal regions, not only design cells, so new
+    # evidence designs (e.g. the ingested G1 record) need no re-simulation.
+    ever_land = np.array(g["landAreaKm2"]).max(axis=0) > 0
+    lat = np.repeat(np.array(g["latitudes"]), g["width"])
+    lon = np.tile(np.array(g["longitudes"]), g["height"])
+    region_cells = {
+        c
+        for c, r in enumerate(g["regions"])
+        if ever_land[c] and (r in RECORDED_REGIONS or (r == "africa" and lat[c] >= 15 and lon[c] >= 25))
+    }
+    cells = sorted(region_cells | {s["cell"] for d in designs.values() for s in d["sites"]})
     lat, lon = np.array(g["latitudes"]), np.array(g["longitudes"])
     (WORK / "sites.csv").write_text(
         "name,lat,lon\n" + "".join(f"c{c},{lat[c // g['width']]},{lon[c % g['width']]}\n" for c in cells)
@@ -148,6 +198,22 @@ def prepare(args):
     for s in designs["illustrative"]["sites"]:
         if not s["ownCellLand"]:
             print(f"  note: {s['name']} is coastal; its own cell is sea, snapped to the nearest land cell")
+
+
+def refresh_designs(args):
+    """Re-resolve designs without touching params or sites; fail if a design needs an unrecorded cell."""
+    g, designs = resolve_designs()
+    lat, lon = np.array(g["latitudes"]), np.array(g["longitudes"])
+    recorded = set()
+    for line in (WORK / "sites.csv").read_text().splitlines()[1:]:
+        _, la, lo = line.split(",")
+        recorded.add(int(np.argmin(np.abs(lat - float(la))) * g["width"] + np.argmin(np.abs(lon - float(lo)))))
+    missing = {n: [s["name"] for s in d["sites"] if s["cell"] not in recorded] for n, d in designs.items()}
+    missing = {n: m for n, m in missing.items() if m}
+    if missing:
+        sys.exit(f"designs need cells that were not simulated: {missing}")
+    (WORK / "designs.resolved.json").write_text(json.dumps(designs, indent=1))
+    print(", ".join(f"{k}={len(v['sites'])}" for k, v in designs.items()))
 
 
 def simulate(args):
@@ -189,6 +255,16 @@ def read_table(path):
     return {h: data[:, i] for i, h in enumerate(header)}
 
 
+def load_checked(name):
+    """Read a simulated table, refusing it if any input changed since it was simulated."""
+    meta = json.loads((WORK / f"{name}.meta.json").read_text())
+    current = inputs_digest(meta["dt"], meta["southernCrossing"], WORK / meta.get("paramsFile", "params.csv"))
+    stale = [k for k in ("params", "sites", "grid", "engine") if meta[k] != current[k]]
+    if stale:
+        sys.exit(f"{name} is stale: {', '.join(stale)} changed since it was simulated; rerun simulate")
+    return read_table(WORK / name), meta
+
+
 def observations(table, design, rng):
     """Observed record under a design: one column per site, in ka."""
     cols = []
@@ -198,7 +274,10 @@ def observations(table, design, rng):
             age = table[f"c{s['cell']}__established_bp"]
         else:
             age = table[f"c{s['cell']}__oldest_find_bp"]
-            sigma = design["sigma"]["value"] * (age if kind == "fraction_of_age" else 1.0)
+            if kind == "per_site":
+                sigma = s["sigmaYears"]
+            else:
+                sigma = design["sigma"]["value"] * (age if kind == "fraction_of_age" else 1.0)
             age = age + rng.normal(size=age.shape) * np.nan_to_num(sigma)
         cols.append(np.where(np.isfinite(age), age / 1000.0, NO_EVIDENCE_KA))
     S = np.column_stack(cols)
@@ -313,12 +392,7 @@ def summarize(targets, ref, out, prior_width90):
 
 def analyze(args):
     designs = json.loads((WORK / "designs.resolved.json").read_text())
-    meta = json.loads((WORK / f"{args.table}.meta.json").read_text())
-    current = inputs_digest(meta["dt"], meta["southernCrossing"], WORK / meta.get("paramsFile", "params.csv"))
-    stale = [k for k in ("params", "sites", "grid", "engine") if meta[k] != current[k]]
-    if stale:
-        sys.exit(f"{args.table} is stale: {', '.join(stale)} changed since it was simulated; rerun simulate")
-    table = read_table(WORK / args.table)
+    table, meta = load_checked(args.table)
     if args.subset:
         table = {k: v[: args.subset] for k, v in table.items()}
     params = read_table(WORK / "params.csv")
@@ -418,6 +492,64 @@ def print_report(report):
             print(f"  {d:14} skill {wr['brierSkill']:>6}   {when}")
 
 
+def structure(args):
+    """G3: does a structural alternative change the answer, and can the record tell?
+
+    Sensitivity compares the same parameter draws under the baseline and the
+    alternative. Discrimination pools both sets of simulated records and asks
+    rejection ABC (nearest 3%) for the probability that a held-out record came
+    from the alternative; Brier skill 0 means the record cannot tell them apart.
+    """
+    designs = json.loads((WORK / "designs.resolved.json").read_text())
+    base, _ = load_checked(args.base)
+    report = {"schema": "dispersal-v2-structure/1", "base": args.base, "alternatives": {}}
+    rng = np.random.default_rng(args.seed)
+    for alt_name in args.alternatives.split(","):
+        alt, alt_meta = load_checked(alt_name)
+        n = len(alt["id"])
+        b = {k: v[:n] for k, v in base.items()}
+        assert np.array_equal(b["id"], alt["id"])
+        sensitivity = {}
+        for q in ("arabia_onset_bp", "levant_onset_bp"):
+            x, y = b[q] / 1000, alt[q] / 1000
+            both = np.isfinite(x) & np.isfinite(y)
+            sensitivity[q] = {
+                "fractionReachedBase": round(float(np.isfinite(x).mean()), 3),
+                "fractionReachedAlternative": round(float(np.isfinite(y).mean()), 3),
+                "drawsWhereReachedDiffers": round(float((np.isfinite(x) != np.isfinite(y)).mean()), 3),
+                "medianOnsetShiftKa": round(float(np.median(y[both] - x[both])), 2) if both.any() else None,
+            }
+        label = np.r_[np.zeros(n), np.ones(n)]
+        tests = rng.choice(2 * n, size=min(400, n), replace=False)
+        discrimination = {}
+        for dname, design in designs.items():
+            S = np.vstack([observations(b, design, rng), observations(alt, design, rng)])
+            ref_all = np.setdiff1d(np.arange(2 * n), tests)
+            scale = np.maximum(np.median(np.abs(S[ref_all] - np.median(S[ref_all], axis=0)), axis=0) * 1.4826, 1.0)
+            k = max(20, int(ACCEPT_FRACTION * len(ref_all)))
+            p_alt = []
+            for t in tests:
+                d = np.sqrt((((S[ref_all] - S[t]) / scale) ** 2).sum(axis=1))
+                idx = np.argpartition(d, k)[:k]
+                h = d[idx].max() * 1.0000001 + 1e-12
+                w = 1.0 - (d[idx] / h) ** 2
+                p_alt.append(float(np.average(label[ref_all][idx], weights=w)))
+            p_alt, truth = np.array(p_alt), label[tests]
+            discrimination[dname] = {
+                "brierSkill": round(float(1 - np.mean((p_alt - truth) ** 2) / 0.25), 3),
+                "accuracy": round(float(np.mean((p_alt > 0.5) == truth)), 3),
+            }
+        report["alternatives"][alt_name] = {
+            "scenario": {k: alt_meta.get(k) for k in ("southernCrossing", "sourceMaxLat", "dt")},
+            "draws": int(n),
+            "sensitivity": sensitivity,
+            "discrimination": discrimination,
+        }
+    RESULTS.mkdir(exist_ok=True)
+    (RESULTS / "structure.json").write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps(report, indent=1))
+
+
 def timestep(args):
     """Do onset outcomes depend on the time step beyond seed-to-seed noise?
 
@@ -436,10 +568,12 @@ def timestep(args):
     runs = {f"dt{d:g}": (params, d) for d in dts}
     runs[f"dt{dts[0]:g}_reseeded"] = ([params[0]] + [reseed(r) for r in params[1:]], dts[0])
     tables = {}
+    sites = WORK / "timestep-sites.csv"  # onsets only; one recorded site keeps runs fast
+    sites.write_text("\n".join((WORK / "sites.csv").read_text().splitlines()[:2]) + "\n")
     for name, (rows, dt) in runs.items():
         src, out = WORK / f"timestep-{name}.params.csv", WORK / f"timestep-{name}.csv"
         src.write_text("\n".join(rows) + "\n")
-        cmd = [str(ENGINE), "--grid", str(GRID), "--params", str(src), "--sites", str(WORK / "sites.csv")]
+        cmd = [str(ENGINE), "--grid", str(GRID), "--params", str(src), "--sites", str(sites)]
         subprocess.run(cmd + ["--out", str(out), "--dt", str(dt)], check=True)
         tables[name] = read_table(out)
 
@@ -497,11 +631,19 @@ def main():
     a.add_argument("--report-dir", default="results")
     a.add_argument("--subset", type=int, default=0, help="analyze only the first N simulations (stability check)")
     a.add_argument("--seed", type=int, default=7)
+    sub.add_parser("designs")
+    a = sub.add_parser("structure")
+    a.add_argument("--base", default="table.csv")
+    a.add_argument("--alternatives", default="table-south.csv,table-source5.csv")
+    a.add_argument("--seed", type=int, default=11)
     a = sub.add_parser("timestep")
     a.add_argument("--sims", type=int, default=200)
     a.add_argument("--dts", default="25,10,5", help="comma-separated steps, coarsest first")
     args = p.parse_args()
-    {"prepare": prepare, "simulate": simulate, "analyze": analyze, "timestep": timestep}[args.cmd](args)
+    commands = {"prepare": prepare, "simulate": simulate, "analyze": analyze, "structure": structure}
+    commands["timestep"] = timestep
+    commands["designs"] = refresh_designs
+    commands[args.cmd](args)
 
 
 if __name__ == "__main__":
