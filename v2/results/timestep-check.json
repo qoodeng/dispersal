@@ -1,0 +1,76 @@
+{
+ "sims": 200,
+ "question": "dt 25 vs 10 years, compared with seed-to-seed noise at dt 25",
+ "criterion": "fraction of runs establishing in Arabia differs by at most 0.05 between dt 25 and dt 10",
+ "verdict": "fail",
+ "results": {
+  "arabia_onset_bp": {
+   "dt25": {
+    "fractionReached": 0.645,
+    "onsetKaQuantiles10_50_90": [
+     99.5,
+     111.8,
+     118.1
+    ]
+   },
+   "dt25_reseeded": {
+    "fractionReached": 0.63,
+    "onsetKaQuantiles10_50_90": [
+     97.6,
+     112.2,
+     117.8
+    ]
+   },
+   "dt10": {
+    "fractionReached": 0.45,
+    "onsetKaQuantiles10_50_90": [
+     91.9,
+     113.0,
+     118.4
+    ]
+   },
+   "dt25_vs_dt25_reseeded": {
+    "reachedAgreement": 0.945,
+    "medianAbsOnsetDifferenceKa": 0.84
+   },
+   "dt25_vs_dt10": {
+    "reachedAgreement": 0.805,
+    "medianAbsOnsetDifferenceKa": 1.87
+   }
+  },
+  "levant_onset_bp": {
+   "dt25": {
+    "fractionReached": 0.645,
+    "onsetKaQuantiles10_50_90": [
+     99.8,
+     112.5,
+     118.1
+    ]
+   },
+   "dt25_reseeded": {
+    "fractionReached": 0.63,
+    "onsetKaQuantiles10_50_90": [
+     99.6,
+     112.6,
+     118.3
+    ]
+   },
+   "dt10": {
+    "fractionReached": 0.455,
+    "onsetKaQuantiles10_50_90": [
+     92.4,
+     113.0,
+     118.4
+    ]
+   },
+   "dt25_vs_dt25_reseeded": {
+    "reachedAgreement": 0.945,
+    "medianAbsOnsetDifferenceKa": 0.91
+   },
+   "dt25_vs_dt10": {
+    "reachedAgreement": 0.81,
+    "medianAbsOnsetDifferenceKa": 2.18
+   }
+  }
+ }
+}

@@ -1,0 +1,426 @@
+{
+ "schema": "dispersal-v2-identifiability/1",
+ "inputs": {
+  "params": "76014ebed81881507610fa81fb86cc055ffe98ae8a0e72a5b9f731bdc0afce51",
+  "sites": "aa721ef314b4b9fd2a4b602083d1b61e0d85bbb026175527487b71aac8d545bf",
+  "grid": "fa91d76412582f5088fb24cee383b8704a98300838d7db7f9530760a9a034827",
+  "engine": "ad361ad7c9e3723f27173e39748d1dbce43bba2a28c1763afd03d25e79289aa0",
+  "dt": 25,
+  "southernCrossing": false,
+  "engineHistory": [
+   {
+    "engine": "f6f14652df6cdea0bc592a73ce621d78b38a6652221c1a304e58bd60f1223683",
+    "note": "binary that produced the table"
+   },
+   {
+    "engine": "ad361ad7c9e3723f27173e39748d1dbce43bba2a28c1763afd03d25e79289aa0",
+    "note": "rebuilt after a clippy-only change (iterator in sea-loss loop); reproduced the first 100 rows byte-for-byte"
+   }
+  ]
+ },
+ "simulations": 3000,
+ "tests": 250,
+ "acceptFraction": 0.03,
+ "table": "table.csv",
+ "subset": 0,
+ "priors": {
+  "growth": {
+   "kind": "log_uniform",
+   "low": 0.001,
+   "high": 0.03,
+   "units": "per year",
+   "meaning": "intrinsic growth rate r"
+  },
+  "diffusion": {
+   "kind": "log_uniform",
+   "low": 2.0,
+   "high": 60.0,
+   "units": "km^2/year",
+   "meaning": "diffusion coefficient D"
+  },
+  "rain_half": {
+   "kind": "uniform",
+   "low": 50.0,
+   "high": 250.0,
+   "units": "mm/year",
+   "meaning": "precipitation at half habitat suitability"
+  },
+  "density": {
+   "kind": "log_uniform",
+   "low": 1.0,
+   "high": 30.0,
+   "units": "people/100 km^2",
+   "meaning": "carrying capacity in suitable habitat"
+  },
+  "detection": {
+   "kind": "log_uniform",
+   "low": 1e-09,
+   "high": 1e-05,
+   "units": "finds/person-year",
+   "meaning": "dated-find deposition and recovery rate"
+  }
+ },
+ "encoding": {
+  "noEvidenceKa": 30.0,
+  "neverKa": 30.0,
+  "parameters": "contraction and interval width are in prior-unit space (0-1)",
+  "onsets": "ka; runs that never establish in the region are coded as 30 ka"
+ },
+ "priorPredictive": {
+  "fractionReachingArabia": 0.625,
+  "arabiaOnsetKaQuantiles": [
+   77.4,
+   106.4,
+   112.9,
+   116.5,
+   118.5
+  ],
+  "fractionReachingLevant": 0.626
+ },
+ "designs": {
+  "ingested": {
+   "sites": 1,
+   "fractionOfRunsWithAnyEvidence": 0.244,
+   "results": {
+    "growth": {
+     "contraction": 0.099,
+     "coverage50": 0.416,
+     "coverage90": 0.9,
+     "medianWidth90": 0.896,
+     "priorWidth90": 0.895
+    },
+    "diffusion": {
+     "contraction": -0.144,
+     "coverage50": 0.576,
+     "coverage90": 0.92,
+     "medianWidth90": 0.924,
+     "priorWidth90": 0.894
+    },
+    "rain_half": {
+     "contraction": 0.151,
+     "coverage50": 0.452,
+     "coverage90": 0.904,
+     "medianWidth90": 0.879,
+     "priorWidth90": 0.896
+    },
+    "density": {
+     "contraction": 0.065,
+     "coverage50": 0.508,
+     "coverage90": 0.936,
+     "medianWidth90": 0.915,
+     "priorWidth90": 0.893
+    },
+    "detection": {
+     "contraction": 0.301,
+     "coverage50": 0.532,
+     "coverage90": 0.892,
+     "medianWidth90": 0.806,
+     "priorWidth90": 0.893
+    },
+    "arabia_onset_ka": {
+     "contraction": 0.285,
+     "coverage50": 0.76,
+     "coverage90": 0.924,
+     "medianWidth90": 87.84,
+     "priorWidth90": 88.251,
+     "whetherReached": {
+      "brierSkill": 0.203,
+      "priorProbability": 0.625
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 3.8,
+      "medianWidth90Ka": 64.22,
+      "coverage90": 0.885,
+      "priorWidth90Ka": 41.36,
+      "priorMedianAbsErrorKa": 4.5
+     }
+    },
+    "levant_onset_ka": {
+     "contraction": 0.286,
+     "coverage50": 0.744,
+     "coverage90": 0.924,
+     "medianWidth90": 87.992,
+     "priorWidth90": 88.375,
+     "whetherReached": {
+      "brierSkill": 0.197,
+      "priorProbability": 0.626
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 3.38,
+      "medianWidth90Ka": 61.57,
+      "coverage90": 0.878,
+      "priorWidth90Ka": 40.24,
+      "priorMedianAbsErrorKa": 4.05
+     }
+    },
+    "arabia_occupied_fraction": {
+     "contraction": 0.28,
+     "coverage50": 0.752,
+     "coverage90": 0.928,
+     "medianWidth90": 0.973,
+     "priorWidth90": 0.978
+    }
+   }
+  },
+  "illustrative": {
+   "sites": 10,
+   "fractionOfRunsWithAnyEvidence": 0.551,
+   "results": {
+    "growth": {
+     "contraction": 0.176,
+     "coverage50": 0.448,
+     "coverage90": 0.872,
+     "medianWidth90": 0.833,
+     "priorWidth90": 0.895
+    },
+    "diffusion": {
+     "contraction": 0.031,
+     "coverage50": 0.56,
+     "coverage90": 0.896,
+     "medianWidth90": 0.88,
+     "priorWidth90": 0.894
+    },
+    "rain_half": {
+     "contraction": 0.356,
+     "coverage50": 0.432,
+     "coverage90": 0.872,
+     "medianWidth90": 0.789,
+     "priorWidth90": 0.896
+    },
+    "density": {
+     "contraction": 0.414,
+     "coverage50": 0.468,
+     "coverage90": 0.828,
+     "medianWidth90": 0.681,
+     "priorWidth90": 0.893
+    },
+    "detection": {
+     "contraction": 0.352,
+     "coverage50": 0.508,
+     "coverage90": 0.888,
+     "medianWidth90": 0.776,
+     "priorWidth90": 0.893
+    },
+    "arabia_onset_ka": {
+     "contraction": 0.772,
+     "coverage50": 0.684,
+     "coverage90": 0.908,
+     "medianWidth90": 67.708,
+     "priorWidth90": 88.251,
+     "whetherReached": {
+      "brierSkill": 0.715,
+      "priorProbability": 0.625
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 3.09,
+      "medianWidth90Ka": 27.47,
+      "coverage90": 0.878,
+      "priorWidth90Ka": 41.36,
+      "priorMedianAbsErrorKa": 4.5
+     }
+    },
+    "levant_onset_ka": {
+     "contraction": 0.775,
+     "coverage50": 0.716,
+     "coverage90": 0.908,
+     "medianWidth90": 65.489,
+     "priorWidth90": 88.375,
+     "whetherReached": {
+      "brierSkill": 0.716,
+      "priorProbability": 0.626
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 2.79,
+      "medianWidth90Ka": 26.62,
+      "coverage90": 0.885,
+      "priorWidth90Ka": 40.24,
+      "priorMedianAbsErrorKa": 4.05
+     }
+    },
+    "arabia_occupied_fraction": {
+     "contraction": 0.76,
+     "coverage50": 0.696,
+     "coverage90": 0.912,
+     "medianWidth90": 0.859,
+     "priorWidth90": 0.978
+    }
+   }
+  },
+  "dense": {
+   "sites": 40,
+   "fractionOfRunsWithAnyEvidence": 0.584,
+   "results": {
+    "growth": {
+     "contraction": 0.211,
+     "coverage50": 0.448,
+     "coverage90": 0.876,
+     "medianWidth90": 0.84,
+     "priorWidth90": 0.895
+    },
+    "diffusion": {
+     "contraction": 0.106,
+     "coverage50": 0.568,
+     "coverage90": 0.872,
+     "medianWidth90": 0.824,
+     "priorWidth90": 0.894
+    },
+    "rain_half": {
+     "contraction": 0.321,
+     "coverage50": 0.464,
+     "coverage90": 0.856,
+     "medianWidth90": 0.723,
+     "priorWidth90": 0.896
+    },
+    "density": {
+     "contraction": 0.331,
+     "coverage50": 0.488,
+     "coverage90": 0.88,
+     "medianWidth90": 0.719,
+     "priorWidth90": 0.893
+    },
+    "detection": {
+     "contraction": 0.427,
+     "coverage50": 0.548,
+     "coverage90": 0.9,
+     "medianWidth90": 0.506,
+     "priorWidth90": 0.893
+    },
+    "arabia_onset_ka": {
+     "contraction": 0.883,
+     "coverage50": 0.716,
+     "coverage90": 0.928,
+     "medianWidth90": 36.892,
+     "priorWidth90": 88.251,
+     "whetherReached": {
+      "brierSkill": 0.846,
+      "priorProbability": 0.625
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 2.63,
+      "medianWidth90Ka": 17.51,
+      "coverage90": 0.917,
+      "priorWidth90Ka": 41.36,
+      "priorMedianAbsErrorKa": 4.5
+     }
+    },
+    "levant_onset_ka": {
+     "contraction": 0.883,
+     "coverage50": 0.692,
+     "coverage90": 0.936,
+     "medianWidth90": 34.003,
+     "priorWidth90": 88.375,
+     "whetherReached": {
+      "brierSkill": 0.846,
+      "priorProbability": 0.626
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 2.07,
+      "medianWidth90Ka": 14.66,
+      "coverage90": 0.929,
+      "priorWidth90Ka": 40.24,
+      "priorMedianAbsErrorKa": 4.05
+     }
+    },
+    "arabia_occupied_fraction": {
+     "contraction": 0.881,
+     "coverage50": 0.712,
+     "coverage90": 0.924,
+     "medianWidth90": 0.459,
+     "priorWidth90": 0.978
+    }
+   }
+  },
+  "oracle": {
+   "sites": 10,
+   "fractionOfRunsWithAnyEvidence": 0.626,
+   "results": {
+    "growth": {
+     "contraction": 0.376,
+     "coverage50": 0.496,
+     "coverage90": 0.9,
+     "medianWidth90": 0.719,
+     "priorWidth90": 0.895
+    },
+    "diffusion": {
+     "contraction": 0.241,
+     "coverage50": 0.484,
+     "coverage90": 0.892,
+     "medianWidth90": 0.843,
+     "priorWidth90": 0.894
+    },
+    "rain_half": {
+     "contraction": 0.587,
+     "coverage50": 0.508,
+     "coverage90": 0.876,
+     "medianWidth90": 0.58,
+     "priorWidth90": 0.896
+    },
+    "density": {
+     "contraction": 0.27,
+     "coverage50": 0.496,
+     "coverage90": 0.9,
+     "medianWidth90": 0.769,
+     "priorWidth90": 0.893
+    },
+    "detection": {
+     "contraction": 0.077,
+     "coverage50": 0.516,
+     "coverage90": 0.884,
+     "medianWidth90": 0.85,
+     "priorWidth90": 0.893
+    },
+    "arabia_onset_ka": {
+     "contraction": 0.989,
+     "coverage50": 0.8,
+     "coverage90": 0.956,
+     "medianWidth90": 1.416,
+     "priorWidth90": 88.251,
+     "whetherReached": {
+      "brierSkill": 0.998,
+      "priorProbability": 0.625
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 0.52,
+      "medianWidth90Ka": 3.83,
+      "coverage90": 0.929,
+      "priorWidth90Ka": 41.36,
+      "priorMedianAbsErrorKa": 4.5
+     }
+    },
+    "levant_onset_ka": {
+     "contraction": 0.99,
+     "coverage50": 0.816,
+     "coverage90": 0.98,
+     "medianWidth90": 1.5,
+     "priorWidth90": 88.375,
+     "whetherReached": {
+      "brierSkill": 1.0,
+      "priorProbability": 0.626
+     },
+     "whenReached": {
+      "tests": 156,
+      "medianAbsErrorKa": 0.47,
+      "medianWidth90Ka": 4.04,
+      "coverage90": 0.968,
+      "priorWidth90Ka": 40.24,
+      "priorMedianAbsErrorKa": 4.05
+     }
+    },
+    "arabia_occupied_fraction": {
+     "contraction": 0.985,
+     "coverage50": 0.832,
+     "coverage90": 0.964,
+     "medianWidth90": 0.02,
+     "priorWidth90": 0.978
+    }
+   }
+  }
+ }
+}

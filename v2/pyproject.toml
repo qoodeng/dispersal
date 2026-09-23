@@ -1,0 +1,14 @@
+[project]
+name = "dispersal-v2-analysis"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0", "h5py>=3.10"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B"]

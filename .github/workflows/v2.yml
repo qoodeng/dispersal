@@ -1,0 +1,16 @@
+name: v2
+on:
+  push:
+    paths: ["v2/**", "research/data/**", ".github/workflows/v2.yml"]
+  pull_request:
+    paths: ["v2/**", "research/data/**", ".github/workflows/v2.yml"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: astral-sh/setup-uv@v6
+      - run: v2/check.sh
