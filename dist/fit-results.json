@@ -1,0 +1,126 @@
+{
+  "schema": "dispersal-calibration/v1",
+  "seed": 4095,
+  "draws": 1024,
+  "effectiveSampleSize": 231.8,
+  "source": 4434,
+  "growthFit": {
+    "targetAnnualLogRate": 0.0026,
+    "fittedAnnualLogRate": 0.0025999999999986876,
+    "fittedTotalFertility": 4.256863628864036,
+    "targetSource": "Tallavaara & J\u00f8rgensen 2021 Table1, !Kung intrinsic rate (Howell)",
+    "mortalitySource": "Gurven & Kaplan 2007 Table2, !Kung",
+    "fertilityShape": "Modern global age shape from Sahul archive; approximation"
+  },
+  "parameterIntervals": {
+    "growth": [
+      0.001,
+      0.0034,
+      0.0146
+    ],
+    "diffusion": [
+      2.1062,
+      31.0264,
+      93.9091
+    ],
+    "resistance": [
+      1.0304,
+      2.6004,
+      5.7234
+    ],
+    "startKa": [
+      100.7643,
+      111.4178,
+      119.6919
+    ]
+  },
+  "sites": [
+    {
+      "name": "Al Wusta",
+      "cell": 2288,
+      "status": "Used for one-sided minimum-age calibration",
+      "arrivalKa": [
+        87.8107,
+        96.6055,
+        110.4075
+      ],
+      "priorArrivalKa": [
+        -847.2462,
+        39.9958,
+        107.1987
+      ],
+      "reachedBy40Ka": 1.0
+    },
+    {
+      "name": "Southern Levant",
+      "cell": 1560,
+      "status": "Unvalidated regional prediction",
+      "arrivalKa": [
+        91.9892,
+        99.4499,
+        111.9804
+      ],
+      "priorArrivalKa": [
+        -639.2369,
+        54.98,
+        108.9907
+      ],
+      "reachedBy40Ka": 1.0
+    },
+    {
+      "name": "Eastern Arabia",
+      "cell": 2669,
+      "status": "Unvalidated regional prediction",
+      "arrivalKa": [
+        77.1698,
+        90.948,
+        107.368
+      ],
+      "priorArrivalKa": [
+        -1247.9369,
+        8.6951,
+        103.8793
+      ],
+      "reachedBy40Ka": 1.0
+    }
+  ],
+  "assumptions": [
+    "Modern land geometry; no boats; no palaeoshoreline reconstruction.",
+    "Rainfall averaged 120\u201380 ka; static route cost 1 + alpha/(1+P/100). Not a calibrated physiological response.",
+    "KPP front approximation c=2\u221a(rD); no extinction or recolonization.",
+    "Source Upper Nile; departure prior uniform100\u2013120ka; movement loguniform0.01\u2013100km\u00b2/year.",
+    "Growth transfer prior lognormal centered0.0026/year logSD0.8, clipped0.0001\u20130.03.",
+    "Al Wusta weight Phi((arrivalKa\u221287.6)/1.25) is a conservative compatibility likelihood for its minimum age.",
+    "Arrival intervals are conditional on this model and priors; not independently validated confidence in actual human arrival.",
+    "Population density shown as fraction of a local capacity, not an estimated census."
+  ],
+  "sources": [
+    {
+      "title": "Modern growth target",
+      "url": "https://doi.org/10.1098/rstb.2019.0708"
+    },
+    {
+      "title": "Mortality schedules",
+      "url": "https://doi.org/10.1111/j.1728-4457.2007.00171.x"
+    },
+    {
+      "title": "Al Wusta chronology",
+      "url": "https://doi.org/10.1038/s41559-018-0518-2"
+    },
+    {
+      "title": "Climate reconstruction",
+      "url": "https://doi.org/10.1038/s41597-020-0552-1"
+    }
+  ],
+  "checks": [
+    "Growth target recovered to1e-9",
+    "Weights normalized",
+    "Missing/ocean cells excluded",
+    "Deterministic seed4095",
+    "Chronological probability monotonicity at source"
+  ],
+  "inputsSha256": {
+    "public/geography.json": "f7c5bccba79365b562f80964f16e366609ead4dd5566dd00a468d113c812ed1b",
+    "research/data/beyer-regional-precipitation.nc": "99adcf8e48598622ae63b337951dca943f15e669838b242a4227ff8aac4f09b5"
+  }
+}

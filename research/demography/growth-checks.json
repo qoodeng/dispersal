@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "scope": "modern-reference implementation and calibration only",
+  "calibrated_annual_log_growth": 0.002599999999999352,
+  "target_annual_log_growth": 0.0026,
+  "fitted_total_fertility_scale": 4.433613975724275,
+  "replicates": 32,
+  "max_mean_error_in_monte_carlo_standard_errors": 2.462322850172536,
+  "checks": [
+    "independent Leslie eigenvalue recovers fitting target",
+    "seed123 replays exactly",
+    "32 stochastic replicates agree with independent expected projection within6 Monte Carlo standard errors (engineering tolerance)",
+    "all annual population ledgers balance",
+    "matched initial population for birth/no-birth comparison"
+  ],
+  "not_validated": [
+    "historical transfer",
+    "between-population uncertainty",
+    "individual birth spacing",
+    "partner availability",
+    "ecological regulation",
+    "migration"
+  ],
+  "source_ids": [
+    "tuljapurkar2007",
+    "gurven2007",
+    "growth2021"
+  ],
+  "inputs": {
+    "annual_reference_sha256": "922747f270419bea36087c2b78540a248097adb8e099de338c05d4a0af56b9f5",
+    "metadata_sha256": "54f53e480bd54324a7fbb3bdec56f1a95b9e2e8af243145899a03dd734070122"
+  }
+}

@@ -1,0 +1,7 @@
+population,a1_per_year,b1_per_year,a2_per_year,a3_per_year,b3_per_year,source_id,locator,use
+Hadza,0.351,0.895,0.011,0.00000670,0.125,gurven2007,Table2 p327,modern analogue
+Ache forest,0.157,0.721,0.013,0.0000480,0.103,gurven2007,Table2 p327,modern analogue
+Hiwi,0.458,1.390,0.020,0.00000000632,0.251,gurven2007,Table2 p327,modern analogue
+!Kung,0.340,0.913,0.010,0.000331,0.077,gurven2007,Table2 p327,modern analogue
+Agta,0.961,1.506,,0.00757,0.040,gurven2007,Table2 p327,a2 reported NA; do not assume zero
+Average hunter-gatherer,0.422,1.131,0.013,0.000147,0.086,gurven2007,Table2 p327,pooled analogue not extra independent population

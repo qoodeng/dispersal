@@ -1,0 +1,49 @@
+{
+  "schema": "dispersal-world/2",
+  "status": "environmental input only; no population prediction",
+  "sources": [
+    {
+      "id": "climate2020",
+      "doi": "10.1038/s41597-020-0552-1",
+      "data_url": "https://zenodo.org/records/7062281",
+      "source_file": "research/data/beyer-regional-precipitation.nc",
+      "sha256": "99adcf8e48598622ae63b337951dca943f15e669838b242a4227ff8aac4f09b5",
+      "license": "CC BY4.0",
+      "kind": "climate reconstruction, not direct observation"
+    }
+  ],
+  "shape": [
+    41,
+    90,
+    90
+  ],
+  "time": {
+    "unit": "years before1950",
+    "range_bp": [
+      120000,
+      40000
+    ],
+    "cadence_years": 2000,
+    "extrapolation": "forbidden",
+    "interpolation": "continuous fields only; both endpoint samples must exist"
+  },
+  "space": {
+    "source_resolution_degrees": 0.5,
+    "coordinate_order": "south to north; west to east",
+    "area_method": "spherical exact strip area",
+    "earth_radius_km": 6371.0088
+  },
+  "missing_data": "unknown; never zero precipitation or automatically uninhabitable",
+  "not_supplied": [
+    "fine-scale climate",
+    "seasonal climate",
+    "freshwater",
+    "food conversion",
+    "terrain",
+    "ancient shorelines",
+    "ice history",
+    "population parameters"
+  ],
+  "coverage_limitation": "does not cover planned140\u2013120ka interval",
+  "output_sha256": "c912866c6ed99a8d9346c31eba228af7e5b00a7250244b3a8ffbc97417e3e319"
+}

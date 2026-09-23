@@ -1,0 +1,51 @@
+[
+  {
+    "id": "binford-pinned-ecology",
+    "title": "Binford hunter-gatherer dataset, maintained by Marwick, Johnson, White and Eff; pinned ecology calibration subset",
+    "url": "https://github.com/benmarwick/binford/tree/11d09bf6c35d90d23c7c60b3871fb9c31b880340",
+    "source_type": "primary_dataset",
+    "review_status": "LRB data, variable key and codebook reviewed;111 retained observations and exclusion rules recorded",
+    "license": "GPL-3 package declaration; COPYING and attribution retained",
+    "accessed": "2026-09-18",
+    "model_use": "Fit modern density reference and empirical paired residential mobility. Not edible food or prehistoric carrying capacity.",
+    "locator": "research/ecology/acquisition.json; calibration-observations.csv; fit.json"
+  },
+  {
+    "id": "batek-marginal-value-2017",
+    "title": "Hunter-gatherer residential mobility and the marginal value of rainforest patches",
+    "authors": "Venkataraman, Kraft, Dominy and Endicott",
+    "year": 2017,
+    "doi": "10.1073/pnas.1617542114",
+    "url": "https://doi.org/10.1073/pnas.1617542114",
+    "source_type": "primary_study_and_author_dataset",
+    "review_status": "Full Methods, SI, tables, author R code and actual RData reviewed; transformations and development benchmark executed",
+    "locator": "research/resources/batek/README.md; acquisition.json; protocol.json; audit.json",
+    "license": "Author repository MIT; retained LICENSE. Article redistribution not assumed.",
+    "model_use": "Paired resource-return/residential-mobility development benchmark and candidate marginal-return kernel; no regional defaults accepted",
+    "accessed": "2026-09-18"
+  },
+  {
+    "id": "cape-geophytes-2022",
+    "title": "The response of geophytes to continuous human foraging on the Cape south coast, South Africa and its implications for early hunter-gatherer mobility patterns",
+    "doi": "10.7717/peerj.13066",
+    "url": "https://doi.org/10.7717/peerj.13066",
+    "review_status": "Methods, Results, workbook and source analysis reviewed; raw data extracted and audited; published totals not fully reproduced",
+    "model_use": "Resource architecture and repeated-harvest evidence; not calibrated regrowth or ancient regional yields",
+    "locator": "research/resources/cape-geophytes/README.md; acquisition.json; audit.json",
+    "license": "CC BY 4.0",
+    "accessed": "2026-09-18",
+    "source_type": "primary_research"
+  },
+  {
+    "id": "hadza-movement-2021",
+    "title": "Gendered movement ecology and landscape use in Hadza hunter-gatherers",
+    "doi": "10.1038/s41562-020-01002-7",
+    "url": "https://doi.org/10.1038/s41562-020-01002-7",
+    "review_status": "Methods and Data Availability reviewed; raw GPS requires author permission and not acquired",
+    "model_use": "Candidate independent movement benchmark; no parameter extracted or tracks used",
+    "locator": "Primary article Methods and Data Availability; research/resources/batek/README.md",
+    "license": "Article CC BY 4.0; raw GPS access restricted",
+    "accessed": "2026-09-18",
+    "source_type": "primary_research"
+  }
+]

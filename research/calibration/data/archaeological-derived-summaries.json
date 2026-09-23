@@ -1,0 +1,12 @@
+[
+  {
+    "site": "Al Wusta",
+    "source_id": "alwusta2018",
+    "locator": "SI section4 pp22\u201323",
+    "younger_ka": 85.1,
+    "older_ka": 96.5,
+    "convention": "published combined 2-sigma constraints",
+    "independent_of_raw_dates": false,
+    "use": "reference only; do not multiply into the likelihood alongside raw dates"
+  }
+]

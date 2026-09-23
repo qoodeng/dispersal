@@ -1,0 +1,39 @@
+{
+  "schema": "dispersal-ecology-contract/2",
+  "status": "dated environment with transferred modern analogues; exploratory, not historically validated",
+  "replaces": "Uniform hypothetical food stocks are absent from default mode; old resource experiment remains in engine source/tests only.",
+  "calibrated": {
+    "density": "111 terrestrial-mobile observations; log density on log rain,T/10,(T/10)^2; fit.json coefficients, spatial-block CV and bootstrap predictive envelope",
+    "mobility": "Joint empirical distribution of original annual miles converted to km and annual household move counts; climate fits rejected by CV",
+    "land_area": "Native ETOPO relief sampled to projected0.5km raster; four-connected marine flood-fill mask at selected global sea level; dry cells each0.25km\u00b2 allocated to nearest numerical site. This is an exploratory shoreline scenario, not a local palaeoshoreline reconstruction.",
+    "coverage": "No prediction outside convex hull of observed temperature/log-rainfall. Site requires>=80% of its assigned land area supported; unknown sites cannot be selected as destinations. This is a coverage restriction, not evidence of uninhabitability.",
+    "demography": "Existing modern reference, unchanged"
+  },
+  "structural_assumptions": {
+    "spatial": "550 irregular sites,60km straight-line candidate radius, whole-segment terrain mask,30km connected-neighbor occupancy comparison",
+    "destination": "Log-distance preference around sampled annual distance/move-count, width0.35; divided by1+(nearby people+own people)/nearby density-reference people. Not fitted against observed paths.",
+    "schedule": "Sample one observed mobility pair/group; even intermove intervals; daily decision resolution; 24km/day travel timing is assumed; monthly display snapshots retain all exact journey records",
+    "population": "426 synthetic initial people/six groups; no fission in calibrated mode; same modern births/deaths annual; no resource-mediated demography",
+    "uncertainty": "Lower/upper90% approximate predictive bounds used as sensitivity scenarios. Bounds are not posterior trajectories or ancient arrival intervals. No independent archaeological validation.",
+    "environment": "Six windows;120,100,80,60,40ka BP plus modern. Dated native0.5degree temperature/rainfall; global median Spratt sea level on modern EGM2008 relief. Frozen during each100-year run. No tectonic/GIA or freshwater corrections.",
+    "origin": "Six supported reachable numerical sites nearest(-28,-28)km from selected center; synthetic initial conditions, not evidence of past occupation."
+  },
+  "not_modeled": [
+    "edible resource supply or depletion",
+    "freshwater availability",
+    "hunger mortality/fertility feedback",
+    "ancient climate transfer",
+    "kinship and pregnancy",
+    "historical first-arrival likelihood",
+    "validated local palaeoshorelines and ice",
+    "within-run environmental evolution"
+  ],
+  "files": [
+    "ecology-fit.json",
+    "calibration-observations.csv",
+    "ecology-acquisition.json",
+    "ecology-runtime-checks.json",
+    "dated/manifest.json",
+    "dated/runtime-checks.json"
+  ]
+}

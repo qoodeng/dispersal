@@ -1,0 +1,10 @@
+# Dispersal
+A browser research workspace for exploring human population dispersal, with a reusable Rust engine. The initial audience is Christian and Jacob, experimenting together before historical inference.
+
+Platform: web. The primary task is run, inspect and compare parameter scenarios across a geographic grid. User-pinned visual reference: TypeSafe.AI, adapted into a working scientific surface.
+
+Current default: a 100-year modern-analogue population experiment on selectable120 km windows around Aqaba, Suez/Sinai, the Nile, the southern Levant, the Horn of Africa and Bab el-Mandeb. Dated climate and exploratory sea-level masks are actual engine inputs; six dates include120–40ka and a modern baseline. Environments remain fixed within each run. Rust/WASM maintains age/sex cohorts, annual births and deaths, and continuous travel between reachable sites. A fitted modern density reference is integrated over physical land area; paired observed residential mobility supplies move frequency and distance. Density has modest held-out predictive skill. Destination choice and journey timing remain explicit structural assumptions. There are no calibrated food accounts or automatic group fission in this mode.
+
+Current features: seeded scenario runs; terrain and density-reference layers; playback and time scrubbing; zoom and pan; group inspection; population accounting; observed-reference versus realized mileage; predictive-bound scenarios; and run exports. Births/deaths, cohort survival and climate remain supporting reference views. The previous conditional expansion model is separately labeled as legacy.
+
+This is not an ancient arrival forecast. Modern relief, reconstructed climate and ethnographic references do not establish prehistoric validity. Food, freshwater and behavioral calibration remain open. The calibrated mode supersedes the previous hypothetical resource fixture. See `docs/CALIBRATED-ECOLOGY.md` for current boundaries and reproducibility. Preserve the TypeSafe.AI-inspired visual system.

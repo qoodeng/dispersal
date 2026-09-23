@@ -1,0 +1,98 @@
+{
+  "schema": "batek-departure-results/1",
+  "protocolSha256": "da2b1f1b3a07f8dc5bb5ca15306214248613a2a58a73f9a3684b0a6614374f7f",
+  "exposureDaysPerResource": 68,
+  "departuresPerResource": 7,
+  "summary": [
+    {
+      "resource": "tot",
+      "model": "camp_age",
+      "log_loss": 0.5269614478564675,
+      "brier": 0.15926571787861196
+    },
+    {
+      "resource": "tot",
+      "model": "camp_age_food",
+      "log_loss": 0.5526158565391317,
+      "brier": 0.16559444648582883
+    },
+    {
+      "resource": "tot",
+      "model": "constant",
+      "log_loss": 0.4997820865118599,
+      "brier": 0.15327329863833333
+    },
+    {
+      "resource": "tot_rat",
+      "model": "camp_age",
+      "log_loss": 0.5269614478564675,
+      "brier": 0.15926571787861196
+    },
+    {
+      "resource": "tot_rat",
+      "model": "camp_age_food",
+      "log_loss": 0.5573922925132132,
+      "brier": 0.1672657847940692
+    },
+    {
+      "resource": "tot_rat",
+      "model": "constant",
+      "log_loss": 0.4997820865118599,
+      "brier": 0.15327329863833333
+    }
+  ],
+  "comparisons": [
+    {
+      "resource": "tot",
+      "baseline": "constant",
+      "candidate": "camp_age_food",
+      "log_loss_difference": 0.052833770027271874,
+      "bootstrap95": [
+        0.0023384642560183204,
+        0.106617749217517
+      ]
+    },
+    {
+      "resource": "tot",
+      "baseline": "camp_age",
+      "candidate": "camp_age_food",
+      "log_loss_difference": 0.0256544086826643,
+      "bootstrap95": [
+        -0.024313160572895138,
+        0.08545842741222656
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "baseline": "constant",
+      "candidate": "camp_age_food",
+      "log_loss_difference": 0.057610206001353366,
+      "bootstrap95": [
+        -0.011155875148235381,
+        0.13808246246989278
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "baseline": "camp_age",
+      "candidate": "camp_age_food",
+      "log_loss_difference": 0.030430844656745785,
+      "bootstrap95": [
+        -0.026434908740142034,
+        0.10417609802222541
+      ]
+    }
+  ],
+  "futureIsolationPassed": true,
+  "adoption": {
+    "tot": false,
+    "tot_rat": false
+  },
+  "inputSha256": "838c953ecd7f3fd71c5e435f096f01860bfb91693a4cf26a995cbc4f00acdadc",
+  "software": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0"
+  },
+  "scope": "development evidence only; even passing model requires independent validation; no default change"
+}

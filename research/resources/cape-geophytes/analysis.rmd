@@ -1,0 +1,755 @@
+--
+title: "Foraging Resilience"
+author: "Susan Botha and Alastair Potts"
+date: "May 23, 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+### IMPORT DATA 
+
+```{r setup}
+#knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+ 
+#library(codyn)
+#library(tibble)
+#library(Rmisc)
+
+# Please copy and paste the working directory code to ALL of your scripts - means 
+# I can look into the code faster.
+datwd <- "C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Data"
+if(Sys.getenv("USER") == "alastair") {datwd <-"/home/alastair/Dropbox/Chp 3 Sust/Data"}
+setwd(datwd)
+
+ph <- read.csv("Plots.Harvested.csv",stringsAsFactors = FALSE)
+pnh <- read.csv("Plots.NotHarvested.csv",stringsAsFactors = FALSE)
+out <- read.csv("OutsidePlot.csv",stringsAsFactors = FALSE)
+TtoHarv <- read.csv("PlotSum.csv",stringsAsFactors = FALSE)
+plot.info <- read.csv("PlotInfo.csv",stringsAsFactors = FALSE)
+codes <- read.csv("CODES.csv",stringsAsFactors = FALSE)
+
+```
+
+## DATE CONVERSION
+
+
+```{r,echo=F}
+
+# Magical date conversion - always takes me a while to figure out. Useful when plotting! Axes relative to actual dates.
+ph <- mutate(ph,Date = as.Date(Date,"%d-%B-%y"))
+pnh <- mutate(pnh,Date = as.Date(Date,"%d-%B-%y"))
+out <- mutate(out,Date.2016 = as.Date(Date.2016,"%d %m %y"))
+codes <-mutate(codes,Date = as.Date(Date,"%d-%B-%y"))
+```
+### SPECIES HARVESTED REMOVE ABOVEGROUND and Unknown SPP
+
+EXCLUDE berries, seedpod, unknown sp, none 
+
+```{r trimmingph, echo=F}
+ph <- ph %>% filter(Part.collected!="berries") %>% filter(Part.collected!="seedpod") %>% filter(Species!="Unknown sp")%>% filter(Species!="None")
+```
+
+##Filter out leaves and prionium 
+```{r}
+ph <- ph %>%filter(Part.collected!="Leaves")%>%filter(Species!="Prionium serratum")%>%select(Date,PlotNo,Species,Edible.weight.g)
+
+
+```
+
+##SPECIES HARVESTED EXCLUDE UNKNOWN SPECIES
+```{r}
+ph <- ph %>% filter(Species!="Boophone guttata") %>% filter(Species!="Drimia elata")%>% filter(Species!="Asparagus asparagoides") %>% filter(Species!="Euphorbia burmannii")%>%filter(Species!="Hyacinthaceae") %>% filter(Species!="Ledebouria sp") %>% filter(Species!="wachendorfia speciflora")%>%filter(Species!="Albuca goswinii")%>%filter(Species!="Eriospermum sp")%>%filter(Species!="Unknown sp 1")%>%filter(Species!="Unknown sp 10")%>%filter(Species!="Unknown sp 11")%>%filter(Species!="Unknown sp 2")%>%filter(Species!="Unknown sp 3")%>%filter(Species!="Unknown sp 4")%>%filter(Species!="Unknown sp 5")%>%filter(Species!="Unknown sp 6")%>%filter(Species!="Unknown sp 7")%>%filter(Species!="Unknown sp 8")%>%filter(Species!="Unknown sp 9")%>%filter(Species!="Eriospermum pubescens")
+
+codes <- codes %>% filter(Species!="Boophone guttata") %>% filter(Species!="Drimia elata")%>% filter(Species!="Asparagus asparagoides") %>% filter(Species!="Euphorbia burmannii")%>%filter(Species!="Hyacinthaceae") %>% filter(Species!="Ledebouria sp") %>% filter(Species!="wachendorfia speciflora")%>%filter(Species!="Albuca goswinii")%>%filter(Species!="Eriospermum sp")%>%filter(Species!="Unknown sp 1")%>%filter(Species!="Unknown sp 10")%>%filter(Species!="Unknown sp 11")%>%filter(Species!="Unknown sp 2")%>%filter(Species!="Unknown sp 3")%>%filter(Species!="Unknown sp 4")%>%filter(Species!="Unknown sp 5")%>%filter(Species!="Unknown sp 6")%>%filter(Species!="Unknown sp 7")%>%filter(Species!="Unknown sp 8")%>%filter(Species!="Unknown sp 9")%>%filter(Species!="Eriospermum pubescens")%>%filter(Species!="Mesembryantemum atenus")
+
+
+write.csv(ph,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\depl.roots.csv")
+
+pnh <- pnh %>% filter(Species!="Boophone guttata") %>% filter(Species!="Drimia elata")%>%filter(Species!="Eriospermum pubescens") %>%filter(Species!="Unknown sp 3")%>%filter(Species!="Eriospermum sp")
+```
+```{r}
+##Which codes are most frequently used ##
+library(dplyr)
+codes%>%group_by(PlotNo,Date,Species,CODE)%>%distinct()%>%summarise(A = sum(CODE=="A"),B=sum(CODE=="B"),C=sum(CODE=="C"),D=sum(CODE=="D"),E=sum(CODE=="E"),F=sum(CODE=="F"),G=sum(CODE=="G"),H=sum(CODE=="H"),I=sum(CODE=="I"))->a
+
+codes%>%group_by(PlotNo,Date,Species,CODE)%>%distinct()%>%summarise(J= sum(CODE=="J"), K=sum(CODE=="K"), L=sum(CODE=="L"), N = sum(CODE=="N"),O=sum(CODE=="O"),V=sum(CODE=="V"))->b
+
+
+a%>%select(A,B,C,D,E,F,G,H,I)->a
+rbind(a,colSums(c[5:13,13]),colSums(a))
+```
+```{r}
+ph
+target <- c("Babiana patula","Pelargonium lobatum","Cyphia digitata","Chasmanthe aethiopica","Babiana ambigua","Pelargonium repaceum")
+filter(ph, Species %in% target)->T
+T%>% mutate(Year = as.numeric(format(Date,"%Y")))%>%group_by(Species,Year)%>%summarise(SSD=sum(Edible.weight.g))->Wt.Pl.Sp
+
+ggplot(Wt.Pl.Sp,aes(x=Species,y=SSD),fill=Year)+geom_bar(stat="identity",position="stack",aes(fill=Year))+
+  theme(axis.text.x=element_text(angle=90,hjust=1))
+
+
+##All species ## 
+
+ph%>% mutate(Year = as.numeric(format(Date,"%Y")))%>%group_by(Species,Year)%>%summarise(SSD=sum(Edible.weight.g))%>%filter(Species!="Gladiolus carinatus")->Wt.Pl.Sp
+
+Wt.Pl.Sp%>%mutate(YearF=factor(Year,levels=c("2015","2016","2017")))->Wt.Pl.Sp
+
+ggplot(Wt.Pl.Sp,aes(x=Species,y=SSD),fill=YearF)+geom_bar(stat="identity",aes(fill=YearF))+theme_classic()+ylab("Edible weight (g)")+scale_fill_grey()+labs(fill="Year")+
+  theme(axis.text.x=element_text(angle=90,hjust=1,face = "italic"))->geop.stag
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\GeopStag.jpg",plot=geop.stag,path=NULL,device="jpeg",dpi=600,units="in")
+  
+```
+
+
+### Dataset processing
+
+* Within each plot, multiple records were collected per species as there were multiple foragers. These are now summed across species within plots per year.
+
+
+```{r sumSpp,echo=F}
+
+##TOT WEIGHT PER SPECIES PER YEAR PER PLOT 
+
+hdat2015 <- ph %>% filter(Date < as.Date("2016-01-01")) %>% group_by(Species,PlotNo,Date) %>% summarise(tot.wt = round(sum(Edible.weight.g),1)) %>% rename(Date.2015=Date, tot.wt.2015=tot.wt)%>%na.omit()
+                                                                                                        
+hdat2016 <- ph %>% filter(Date > as.Date("2016-01-01")) %>% filter(Date < as.Date("2017-01-01" )) %>% group_by(Species,PlotNo,Date) %>% summarise(tot.wt = round(sum(Edible.weight.g),1))%>% rename(Date.2016=Date, tot.wt.2016=tot.wt)%>%na.omit()
+
+hdat2017 <- ph %>% filter(Date > as.Date("2017-01-01")) %>% group_by(Species,PlotNo,Date) %>% summarise(tot.wt = round(sum(Edible.weight.g),1)) %>% rename(Date.2017=Date, tot.wt.2017=tot.wt)%>%na.omit()
+
+
+full_join(hdat2015,hdat2016,by=c("Species","PlotNo")) %>% full_join(hdat2017,by=c("Species","PlotNo")) -> hdat
+
+
+###AJP WANT TO REPLACE WITH BLANKS
+# Slightly more difficult to remove NA's. Need to use the ifelse(). IF it is NA, then replace with 0, ELSE set to the original value
+
+hdat <- hdat %>% mutate(tot.wt.2015 = ifelse(is.na(tot.wt.2015),0, tot.wt.2015)) %>% mutate(tot.wt.2016 = ifelse(is.na(tot.wt.2016), 0,tot.wt.2016)) %>% mutate(tot.wt.2017 = ifelse(is.na(tot.wt.2017),0, tot.wt.2017))
+
+knitr::kable(hdat,caption="Total weight per species per plot across the three years")
+
+# Create a table with total weights of plants harvested, tot weights per year, percentage per year
+hdat %>% group_by(Species) %>% summarise(n=length(unique(PlotNo)),TotalWT = sum(tot.wt.2015,tot.wt.2016,tot.wt.2017),TotWt.2015=sum(tot.wt.2015),TotWt.2016=sum(tot.wt.2016),TotWt.2017=sum(tot.wt.2017)) %>% mutate(PER2015=round(TotWt.2015/TotalWT*100,1),PER2016=round(TotWt.2016/TotalWT*100,1),PER2017=round(TotWt.2017/TotalWT*100,1)) %>% arrange(desc(TotalWT)) -> TABLE1 
+
+###  total weights of plants harvested, tot weights per year, percentage per year broken down by plot number 
+hdat %>% group_by(PlotNo) %>% summarise(TotalWT = sum(tot.wt.2015,tot.wt.2016,tot.wt.2017),TotWt.2015=sum(tot.wt.2015),TotWt.2016=sum(tot.wt.2016),TotWt.2017=sum(tot.wt.2017)) %>% mutate(PER2015=round(TotWt.2015/TotalWT*100,1),PER2016=round(TotWt.2016/TotalWT*100,1),PER2017=round(TotWt.2017/TotalWT*100,1)) %>% arrange(desc(PlotNo)) -> TABLE2 
+
+#write.csv(TABLE2, "C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Fin.Table.Plot.csv",na="")
+
+##excluding Leaves (mesemb and oxalis leaves)
+write.csv(TABLE2, "C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\DeplPlotsRoots.csv",na="")
+
+
+###weight per year across all USO plots 
+
+TABLE2%>%summarise(sum2015=sum(TotWt.2015),sum2016=sum(TotWt.2016),sum2017=sum(TotWt.2017))->TotWtYr
+
+
+
+###AVERAGE WEIGHT PER VEG TYPE CONVERTED TO HECTARE ### 
+
+TABLE2
+plot.info
+
+right_join(TABLE2,plot.info,by="PlotNo")%>%select(Veg.type,TotalWT,PlotNo)%>%distinct()%>%group_by(Veg.type)%>%summarise(AveWtVt=sum(TotalWT)/1000)
+###LESS COLUMNS
+
+
+##AJP How do you replace the zeros with blanks
+#LESS COLUMNS 
+TABLE1 %>% select(-TotWt.2015,-TotWt.2016,-TotWt.2017) -> TotProp
+#Output
+TABLE2 %>% select(PlotNo,TotalWT,PER2015,PER2016,PER2017) -> TotWT.PL
+
+##TOTAL WEIGHT OF ALL USOs ACROSS YEARS 
+
+
+#Create an object that shows the COUNT of PLANTS harvested 
+ph %>% mutate(Year = format(Date,"%Y")) %>% group_by(Species) %>% summarise(No.PLT.HARV = sum(Edible.weight.count)) -> NoPlHv
+
+
+```
+
+###SPEICES TURNOVER PER PLOT 
+```{r}
+
+#Alastair writes his own code so that we can compute spp turnover per plot in one go
+
+species.turnover <- function(species,year) {
+  tutu <- as.data.frame.matrix(table(species,year))
+  if (sum(tutu>1)>0) stop("There are replicated rows for each species per year. Please fix.")
+  if (ncol(tutu)>2) stop("Ensure that only two years are fed into this function. Please fix.")
+  if (length(unique(year))!=2) return(NA)
+  gain <- sum((tutu[,1]==F)&(tutu[,2]==T))
+  lost <- sum((tutu[,1]==T)&(tutu[,2]==F))
+  tot <- nrow(tutu)  
+  return(round((gain+lost)/tot,3))
+}
+
+# CAlculates the SPP TURNOVER Between 2015 & 2016, 2016 & 2017, 2015 & 2017
+# 2015 vs 2016 
+
+ph %>% mutate(Year = as.numeric(format(Date,"%Y")))%>%select(Species,Year,PlotNo,Edible.weight.g,Edible.weight.count) %>% filter(Species!="Unknown sp")%>% group_by(Species,Year,PlotNo) %>% summarise(Edible.weight.g=sum(Edible.weight.g,na.rm=T),Edible.weight.count=sum(Edible.weight.count,na.rm=T)) %>% filter(Year!=2017)%>% group_by(PlotNo) %>%summarise(turnover15.16=species.turnover(Species,Year)) -> Turn.15.16
+
+# 2016 vs 2017   
+
+ph %>% mutate(Year = as.numeric(format(Date,"%Y")))%>%select(Species,Year,PlotNo,Edible.weight.g,Edible.weight.count) %>% filter(Species!="Unknown sp")%>% group_by(Species,Year,PlotNo) %>% summarise(Edible.weight.g=sum(Edible.weight.g,na.rm=T),Edible.weight.count=sum(Edible.weight.count,na.rm=T)) %>% filter(Year!=2015) %>% group_by(PlotNo)%>%summarise(turnover16.17=species.turnover(Species,Year)) -> Turn.16.17
+ 
+# 2015 vs 2017 
+
+ph %>% mutate(Year = as.numeric(format(Date,"%Y")))%>%select(Species,Year,PlotNo,Edible.weight.g,Edible.weight.count) %>% filter(Species!="Unknown sp")%>% group_by(Species,Year,PlotNo) %>% summarise(Edible.weight.g=sum(Edible.weight.g,na.rm=T),Edible.weight.count=sum(Edible.weight.count,na.rm=T)) %>% filter(Year!=2016)%>% group_by(PlotNo) %>%summarise(turnover15.17=species.turnover(Species,Year)) -> Turn.15.17
+
+## CREATE new table which shows SPP TURNOVER for all three these years per plot 
+
+full_join(Turn.15.16,Turn.16.17,by="PlotNo") -> TO1
+full_join(TO1,Turn.15.17,by="PlotNo") -> TO2
+
+full_join(TO2,TotWT.PL,by="PlotNo") -> FIN.TABLE.PLOT
+
+##ADD VEG TYPE
+
+###right_join(FIN.TABLE.PLOT,plot.info,by="PlotNo")%>%select(Veg.type,PlotNo,turn  distinct()
+
+write.csv(FIN.TABLE.PLOT,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\FIN.TABLE.PLOT.csv",na="")
+
+
+##Create one column for species turnover 
+
+# Alastair frowns upon the shift of across year nomenclanture to a single year
+#CDiv.Prop.Spp %>% select (PlotNo,turnover15.16,turnover16.17,turnover15.17)%>% gather(CDiv.Prop.Spp,Spp.TOVER.Year,turnover15.16,turnover15.17,turnover16.17)%>% dplyr::rename(Turnover.Period="CDiv.Prop.Spp")%>%
+  #mutate(Turnover.Period=gsub("turnover15.16","2015",Turnover.Period),
+        # Turnover.Period=gsub("turnover16.17","2016",Turnover.Period),
+         #Turnover.Period=gsub("turnover15.17","2017",Turnover.Period)) -> TOverYear -> Turnover
+
+##CREATE ONE COLUMN for PercWtYear
+CDiv.Prop.Spp %>% select(PlotNo,P2015,P2016,P2017)%>% gather(CDiv.Prop.Spp,Perc.Wt.Yr,P2015,P2017,P2016) -> PercWtYear
+
+###CREATE ONE COLUMN FOR TIME TO HARVEST
+TtoHarv%>%select(PlotNo,Time2015,Time2016,Time2017)%>%gather(TtoHarv,Time,Time2015,Time2016,Time2017) ->  TtoHarvs
+
+###CREATE ONE COLumn FOR EDIBLE WT PER YEAR
+Wt.P.Plot%>%select(PlotNo,Y2015,Y2016,Y2017)%>%gather(Wt.P.Plot,Wt.Plot,Y2015,Y2016,Y2017) ->  Wt.P.Plot.T
+
+##AJP
+ # PRETTIFYING BEFORE PRINTING (DO THIS TO ADD A YEAR COLUMN)
+
+# TOverYear <-  write.csv(TOverYear,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\TOverYear.csv",na="")
+# PercWtYear <-  write.csv(PercWtYear,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\PercWtYear.csv",na="")
+write.csv(TtoHarv,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\TtoHarvs.csv",na="")
+# Wt.P.Plot.T <- write.csv(Wt.P.Plot.T,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Wt.P.Plot.T.csv",na="")
+```
+
+
+```{r}
+##TOT COUNT HARVESTED PER BOUT
+##NAS need to always be set to zero !!! 
+
+cdat2015 <- ph %>% filter(Date < as.Date("2016-01-01" )) %>% group_by(Species,PlotNo,Date) %>% summarise(count = round(sum(Edible.weight.count),1)) %>% rename(Date.2015=Date, Harv.2015=count)
+                                                                                                        
+cdat2016 <- ph %>% filter(Date > as.Date("2016-01-01" )) %>% filter(Date < as.Date("2017-01-01" )) %>% group_by(Species,PlotNo,Date) %>% summarise(count = round(sum(Edible.weight.count),1))%>% rename(Date.2016=Date, Harv.2016=count)
+
+cdat2017 <- ph %>% filter(Date > as.Date("2017-01-01")) %>% group_by(Species,PlotNo,Date) %>% summarise(count = round(sum(Edible.weight.count),1)) %>% rename(Date.2017=Date, Harv.2017=count)
+
+###COUNT OF EDIBLE PLANTS THAT WERE HARVESTED
+cdat <- full_join(cdat2015,cdat2016,by=c("Species","PlotNo")) %>% full_join(y=cdat2017,by=c("Species","PlotNo")) -> totc
+
+###
+
+totc %>% group_by(Species) %>% summarise(n=length(unique(PlotNo)),TotalC = sum(Harv.2015,Harv.2016,Harv.2017,na.rm=T),Harv.2015=sum(Harv.2015,na.rm=T),Harv.2016=sum(Harv.2016,na.rm=T),Harv.2017=sum(Harv.2017,na.rm=T)) -> TOTPLHV
+
+
+#cdat <- cdat %>% mutate(count.2015 = ifelse(is.na(count.2015),0, count.2015)) %>% mutate(count.2016 = ifelse(is.na(count.2016), 0,count.2016)) %>% mutate(count.2017 = ifelse(is.na(count.2017),0, count.2017))
+
+knitr::kable(cdat,caption="Total weight per species per plot across the three years")
+
+```
+
+### PLANTS LEFT BEHIND 
+
+```{r}
+#Create two objects that shows no of plants left behind (PlNotDug) and reasons why per year(Why)
+
+pnh %>% mutate(Year = format(Date,"%Y")) %>% group_by(Species,PlotNo,Year)%>% summarise(Not.Harv.tot=sum(No.of.plants.not.dug.up))%>%spread(Year,Not.Harv.tot)%>%rename(NH2015="2015",NH2016="2016",NH2017="2017")->totNH
+  
+totNH%>%group_by(Species)%>%summarise(n=unique(length(PlotNo)),NotHarv2015=sum(NH2015, na.rm=T),NotHarv2016=sum(NH2016,na.rm=T),NotHarv2017=sum(NH2017,na.rm=T))->PlNotDug
+
+                                        
+                                         
+pnh %>% mutate(Year = format(Date,"%Y")) %>% group_by(Species,Year) %>% summarise(Code = paste(Constraint,collapse=","))%>% spread(Year, Code) -> Why
+
+# Create a table with these two objects 
+
+full_join(PlNotDug,Why,by='Species') %>% dplyr:: rename(C2015="2015",C2016="2016",C2017="2017") %>% select("Species","NotHarv2015","NotHarv2016","NotHarv2017","C2017","C2015","C2016") -> TBNH
+
+
+#Create a new table that shows joins Total Weights and yearly proportions to the no of plants bit dug up and reasons why (CODE)
+
+full_join(TotProp,TOTPLHV, by="Species") -> TBHV
+full_join(TBHV,TBNH,by="Species") ->  FIN.TBL
+FIN.TBL%>%mutate(Prop.NH2015=(NotHarv2015/(Harv.2015+NotHarv2015)*100),Prop.NH2016=(NotHarv2016/(Harv.2016+NotHarv2016)*100),PropNH2017=(NotHarv2017/(Harv.2017+NotHarv2017)*100)) -> FIN.TBL
+
+write.csv(FIN.TBL,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\FIN.TBLE.SPP.csv",na="")
+
+```
+
+### TIME SERIES ANOVA
+
+##CREATE A TABLE THAT SHOWS PERCENTAGE OF PLANTS LEFT BEHIND PER PLOT PER YEAR
+##AND WHY
+
+
+```{r}
+pnh %>% mutate(Year = format(Date,"%Y")) %>% group_by(Species,Year,PlotNo) %>% summarise(COUNT = sum(No.of.plants.not.dug.up)) %>% spread(Year,COUNT)%>%rename(NotHarv.2015="2015",NotHarv.2016="2016",NotHarv.2017="2017") -> PlPLotNotDug
+
+Prop.Pl.Not.Hrv <- full_join(PlPLotNotDug,cdat,by=c("PlotNo","Species"))
+full_join(Prop.Pl.Not.Hrv,Why,by=c("PlotNo","Species")) -> Prop.Pl.Not.Hrv.W
+
+Prop.Left.BeH.W <- Prop.Pl.Not.Hrv.W %>%mutate(Prop2015=(NotHarv.2015/Harv.2015))%>%mutate(Prop2016=(NotHarv.2016/Harv.2016))%>%mutate(Prop2017=(NotHarv.2017/Harv.2017))%>%select(-Date.2015,-Date.2016,-Date.2017)
+
+write.csv(Prop.Left.BeH.W,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Prop.Left.BeH.W.csv",na="")
+
+```
+
+
+### Determine EDIBLE WEIGHT PER PLOT PER YEAR 
+
+```{r}
+ph %>% mutate(Year = format(Date,"%Y")) %>% group_by(PlotNo,Year) %>% summarise(Tot.Wt.Pl = round(sum(Edible.weight.g,na.rm=TRUE),1)) %>% spread(Year,Tot.Wt.Pl) %>% dplyr::rename(Y2015="2015", Y2016="2016",Y2017="2017") -> Wt.Plot
+                                                                                                                                                    
+
+Wt.Plot %>% mutate(TOT = sum(Y2015,Y2016,Y2017,na.rm=T),P2015=round((Y2015/TOT),2),P2016=round((Y2016/TOT),2),P2017=round((Y2017/TOT),2)) -> Wt.P.Plot
+
+
+write.csv(Wt.P.Plot,"C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Wt.P.Plot.csv",na="")
+
+
+```
+
+
+# DEtermine turnover of species for every plot 
+
+
+```
+
+#CREATE PERWtYEAr for each plot 
+
+```{r}
+#filter depletion plots
+Depld.Plots <- read.csv("C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\PercWtYear.Y.csv",stringsAsFactors = TRUE)
+#Depld.Plots <- data.matrix(Depld.Plots, rownames.force = NA)
+
+
+Plot01 <- Depld.Plots%>% filter(PlotNo=="Plot01")
+Plot02 <- Depld.Plots%>% filter(PlotNo=="Plot02")
+Plot05 <- Depld.Plots%>% filter(PlotNo=="Plot05")
+Plot06 <- Depld.Plots%>% filter(PlotNo=="Plot06")
+Plot07 <- Depld.Plots%>% filter(PlotNo=="Plot07")
+Plot08 <- Depld.Plots%>% filter(PlotNo=="Plot08")
+Plot09 <- Depld.Plots%>% filter(PlotNo=="Plot09")
+Plot10 <- Depld.Plots%>% filter(PlotNo=="Plot10")
+Plot11 <- Depld.Plots%>% filter(PlotNo=="Plot11")
+Plot12 <- Depld.Plots%>% filter(PlotNo=="Plot12")
+Plot13 <- Depld.Plots%>% filter(PlotNo=="Plot13")
+Plot14 <- Depld.Plots%>% filter(PlotNo=="Plot14")
+Plot15 <- Depld.Plots%>% filter(PlotNo=="Plot15")
+Plot16 <- Depld.Plots%>% filter(PlotNo=="Plot16")
+Plot17 <- Depld.Plots%>% filter(PlotNo=="Plot17")
+Plot18 <- Depld.Plots%>% filter(PlotNo=="Plot18")
+Plot19 <- Depld.Plots%>% filter(PlotNo=="Plot19")
+Plot20 <- Depld.Plots%>% filter(PlotNo=="Plot20")
+#filter stochastic plots
+Plot03 <- Depld.Plots%>% filter(PlotNo=="Plot03")
+Plot04 <- Depld.Plots%>% filter(PlotNo=="Plot04")
+```
+
+### Create Turnover per plot
+
+```{r}
+Turnover <- read.csv("C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\TOverYear.Y.csv")
+
+Plot01T <-Turnover%>%filter(PlotNo=="Plot01")
+Plot02T <-Turnover%>%filter(PlotNo=="Plot02")
+Plot03T <-Turnover%>%filter(PlotNo=="Plot03")
+Plot04T <-Turnover%>%filter(PlotNo=="Plot04")
+Plot05T <-Turnover%>%filter(PlotNo=="Plot05")
+Plot06T <-Turnover%>%filter(PlotNo=="Plot06")
+Plot07T <-Turnover%>%filter(PlotNo=="Plot07")
+Plot08T <-Turnover%>%filter(PlotNo=="Plot08")
+Plot09T <-Turnover%>%filter(PlotNo=="Plot09")
+Plot10T <-Turnover%>%filter(PlotNo=="Plot10")
+Plot11T <-Turnover%>%filter(PlotNo=="Plot11")
+Plot12T <-Turnover%>%filter(PlotNo=="Plot12")
+Plot13T <-Turnover%>%filter(PlotNo=="Plot13")
+Plot14T <-Turnover%>%filter(PlotNo=="Plot14")
+Plot15T <-Turnover%>%filter(PlotNo=="Plot15")
+Plot17T <-Turnover%>%filter(PlotNo=="Plot17")
+Plot16T <-Turnover%>%filter(PlotNo=="Plot16")
+
+Plot18T <-Turnover%>%filter(PlotNo=="Plot18")
+Plot19T <-Turnover%>%filter(PlotNo=="Plot19")
+Plot20T <-Turnover%>%filter(PlotNo=="Plot20")
+```
+
+###CREATE TIME TAKEN TO HARVEST 
+```{r}
+TtoHarvs <- read.csv("C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\TtoHarvs.1.csv")
+
+Plot01TH <-TtoHarvs%>%filter(PlotNo=="Plot01")
+Plot02TH <-TtoHarvs%>%filter(PlotNo=="Plot02")%>%arrange(desc(Year))
+Plot03TH <-TtoHarvs%>%filter(PlotNo=="Plot03")
+Plot04TH <-TtoHarvs%>%filter(PlotNo=="Plot04")
+Plot05TH <-TtoHarvs%>%filter(PlotNo=="Plot05")
+Plot06TH <-TtoHarvs%>%filter(PlotNo=="Plot06")
+Plot07TH <-TtoHarvs%>%filter(PlotNo=="Plot07")
+Plot08TH <-TtoHarvs%>%filter(PlotNo=="Plot08")
+Plot09TH <-TtoHarvs%>%filter(PlotNo=="Plot09")
+Plot10TH <-TtoHarvs%>%filter(PlotNo=="Plot10")
+Plot11TH <-TtoHarvs%>%filter(PlotNo=="Plot11")
+Plot12TH <-TtoHarvs%>%filter(PlotNo=="Plot12")
+Plot13TH <-TtoHarvs%>%filter(PlotNo=="Plot13")
+Plot14TH <-TtoHarvs%>%filter(PlotNo=="Plot14")
+Plot15TH <-TtoHarvs%>%filter(PlotNo=="Plot15")
+Plot16TH <-TtoHarvs%>%filter(PlotNo=="Plot16")
+Plot17TH <-TtoHarvs%>%filter(PlotNo=="Plot17")
+Plot18TH <-TtoHarvs%>%filter(PlotNo=="Plot18")
+Plot19TH <-TtoHarvs%>%filter(PlotNo=="Plot19")
+Plot20TH <-TtoHarvs%>%filter(PlotNo=="Plot20")
+```
+##PLOTTING TIME TO HARVEST SEPARATELY
+
+```{r}
+PlTH1 <- ggplot()+geom_line(data=Plot01TH,aes(x=Year,y=Time),group=1,colour='blue')
+PlTH2 <- ggplot()+geom_line(data=Plot02TH,aes(x=Year,y=Time),group=1,colour='blue')
+PlTH3 <- ggplot()+geom_line(data=Plot03TH,aes(x=Year,y=Time),group=1,colour='blue')
+```
+
+
+### PLOT DEPLETED PLOTS
+
+```{r}
+#PLot 01
+
+Pl1 <- ggplot()+geom_line(data=Plot01,aes(x=Year,y=Perc.Wt.Yr),size=1,colour="black")+geom_line(data=Plot01T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(x="Year",y="Percentage %")+
+  #theme(plot.title = element_text(margin = margin(b = 0)))+
+  annotate("text", x = 2015.1, y = 0.9, label = "Plot 01",)+
+  scale_x_continuous(breaks =c(2015,2016,2017),
+                     sec.axis = sec_axis(~ ., breaks=c(2015,2016,2017),labels=c("15/16","16/17","15/17")))+
+  theme(legend.position = "right")
+print(Pl1)
+              
+```
+
+
+
+```{r}
+
+#ggplot(Wt.P.Plot.2)+geom_line(data=Wt.P.Plot.2,aes(x=(Plot01=filter(PlotNo==Plot01)%>%Plot01$Year)),y=P2015)
+
+#PLot 01
+
+Pl1 <- ggplot()+geom_line(data=Plot01,aes(x=Year,y=Perc.Wt.Yr),size=1,colour="black")+geom_line(data=Plot01T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot01",x="Year",y="Percentage %")+theme(plot.title = element_text(margin = margin(b = -20)))+scale_x_continuous(breaks =c(2015,2016,2017))+theme(legend.position = "right")
+              
+
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl1.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl1)
+dev.off()
+
+
+#Plot 02
+
+Pl2 <- ggplot()+geom_line(data=Plot02,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot02T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot02",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20))) 
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl2.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl2)
+dev.off()
+
+
+#Plot 05
+Pl5 <- ggplot()+geom_line(data=Plot05,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot05T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot05",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20))) 
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl5.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl5)
+dev.off()
+
+#Plot 06
+Pl6 <- ggplot()+geom_line(data=Plot06,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot06T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot06",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl6.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl6)
+dev.off()
+
+#Plot 07
+Pl7 <- ggplot()+geom_line(data=Plot07,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot07T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot07",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl7.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl7)
+dev.off()
+
+#Plot 08
+Pl8 <- ggplot()+geom_line(data=Plot08,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot08T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot08",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl8.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl8)
+dev.off()
+
+#Plot 09
+Pl9 <- ggplot()+geom_line(data=Plot09,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot09T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot09",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl9.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl9)
+dev.off()
+
+#Plot 10
+Pl10 <- ggplot()+geom_line(data=Plot10,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot10T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot10",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl10.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl10)
+dev.off()
+
+#Plot 11
+Pl11 <- ggplot()+geom_line(data=Plot11,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot11T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot11",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl11.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl11)
+dev.off()
+
+#Plot 12
+Pl12 <- ggplot()+geom_line(data=Plot12,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot12T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot12",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl12.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl12)
+dev.off()
+
+#Plot 13 
+Pl13 <- ggplot()+geom_line(data=Plot13,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot13T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot13",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl13.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl13)
+dev.off()
+
+#Plot 14
+Pl14 <- ggplot()+geom_line(data=Plot14,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot14T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot14",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl14.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl14)
+dev.off()
+
+#Plot 15
+Pl15 <- ggplot()+geom_line(data=Plot15,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot15T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot15",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl15.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl15)
+dev.off()
+
+#Plot 16
+Pl16 <- ggplot()+geom_line(data=Plot16,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot16T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot16",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl16.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl16)
+dev.off()
+
+#Plot 17
+
+Pl17 <- ggplot()+geom_line(data=Plot17,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot17T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot17",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl17.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl17)
+dev.off()
+
+#Plot 18
+Pl18 <- ggplot()+geom_line(data=Plot18,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot18T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot18",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl18.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl8)
+dev.off()
+
+#Plot 19
+Pl19 <- ggplot()+geom_line(data=Plot19,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot19T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot19",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl19.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl19)
+dev.off()
+
+#Plot 20
+Pl20 <- ggplot()+geom_line(data=Plot20,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot20T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot20",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl20.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl20)
+dev.off()
+
+
+###STOCHASTIC PLOTS
+#Plot 03
+Pl3 <- ggplot()+geom_line(data=Plot03,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot03T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+ggtitle("Plot03")+labs(title="Plot03",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl03.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl3)
+dev.off()
+
+#Plot 04
+Pl4 <- ggplot()+geom_line(data=Plot04,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot04T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+labs(title="Plot04",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl4.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl4)
+dev.off()
+
+
+```
+### Multiple plots
+
+```{r}
+
+#Plot 06
+Pl6.10.11 <- ggplot()+geom_line(data=Plot06,aes(x=Year,y=Perc.Wt.Yr),size=1)+geom_line(data=Plot06T,aes(x=Year,y=Spp.TOVER.Year),colour='red',size=1)+geom_line(data=Plot10,aes(x=Year,y=Perc.Wt.Yr),colour='blue',size=1)+geom_line(data=Plot11,aes(x=Year,y=Perc.Wt.Yr),colour='green',size=1)+labs(title="Plot06",x="Year",y="Percentage of total weight harvested")+theme(plot.title = element_text(margin = margin(b = -20)))
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Pl6.jpeg",plot=last_plot(),path=NULL,device="jpeg",dpi=600,width=12,height=12,units="cm")
+print(Pl6)
+dev.off()
+ggsave(filename="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\PlDPlts.jpg",plot=Pl1,path=NULL,device="jpeg",dpi=600,width=12,height=18,units="in")
+dev.off()
+
+```
+
+
+
+### TIME SERIES ANOVA TO TEST DIFFERENCE IN TOTAL WEIGHT HARVESTED BETWEEN THE THREE YEARS
+
+
+### Unique species
+
+```{r}
+library(ggub)
+ph %>% select(Species,Part.collected)%>%distinct(Species,Part.collected) %>% filter(Species!="Zero")-> uniq.sp
+
+write.csv(uniq.sp,file="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Data\\GeophyteMorphology.csv")
+```
+
+### Unique species per plot per year 
+
+
+### GRAPHS THAT VISUALLY SHOW THE PLANTS HARVESTED ACROSS THREE YEARS 
+
+```{r}
+hdat$SppName<-unlist(lapply(lapply(strsplit(hdat$Species," "),substr,1,3),paste,collapse=""))
+hdat <- arrange(hdat,PlotNo,Species)
+
+## GRAPH: 2015 vs 2016 WITH names 
+ggplot(hdat, aes(x=tot.wt.2015+0.1,y=tot.wt.2016+0.1,label=hdat$SppName)) +
+  scale_x_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  scale_y_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  geom_text_repel()+
+  #geom_point(aes(shape=Outside.2016,colour=Outside.2016),size=2,show.legend=T)+
+  geom_point() +
+  #scale_shape_manual(values=20)+
+  geom_abline(slope=1,intercept=0,lty=2) +
+  xlab("2015 Harvest (g; log-scale)")+
+  ylab("2016 Harvest (g; log-scale)")+
+  labs(group="In Landscape")+
+  coord_fixed()+
+  theme(legend.position = "right")
+#dev.off()
+
+## GRAPH: 2015 vs 2016 WITHOUT names 
+
+jpeg(filename ="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Harvest2015vs2016nolabs.jpg",res=300,width=12,height=12,units="cm")
+ggplot(hdat, aes(x=tot.wt.2015+0.1,y=tot.wt.2016+0.1)) +
+  scale_x_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  scale_y_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  #geom_point(aes(shape=Outside.2016,colour=Outside.2016),size=2,show.legend=T)+
+  geom_point() +
+  #scale_shape_manual(values=20)+
+  geom_abline(slope=1,intercept=0,lty=2) +
+  xlab("2015 Harvest (g; log-scale)")+
+  ylab("2016 Harvest (g; log-scale)")+
+  labs(group="In Landscape")+
+  coord_fixed()+
+  theme(legend.position = "right")
+dev.off()
+
+# GRAPH: 2017 vs 2016 WITH SPECIES Name 
+
+ggplot(hdat, aes(x=tot.wt.2017+0.1,y=tot.wt.2016+0.1,label=hdat$SppName)) +
+  scale_x_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  scale_y_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  geom_text_repel()+
+  #geom_point(aes(shape=Outside.2016,colour=Outside.2016),size=2,show.legend=T)+
+  geom_point() +
+  #scale_shape_manual(values=20)+
+  geom_abline(slope=1,intercept=0,lty=2) +
+  xlab("2017 Harvest (g; log-scale)")+
+  ylab("2016 Harvest (g; log-scale)")+
+  labs(group="In Landscape")+
+  coord_fixed()+
+  theme(legend.position = "right")
+#dev.off()
+
+## GRAPH: 2017 vs 2016 WITHOUT Species names 
+
+jpeg(filename ="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Harvest2016vs2017nolabs.jpg",res=300,width=12,height=12,units="cm")
+ggplot(hdat, aes(x=tot.wt.2017+0.1,y=tot.wt.2016+0.1)) +
+  scale_x_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  scale_y_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  #geom_point(aes(shape=Outside.2016,colour=Outside.2016),size=2,show.legend=T)+
+  geom_point() +
+  #scale_shape_manual(values=20)+
+  geom_abline(slope=1,intercept=0,lty=2) +
+  xlab("2017 Harvest (g; log-scale)")+
+  ylab("2016 Harvest (g; log-scale)")+
+  labs(group="In Landscape")+
+  coord_fixed()+
+  theme(legend.position = "right")
+dev.off()
+
+## GRAPH: 2017 vs 2015 WITH Species Name 
+
+ggplot(hdat, aes(x=tot.wt.2017+0.1,y=tot.wt.2015+0.1,label=hdat$SppName)) +
+  scale_x_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  scale_y_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  geom_text_repel()+
+  #geom_point(aes(shape=Outside.2016,colour=Outside.2016),size=2,show.legend=T)+
+  geom_point() +
+  #scale_shape_manual(values=20)+
+  geom_abline(slope=1,intercept=0,lty=2) +
+  xlab("2017 Harvest (g; log-scale)")+
+  ylab("2015 Harvest (g; log-scale)")+
+  labs(group="In Landscape")+
+  coord_fixed()+
+  theme(legend.position = "right")
+#dev.off()
+
+## GRAPH: 2017 vs 2015 WITHOUT Species names 
+
+jpeg(filename ="C:\\Users\\susan\\Dropbox\\PhD\\Chp 3 Sust\\Results\\Harvest2015vs2017nolabs.jpg",res=300,width=12,height=12,units="cm")
+ggplot(hdat, aes(x=tot.wt.2017+0.1,y=tot.wt.2015+0.1)) +
+  scale_x_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  scale_y_log10(breaks=c(0.1,1,10,100,1000),labels=c(0,1,10,100,1000))+
+  #geom_point(aes(shape=Outside.2016,colour=Outside.2016),size=2,show.legend=T)+
+  geom_point() +
+  #scale_shape_manual(values=20)+
+  geom_abline(slope=1,intercept=0,lty=2) +
+  xlab("2017 Harvest (g; log-scale)")+
+  ylab("2015 Harvest (g; log-scale)")+
+  labs(group="In Landscape")+
+  coord_fixed()+
+  theme(legend.position = "right")
+dev.off()
+```
+
+
+### Post-harvesting survey
+
+Susan went into the plots and looked for any plants left behind, counted these, and identified (with the foragers) as to why it was left behind.
+
+```{r unharvestedTable, echo=F}
+# 
+# pnh <- arrange(pnh,PlotNo,Species) %>% select(PlotNo,Species,Date,Edible.weight.count,CODE)
+# 
+# nHarvested <- ph %>% group_by(Species,PlotNo,Date) %>% summarise(nHarvested = sum(Edible.weight.count))
+# 
+# 
+# pnh2 <- left_join(pnh,nHarvested,by=c("Species","PlotNo","Date")) 
+# 
+# 
+# pnh.2015 <- filter(pnh2,Date<as.Date("2016-01-01")) 
+# pnh.2016 <- filter(pnh2,Date>as.Date("2016-01-01"))
+# 
+# mat <- full_join(pnh.2015,pnh.2016,by=c("Species","PlotNo")) %>% select(-Date.x,-Date.y) %>% rename(nLeft2015=Edible.weight.count.x,nLeft2016=Edible.weight.count.y,nHarvested2015=nHarvested.x,nHarvested2016=nHarvested.y)
+# 
+# mat <- arrange(mat,PlotNo,Species) %>% filter(Species!="None")
+# 
+# mat[is.na(mat)] <- 0
+# 
+# 
+# mat2 <- mutate(mat,Perc2015=round(nLeft2015/(nLeft2015+nHarvested2015)*100,0), Perc2016=round(nLeft2016/(nLeft2016+nHarvested2016)*100,0))
+# mat2[is.na(mat2)] <- "-" 
+# 
+# mat2 <- select(mat2,PlotNo,Species,nHarvested2015,nLeft2015,Perc2015,CODE.x,nHarvested2016,nLeft2016,Perc2016,CODE.y)
+# write.csv(mat2,"mat2.csv")
+# 
+# knitr::kable(mat2,align = 'clcccccccc')
+
+```
+

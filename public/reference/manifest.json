@@ -1,0 +1,37 @@
+{
+  "schema": "dispersal-runtime-grid/1",
+  "artifacts": [
+    {
+      "file": "research/world-v2/runtime/precipitation.bin",
+      "sha256": "d2212f9031f35011fa74ff0c2e4ea6ae9f5289f8ec4c108e8b71fce35ea04751",
+      "source": "climate2020",
+      "units": "mm/year",
+      "shape": [
+        41,
+        90,
+        90
+      ],
+      "bytes": 1330188
+    },
+    {
+      "file": "research/world-v2/runtime/elevation.bin",
+      "sha256": "228700d0e2f054f0e0fb701a34b7200afb61a2cfff9e44b39147b4bd1ba515be",
+      "source": "etopo2022",
+      "units": "meters above EGM2008; modern relief",
+      "shape": [
+        1,
+        2700,
+        2700
+      ],
+      "bytes": 29203228
+    }
+  ],
+  "format": "DSPGRID1, little endian u32 nt/ny/nx, f64 ascending time/latitude/longitude centers, f32 C-order values [time,latitude,longitude]; NaN unknown",
+  "spatial_lookup": "containing native cell; half-spacing exterior boundaries; no spatial smoothing",
+  "time_lookup": "linear between valid bracketing values; no extrapolation; elevation has static time 0",
+  "limits": [
+    "Elevation is not a palaeoland mask",
+    "Rainfall is not food or drinking water availability",
+    "No reconstructed climatic detail below native resolution"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "ecology-runtime-checks/1",
+  "snapshots": 1201,
+  "initialPeople": 426,
+  "finalPeople": 560,
+  "journeys": 5631,
+  "replay": true,
+  "annualOnlyDemography": true,
+  "populationAccounting": true,
+  "unsupportedDestinations": 0,
+  "landRouteSamplesPassed": true,
+  "densitySensitivityChangesRoutes": true,
+  "mobility": [
+    {
+      "group": 0,
+      "referenceKmYear": 193.12128,
+      "realizedScheduledKmYear": 212.21572212834673,
+      "referenceMovesYear": 7,
+      "realizedMovesYear": 6.92
+    },
+    {
+      "group": 1,
+      "referenceKmYear": 442.56960000000004,
+      "realizedScheduledKmYear": 457.2213604159952,
+      "referenceMovesYear": 14,
+      "realizedMovesYear": 13.78
+    },
+    {
+      "group": 2,
+      "referenceKmYear": 318.65011200000004,
+      "realizedScheduledKmYear": 284.76629315556414,
+      "referenceMovesYear": 7,
+      "realizedMovesYear": 6.92
+    },
+    {
+      "group": 3,
+      "referenceKmYear": 806.2813440000001,
+      "realizedScheduledKmYear": 534.9364008476069,
+      "referenceMovesYear": 11,
+      "realizedMovesYear": 10.91
+    },
+    {
+      "group": 4,
+      "referenceKmYear": 144.84096,
+      "realizedScheduledKmYear": 155.21491927601414,
+      "referenceMovesYear": 5,
+      "realizedMovesYear": 4.96
+    },
+    {
+      "group": 5,
+      "referenceKmYear": 434.52288000000004,
+      "realizedScheduledKmYear": 455.21800095123507,
+      "referenceMovesYear": 13,
+      "realizedMovesYear": 12.82
+    }
+  ],
+  "limits": [
+    "Scheduled mileage includes last unfinished journey",
+    "Matching reference frequencies does not validate destination choices",
+    "Window and barriers constrain realized distance"
+  ]
+}

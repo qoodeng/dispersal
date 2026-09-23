@@ -1,0 +1,328 @@
+{
+  "schema": "dated-world-runtime-checks/1",
+  "worlds": [
+    {
+      "file": "aqaba-0.json",
+      "firstYearDigest": "5c45213f0210e7cc029a03186519751ee05d16fd713205435c94c3fdee252151",
+      "digest": "5c45213f0210e7cc029a03186519751ee05d16fd713205435c94c3fdee252151",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "sinai-0.json",
+      "firstYearDigest": "d897e9dca182348e2aa3fc81260e0337aea53a6e8acb05e6501d8267489e7d0c",
+      "digest": "d897e9dca182348e2aa3fc81260e0337aea53a6e8acb05e6501d8267489e7d0c",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "nile-0.json",
+      "firstYearDigest": "f1f93ae484ad9b1e0eee3be24c50da7747405eb33b4796e27c031a1e82455fda",
+      "digest": "f1f93ae484ad9b1e0eee3be24c50da7747405eb33b4796e27c031a1e82455fda",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "levant-0.json",
+      "firstYearDigest": "9cb33243bdd80f96ce3887f77f484bc5d454dcdf98843f033d4b34bb95dcb756",
+      "digest": "9cb33243bdd80f96ce3887f77f484bc5d454dcdf98843f033d4b34bb95dcb756",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "horn-0.json",
+      "firstYearDigest": "0da5018d508031fc97dc729a3ca4ab0e642e0703eff490568b13672bfa899cef",
+      "digest": "0da5018d508031fc97dc729a3ca4ab0e642e0703eff490568b13672bfa899cef",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "mandeb-0.json",
+      "firstYearDigest": "0e07545deff92e94212f2697e24a456e37fce9da446d62771132c047431cdf42",
+      "digest": "0e07545deff92e94212f2697e24a456e37fce9da446d62771132c047431cdf42",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "aqaba-120000.json",
+      "firstYearDigest": "a5f97794d9d52c1bf782160600d99bb9ff2e56e256c7b415e48d00bd70c5fdd6",
+      "digest": "a5f97794d9d52c1bf782160600d99bb9ff2e56e256c7b415e48d00bd70c5fdd6",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "sinai-120000.json",
+      "firstYearDigest": "252a31510074bbd51b91b942ee61b01f63d007d62ae14b920a242496015b5d8a",
+      "digest": "252a31510074bbd51b91b942ee61b01f63d007d62ae14b920a242496015b5d8a",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "nile-120000.json",
+      "firstYearDigest": "271752193f20b62f336ce97e1d70b73b7e76075a9e8661d75debf616229a320c",
+      "digest": "271752193f20b62f336ce97e1d70b73b7e76075a9e8661d75debf616229a320c",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "levant-120000.json",
+      "firstYearDigest": "a79843095a3a4119f3a6baf06aefa7393455f9ed442a3c4aabed9054295937ac",
+      "digest": "a79843095a3a4119f3a6baf06aefa7393455f9ed442a3c4aabed9054295937ac",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "horn-120000.json",
+      "firstYearDigest": "12cb5ec610706e2a27358fe204a382b086a4e35a088839d76701c621b1b6ea12",
+      "digest": "12cb5ec610706e2a27358fe204a382b086a4e35a088839d76701c621b1b6ea12",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "mandeb-120000.json",
+      "firstYearDigest": "d9f847a59200c74b2ad8886fd2c4480f3e7e4cf6563011515f9a0e538b06aec0",
+      "digest": "d9f847a59200c74b2ad8886fd2c4480f3e7e4cf6563011515f9a0e538b06aec0",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "aqaba-100000.json",
+      "firstYearDigest": "2cc3b84bcb49e9a5e3aeed908814e91a6dd754cc6fe9b363e77668a23fe703a6",
+      "digest": "c3568750ef3f9fa0dd545a4cff5beef249b06b79f31903178c50eacc82752ab8",
+      "initial": 426,
+      "final": 560,
+      "trips": 5631,
+      "months": 1200
+    },
+    {
+      "file": "sinai-100000.json",
+      "firstYearDigest": "4bcd58467ae6ae171e95be5017b8e238e917790e5675a03f30d09a7e2330d692",
+      "digest": "5fc04bf9b309bb3075aec9de3fd26e9d387006abdbaa9dfabad51cff6edb3c77",
+      "initial": 426,
+      "final": 560,
+      "trips": 5631,
+      "months": 1200
+    },
+    {
+      "file": "nile-100000.json",
+      "firstYearDigest": "f1f93ae484ad9b1e0eee3be24c50da7747405eb33b4796e27c031a1e82455fda",
+      "digest": "ba449bb2c35a5dab9d7b26762c4e246c02eb3c2c4ce1ff584919a9d38ae17089",
+      "initial": 426,
+      "final": 560,
+      "trips": 5631,
+      "months": 1200
+    },
+    {
+      "file": "levant-100000.json",
+      "firstYearDigest": "d587373eb49424a3391e510a97e143c8fa45b4102bac3ff3d60fc1f97474dfbe",
+      "digest": "ce1c294cf5af5eb881789b0501c3d9fa19bd7e710c385613169b242d2d650e93",
+      "initial": 426,
+      "final": 560,
+      "trips": 5631,
+      "months": 1200
+    },
+    {
+      "file": "horn-100000.json",
+      "firstYearDigest": "eb12f68415ed4e79b84303747a222e90136a9c9124c32ff2c05ac475feaa9796",
+      "digest": "c0f791978d7a00370a0a91fe375241139b2aeb9fec8adb3701a745b3ea505dc2",
+      "initial": 426,
+      "final": 560,
+      "trips": 5631,
+      "months": 1200
+    },
+    {
+      "file": "mandeb-100000.json",
+      "firstYearDigest": "e20cb6408fd5872e968c6748f63e2435e8f33c6cfca8f5b582e942c7837ce103",
+      "digest": "d98b41cb0370fb3444f47222cf1b4b629ea58fd3b0b7f8a9d048d1cb45ea877c",
+      "initial": 426,
+      "final": 560,
+      "trips": 5631,
+      "months": 1200
+    },
+    {
+      "file": "aqaba-80000.json",
+      "firstYearDigest": "d1d1578722078f50a45d3078bbac780398075a778d7c6873c0cc14c6495584b9",
+      "digest": "d1d1578722078f50a45d3078bbac780398075a778d7c6873c0cc14c6495584b9",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "sinai-80000.json",
+      "firstYearDigest": "98f1b63a5f616e974cfcc7b84dec89a69abd60d3236766216fcf430d5965b5be",
+      "digest": "98f1b63a5f616e974cfcc7b84dec89a69abd60d3236766216fcf430d5965b5be",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "nile-80000.json",
+      "firstYearDigest": "f1f93ae484ad9b1e0eee3be24c50da7747405eb33b4796e27c031a1e82455fda",
+      "digest": "f1f93ae484ad9b1e0eee3be24c50da7747405eb33b4796e27c031a1e82455fda",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "levant-80000.json",
+      "firstYearDigest": "93576048d4927bde9bb8e76a0a4aa19772a93ddbe2aa884a884126f92f1655be",
+      "digest": "93576048d4927bde9bb8e76a0a4aa19772a93ddbe2aa884a884126f92f1655be",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "horn-80000.json",
+      "firstYearDigest": "36055a139f3cd0daa2d62f594fb81469324a270454c04452ec83b4e51e7c67ec",
+      "digest": "36055a139f3cd0daa2d62f594fb81469324a270454c04452ec83b4e51e7c67ec",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "mandeb-80000.json",
+      "firstYearDigest": "f4d37db8fe190cce24c0717da3e0d0e26f4cbee88ecee7099e6356056a368045",
+      "digest": "f4d37db8fe190cce24c0717da3e0d0e26f4cbee88ecee7099e6356056a368045",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "aqaba-60000.json",
+      "firstYearDigest": "17b346a0427194cb918ba494108c94ad7ffc331ee2fd4a4c41ff1d82d97230f3",
+      "digest": "17b346a0427194cb918ba494108c94ad7ffc331ee2fd4a4c41ff1d82d97230f3",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "sinai-60000.json",
+      "firstYearDigest": "6a7d8721870009edb797d21c850b22d38fe3a39fd1f166fda23a12bd3120dd9b",
+      "digest": "6a7d8721870009edb797d21c850b22d38fe3a39fd1f166fda23a12bd3120dd9b",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "nile-60000.json",
+      "expectedUnavailable": true,
+      "supportedSites": 0
+    },
+    {
+      "file": "levant-60000.json",
+      "firstYearDigest": "d54732ae5604ade2920dfe53d9f261e5db052d2899eddcde396f4c64b1f746fc",
+      "digest": "d54732ae5604ade2920dfe53d9f261e5db052d2899eddcde396f4c64b1f746fc",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "horn-60000.json",
+      "firstYearDigest": "35957e66710f32356328dc85a3cfe1db89e3618df28e20f66b1be8f957387d45",
+      "digest": "35957e66710f32356328dc85a3cfe1db89e3618df28e20f66b1be8f957387d45",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "mandeb-60000.json",
+      "firstYearDigest": "c0fc73c6db23b77adc7e152819c510f7e6bd4214f0166cb2f5f31579a84226da",
+      "digest": "c0fc73c6db23b77adc7e152819c510f7e6bd4214f0166cb2f5f31579a84226da",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "aqaba-40000.json",
+      "firstYearDigest": "17b346a0427194cb918ba494108c94ad7ffc331ee2fd4a4c41ff1d82d97230f3",
+      "digest": "17b346a0427194cb918ba494108c94ad7ffc331ee2fd4a4c41ff1d82d97230f3",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "sinai-40000.json",
+      "firstYearDigest": "8eeb9838e6d14042c099a50208bd722853335d5e354c48a155a8a1a907e470fe",
+      "digest": "8eeb9838e6d14042c099a50208bd722853335d5e354c48a155a8a1a907e470fe",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "nile-40000.json",
+      "expectedUnavailable": true,
+      "supportedSites": 0
+    },
+    {
+      "file": "levant-40000.json",
+      "firstYearDigest": "d54732ae5604ade2920dfe53d9f261e5db052d2899eddcde396f4c64b1f746fc",
+      "digest": "d54732ae5604ade2920dfe53d9f261e5db052d2899eddcde396f4c64b1f746fc",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "horn-40000.json",
+      "firstYearDigest": "8a636bef93551f93318e42fb340bb65d4c5a1909452bf585dfcde75d94862cd7",
+      "digest": "8a636bef93551f93318e42fb340bb65d4c5a1909452bf585dfcde75d94862cd7",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    },
+    {
+      "file": "mandeb-40000.json",
+      "firstYearDigest": "b253a2875e2726d3c6c7dedd2862a09f75d67c40fc47ed1e417db36fec07d158",
+      "digest": "b253a2875e2726d3c6c7dedd2862a09f75d67c40fc47ed1e417db36fec07d158",
+      "initial": 426,
+      "final": 429,
+      "trips": 55,
+      "months": 12
+    }
+  ],
+  "landBarrierSamples": 13475598,
+  "seededReplay": true,
+  "datedInputsChangeRuns": true,
+  "limits": [
+    "Barrier sampling supplements exact Rust segment tests; not independent palaeoshoreline validation",
+    "No ancient arrival forecasts tested"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "purpose": "reference integration check only; not historical validation",
+  "seed": 123,
+  "initial_people": 100000,
+  "initial_age": 0,
+  "sex": "female; selected mortality is pooled and no sex adjustment is assumed",
+  "years": 80,
+  "fixture_position": [
+    28.0,
+    37.0
+  ],
+  "fixture_start_bp": 100000,
+  "fixture_note": "Synthetic closed cohort, arbitrary query location/date; no claim of occupancy",
+  "mortality_contract_sha256": "b07b575197235de75eb6e123ab0f82563837a4ad3bd44cbeced0a6860a4bac05",
+  "output_sha256": "639705a9f92fc3ecdd4cdb27d2a97364cf56e5fc4edb21f03ec078edfd7be820",
+  "final_people": 4053,
+  "maximum_survival_standard_deviations": 1.3740958479484233,
+  "checks": [
+    "bit-for-bit seeded replay",
+    "annual integer counts and conservation",
+    "independent numerical integration of hazard",
+    "native DEM value match",
+    "native climate time interpolation match",
+    "all 81 annual checkpoints within 6-sigma survival tolerance (engineering test threshold)"
+  ],
+  "limitations": [
+    "No births or net growth calibration",
+    "No resource consumption or ecological effect on mortality",
+    "No climate-driven migration or geographic arrival predictions",
+    "Annual mortality booked at interval end; within-year death/arrival interaction approximate",
+    "Modern demographic analogue queried alongside ancient climate solely for data-plumbing verification",
+    "Local frame is spherical, bounded to 100km; not the final equal-area mesh"
+  ],
+  "sources": [
+    "gurven2007",
+    "climate2020",
+    "etopo2022"
+  ]
+}

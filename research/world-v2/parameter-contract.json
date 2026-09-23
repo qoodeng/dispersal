@@ -1,0 +1,12 @@
+{
+  "mode": "reference",
+  "domain": "modern !Kung mortality reference",
+  "parameters": [
+    {"id":"mortality.a1","value":0.340,"units":"year^-1","meaning":"Siler initial infant hazard coefficient","basis":"analogue","domain":"modern !Kung mortality reference","source_id":"gurven2007","locator":"Table2 p327, !Kung row","uncertainty":"Point estimate reproduced for reference only; joint coefficient uncertainty not extracted"},
+    {"id":"mortality.b1","value":0.913,"units":"year^-1","meaning":"Siler infant hazard decline coefficient","basis":"analogue","domain":"modern !Kung mortality reference","source_id":"gurven2007","locator":"Table2 p327, !Kung row","uncertainty":"Point estimate reproduced for reference only; joint coefficient uncertainty not extracted"},
+    {"id":"mortality.a2","value":0.010,"units":"year^-1","meaning":"Siler age-independent hazard","basis":"analogue","domain":"modern !Kung mortality reference","source_id":"gurven2007","locator":"Table2 p327, !Kung row","uncertainty":"Point estimate reproduced for reference only; joint coefficient uncertainty not extracted"},
+    {"id":"mortality.a3","value":0.000331,"units":"year^-1","meaning":"Siler initial adult hazard coefficient","basis":"analogue","domain":"modern !Kung mortality reference","source_id":"gurven2007","locator":"Table2 p327, !Kung row","uncertainty":"Point estimate reproduced for reference only; joint coefficient uncertainty not extracted"},
+    {"id":"mortality.b3","value":0.077,"units":"year^-1","meaning":"Siler adult hazard increase coefficient","basis":"analogue","domain":"modern !Kung mortality reference","source_id":"gurven2007","locator":"Table2 p327, !Kung row","uncertainty":"Point estimate reproduced for reference only; joint coefficient uncertainty not extracted"}
+  ],
+  "historical_use": "blocked until transfer model and validation artifacts exist"
+}

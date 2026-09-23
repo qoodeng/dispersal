@@ -1,0 +1,276 @@
+{
+  "schema": "dispersal-m1-acceptance/1",
+  "date": "2026-09-19",
+  "status": "M1 engineering acceptance passed; historical validity not claimed",
+  "engineSha256": "bde2bfb120fa982f150d674b4847f739ca2881ee49e386d8de0695e1b128a530",
+  "regionalManifestSha256": "bd9b31133498da7dab3f1c821314e56fdd3ed18e7d5aaa8e10a2a58ce0db346e",
+  "protocolSha256": "faa6cb5990bdb4d29811016a08d248096788eac4fcc39396af7faaff58c71844",
+  "unitTests": 71,
+  "temporal": {
+    "people": {
+      "coarse": 524.5,
+      "fine": 524.5,
+      "change": 0,
+      "pass": true
+    },
+    "births": {
+      "coarse": 803.5,
+      "fine": 803.5,
+      "change": 0,
+      "pass": true
+    },
+    "deaths": {
+      "coarse": 706.5,
+      "fine": 706.5,
+      "change": 0,
+      "pass": true
+    },
+    "arrivalYears": {
+      "coarse": 3.5510646042197385,
+      "fine": 3.5510646042197385,
+      "change": 0,
+      "pass": true
+    },
+    "meanNetKm": {
+      "coarse": 132.13504937552682,
+      "fine": 132.13504937552682,
+      "change": 0,
+      "pass": true
+    },
+    "departures": {
+      "coarse": 1090.5,
+      "fine": 1090.5,
+      "change": 0,
+      "pass": true
+    },
+    "residentPersonDays": {
+      "coarse": 8603740.025417566,
+      "fine": 8603740.025419915,
+      "change": 2.729970368979857e-13,
+      "pass": true
+    },
+    "travelPersonDays": {
+      "coarse": 129087.9875305962,
+      "fine": 129087.98753059623,
+      "change": 2.2545731026936613e-16,
+      "pass": true
+    },
+    "finalCondition": {
+      "coarse": 1.5786295071869373e-15,
+      "fine": 3.1572590143738745e-15,
+      "change": 0.0015786295071869372,
+      "pass": true
+    }
+  },
+  "mesh": {
+    "seeds": 128,
+    "medians": {
+      "5": 3.4726710546975386,
+      "10": 3.4404465892388503,
+      "20": 3.3070332580992154
+    },
+    "relativeArrivalChange": 0.009279446556015645,
+    "arrivalPass": true,
+    "occupancyPass": true
+  },
+  "isotropy": {
+    "fixture": "Isotropic equal-resource destinations on a 25 km ring, fixed shared starting patch. First choices only, away from boundaries.",
+    "seeds": 8192,
+    "departures": 49152,
+    "harmonics": [
+      {
+        "order": 1,
+        "amplitude": 0.003955642298946987
+      },
+      {
+        "order": 2,
+        "amplitude": 0.00296537774356129
+      },
+      {
+        "order": 3,
+        "amplitude": 0.011270690087037518
+      },
+      {
+        "order": 4,
+        "amplitude": 0.010805211846379727
+      }
+    ],
+    "samplingBound": 0.022081363931275355,
+    "criterion": "Each directional amplitude plus simultaneous Monte Carlo sampling bound is below 0.05.",
+    "pass": true
+  },
+  "regional": {
+    "seeds": 32,
+    "seedsWithEstablishment": 22,
+    "seedsWithRecolonization": 16,
+    "finalPopulationRange": [
+      447,
+      771
+    ]
+  },
+  "abundant": {
+    "people": 580,
+    "births": 1684,
+    "deaths": 1530,
+    "departures": 0,
+    "traveledKm": 0,
+    "meanNetKm": 0,
+    "medianCompletedResidenceDays": null,
+    "medianCurrentResidenceYears": 100,
+    "longestCurrentResidenceYears": 100,
+    "groupsResidentAtLeastYear": 10,
+    "provisionBlockedGroups": 0,
+    "deficitFraction": 0,
+    "energyBalanced": true,
+    "residentPersonDays": 18608026.5000043,
+    "travelPersonDays": 0,
+    "establishedSites": 6,
+    "viableOccupiedSites": 6,
+    "recolonizations": 0,
+    "outerBoundaryAttempts": 0,
+    "splits": 5,
+    "merges": 1
+  },
+  "interface": {
+    "hardware": "Mac17,3; Apple M5; 10 CPU cores",
+    "browser": "Codex in-app browser",
+    "date": "2026-09-19",
+    "desktop": {
+      "viewport": [
+        1440,
+        900
+      ],
+      "fps": 60,
+      "frameIntervalP99Ms": 17.7,
+      "updateP99Ms": 2.1,
+      "frames": 3360
+    },
+    "narrow": {
+      "viewport": [
+        390,
+        844
+      ],
+      "fps": 60,
+      "frameIntervalP99Ms": 17.7,
+      "updateP99Ms": 3.5,
+      "frames": 1740,
+      "layer": "food",
+      "scrollWidth": 390,
+      "mapControlHeightPx": 44
+    },
+    "defaultTwoRunComputeSeconds": 6.4,
+    "checked": [
+      "play/pause",
+      "time scrub",
+      "policy selection",
+      "food and terrain layers",
+      "zoom and fit",
+      "keyboard arrow pan",
+      "pointer drag",
+      "group selector including split descendants",
+      "high-food 100-year residence and six viable sites",
+      "download and native replay"
+    ],
+    "reducedMotion": "CSS inspected: decorative transitions/smooth scroll disabled; playback opt-in. OS preference was not changed.",
+    "physicalPhoneTested": false,
+    "consoleErrors": [],
+    "coreChecksPassed": true
+  },
+  "evidence": [
+    {
+      "file": "m1-interface-checks.json",
+      "sha256": "86e48530e93e5010567bed6c2ebf8334d219d8876de2b2ced3fc1447d0f04bb6"
+    },
+    {
+      "file": "m1-transform-checks.json",
+      "sha256": "d8885630453056839c1105b933eff5731c1e3a40e7556d832dfb2a6d7e9684f5"
+    },
+    {
+      "file": "m1-export-checks.json",
+      "sha256": "f2c72d4c41b4f36ed071b9031bcbf18cda68b0d93d1f8a7f6b0577d9e11dd728"
+    },
+    {
+      "file": "native-parity.json",
+      "sha256": "51b60397730af8ca9b367cfefe5ecf9f4c89f6669875801bc5feaaed50dc37ba"
+    },
+    {
+      "file": "m1-integrated-checks.json",
+      "sha256": "10359bd105cc31c35053171f5a2462ea0a6005670b32b0891a4457543338180c"
+    },
+    {
+      "file": "m1-physical-time.json",
+      "sha256": "3b70a938d9629e05960e5831007025cdf871574a968f1c70a418a9f0b2780557"
+    },
+    {
+      "file": "m1-mesh-checks.json",
+      "sha256": "a134a0dba0582a0b53506364bbe926d1ef91b04bfa25e2ec15933f9eaaee48c9"
+    },
+    {
+      "file": "m1-isotropy-checks.json",
+      "sha256": "83839edc7958407278ecdcb3ac28810ef6509e5b2f350c6003f9156b0d9dc82e"
+    },
+    {
+      "file": "m1-region-0-32.json",
+      "sha256": "0ffe229fb6be5ea0406cbdbcf5b156e5c12f2083bcadaa5fbc27dd79e416b829"
+    },
+    {
+      "file": "m1-sensitivity.json",
+      "sha256": "38257c1989a673d83159ed86c6e135ab60589223dbf2f458b56587de8db6f8cb"
+    },
+    {
+      "file": "m1-parity.json",
+      "sha256": "f2725a34618a79fe9a9977f71edeac5cb203c51a91b2fceeaef3e7d2b4b28ebe"
+    },
+    {
+      "file": "m1-boundary-checks.json",
+      "sha256": "19986fd8d0aeca97f3fc61e554926bd710f3b0547a8ecc523433a4995f2dcb60"
+    },
+    {
+      "file": "m1-physical-time-32.json",
+      "sha256": "5f0d82db4261f7e96ef3aecfec66d76ad7149b01819fc1ac35108cdef16d982e"
+    },
+    {
+      "file": "m1-physical-time-512-before-event-foraging.json",
+      "sha256": "a3249df9c7f0e8bde59ea838cd31d66fd0bbf7c46dec25b75e8f6c6650933e29"
+    },
+    {
+      "file": "m1-mesh-32-before-expanded-ensemble.json",
+      "sha256": "054e9a12e4cbed215d9622dd3ac81c2d082b2ba0baef9eb6ca0bdd4734aea759"
+    },
+    {
+      "file": "m1-mesh-128-before-area-weights.json",
+      "sha256": "773d4c21aa763d51d4aff1cf72926fc77a1ab3edc29bb1cf38fba6ffcfbed521"
+    }
+  ],
+  "limits": [
+    "Synthetic resource production, seasonality, access cost and condition response; not calibrated ancient parameters",
+    "Regional water unknown and assumed available in engineering runs",
+    "Static 100 ka sea-level scenario on modern relief, projected planar distance/area approximation",
+    "No dynamic climate, diet/boat mechanisms or calibrated archaeological arrival inference",
+    "Responsive viewport tested on named Mac hardware; no physical-phone performance claim"
+  ],
+  "sourceHashes": {
+    "engine/src/population/condition.rs": "ef477b05c61ec0b8214fed584cb21a4853374f8701d24cf9b6a1cb7e0141c059",
+    "engine/src/population/demography.rs": "76ce69b12f70e1fe396ef13a126b7c9bbd650c67f04ad3ed9036a792100ee385",
+    "engine/src/population/environment.rs": "1586939a5690473fefe4f01d2ac44e6ed6e07e11a9a686916c4cb7237913190d",
+    "engine/src/population/food_experiment.rs": "620a85bd094622ae45a7d116710343eb515743ee252ed0953313534ea034b2d5",
+    "engine/src/population/foraging.rs": "5090e06671174858543bfa4859c98d5fd9435ea1faf4b898ea08284ee1e8c913",
+    "engine/src/population/mod.rs": "42a1eb8c4a02c2530201b4d56523fdc32ce12567a97e4c5c5f8f0ca34a21fb7a",
+    "engine/src/population/patch_memory.rs": "3193cbf0d9b62287c4c7f4deae556ff5ed39314ac10aba6e93d964e17f44401c",
+    "engine/src/population/resources.rs": "8d3c6c5b226ad8cbf5fc373245ad288f9236ae19bcdd03937772168ef557da07",
+    "engine/src/population/spatial.rs": "cf6c80d59bd7c17827e8e167b7d7324b7672b060a6963a007b64447a1dbd67e8",
+    "engine/src/population/terrain.rs": "6d68b2314e6b897a3765abbe067ff5e17af625b394b4c8d264449a70ad359080",
+    "src/evidence.ts": "427aa7b09a9d8dfc610af167b423dc11f1d7f459c538eb9b379281fe080a5922",
+    "src/growth.ts": "315e7c58582112c5cc119a6aa2b9c8deec7635a32d088505acec8ee5907c8ddd",
+    "src/main.ts": "5d8d151797abf2ed00353dee47694331b0a5c33717b44f21ae161da91eb13c9a",
+    "src/reference.ts": "f9fa2324be9ae104fabb5619db0f9ce19be1311bb1e09684772f8d049da3f186",
+    "src/spatial-input.ts": "9ed7711a1fa55291452e5c7a055b473fc0689c697e3411f167f62fb6ca56013a",
+    "src/spatial-runner.ts": "23812d439e2ca2563ccf640e50457b295352bb1bb9f3fddfaee9bd9b910f62b6",
+    "src/spatial-types.ts": "ade37b092e6c3a2232782506f1c15395e13bac3c17cca95cad8af5b06424207d",
+    "src/spatial-worker.ts": "a5ab570ad0a92f94aa4e4667086f71f965e461a58da80e9e6cde90387dce58d1",
+    "src/spatial.ts": "9c0627e9b3d6eeb5bd9d72d680c7ab2f195dde1583d9a2073bfaff6b7b397fc1",
+    "src/style.css": "404646ec140bf817e254ea3cd2ac0134ec3b566807601d4eb66ec739db43c436",
+    "src/types.ts": "184893a505311d4036cf9cca69eee1455a43024a5750435d775e8fcf5c8aff2b",
+    "src/worker.ts": "45630f1dfbada145b649c20cb8c876c7108214146e362392695de281d521f036"
+  }
+}

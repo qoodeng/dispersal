@@ -1,0 +1,257 @@
+{
+  "acquisitions": [
+    {
+      "local_path": "cache/sahul-code.zip",
+      "url": "https://zenodo.org/api/records/4453767/files/cjabradshaw/SahulHumanSpread-v1.3.0.zip/content",
+      "accessed": "2026-09-18",
+      "bytes": 9386959,
+      "sha256": "93db8d261540ff18d406c8ba00f93187c02d73b69b22319bb556c197f6f557ee",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed",
+      "publisher_checksum": "md5:ff80e79156c06c00a06657af4a86c733",
+      "publisher_checksum_verified": true
+    },
+    {
+      "local_path": "cache/saltre2024-code.zip",
+      "url": "https://zenodo.org/api/records/11078938/files/HumanGlobalExpansion-main.zip/content",
+      "accessed": "2026-09-18",
+      "bytes": 14599101,
+      "sha256": "234bd65e6e59cf7fd14281fcaa196ca3c33b475f5e075007d330a14bf669ee85",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed",
+      "publisher_checksum": "md5:865dfda53815aa726538d02cab0c9830",
+      "publisher_checksum_verified": true
+    },
+    {
+      "local_path": "cache/gurven2007.pdf",
+      "url": "https://gurven.anth.ucsb.edu/sites/secure.lsit.ucsb.edu.anth.d7_gurven/files/sitefiles/papers/GurvenKaplan2007pdr.pdf",
+      "accessed": "2026-09-18",
+      "bytes": 1418157,
+      "sha256": "d5d5a816e8a77da3648571eae1d74f8f66aa18683be7c804e5925b93d2e0eb90",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/breeze2016.pdf",
+      "url": "https://research-repository.griffith.edu.au/bitstreams/0a93fa1e-6db4-4564-b256-816c71665d5d/download",
+      "accessed": "2026-09-18",
+      "bytes": 563578,
+      "sha256": "f92d3d24bc81c6f9364d30bd2413d1833f1fff263c177d965bcc4947c84cbc49",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/spratt2016-si.pdf",
+      "url": "https://cp.copernicus.org/articles/12/1079/2016/cp-12-1079-2016-supplement.pdf",
+      "accessed": "2026-09-18",
+      "bytes": 227643,
+      "sha256": "c6e2b2ea7d155b864859e4c10884cbc332d9968f03d17f7d1ace2d134a137c99",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/alwusta2018-si.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5935238/supplementaryFiles",
+      "accessed": "2026-09-18",
+      "bytes": 12755971,
+      "sha256": "f5c4959fb9f278ebba69710d919599245c3190e38139a1017dd56c6b421bf4b8",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/alathar-supplements.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7500939/supplementaryFiles",
+      "accessed": "2026-09-18",
+      "bytes": 16054185,
+      "sha256": "66da9917f6f1f0aab5ef9b4d14b9e65edbc75d9d5a371a7e97e22358fe6c5ff6",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/shao-supplements.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11358479/supplementaryFiles",
+      "accessed": "2026-09-18",
+      "bytes": 17262206,
+      "sha256": "05fddf833cc0f8597cd2e3a7880c38ca547202708f1050956d666cbebf0b0228",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC5935238.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5935238/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 142225,
+      "sha256": "74be34212fd6401245257310dfe6c1b0cb7047ba553dc3de3c0163c3e7513b9f",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC11358479.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11358479/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 169516,
+      "sha256": "9edd1845e8e0faf548425cb0b43daa9da08bc9447c4b525e9bc0472c84508ce4",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC12202703.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12202703/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 9724,
+      "sha256": "70795081abf62a5db5f96385ebc9c59a1a5d9f21b04d80c871a66162472ebdff",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC11111671.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11111671/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 208187,
+      "sha256": "66ad83db811522017eeb51a55eea382b416b5251350c06f21076a64e809d9923",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC8085232.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8085232/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 191552,
+      "sha256": "195c88538f24dc7647d8c50c6a410ac0a5fdd9f976091a36cc183e7a56c9049b",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC7500939.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7500939/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 191563,
+      "sha256": "5cd5a74af2103d90fc85797d1b39f266ef6642ca33126d00960eb5dae1408cc7",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC8397735.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8397735/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 171588,
+      "sha256": "645b20ac7913ec3fdcee1b648f79ed75aac5e78243b20c249d7b0528a32d159b",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC12328235.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12328235/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 208669,
+      "sha256": "3bced4f3043c6ff835502ba05b2444c441a894fb8a1ba1ffff2bbab24eaa36d8",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC9821931.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9821931/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 69726,
+      "sha256": "f88f0d1bb7cf921322614cef3e5200c22644a41ed60ef9d5c62f853d68948acf",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC8443443.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8443443/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 91417,
+      "sha256": "96478f0d2ae1383d5a910cf63d0f0104fb7821879667cc7f936d358ff74941b2",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    },
+    {
+      "local_path": "cache/PMC8810378.xml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8810378/fullTextXML",
+      "accessed": "2026-09-18",
+      "bytes": 15246,
+      "sha256": "e99b862cec1990dfcff5a20feb1e9ba5f5c5b45660b80444271385e6fb4ceebd",
+      "read_status": "See sources.json; downloaded does not mean fully reviewed"
+    }
+  ],
+  "attempt_logs": [
+    {
+      "name": "sahul-code.zip",
+      "url": "https://zenodo.org/api/records/4453767/files/cjabradshaw/SahulHumanSpread-v1.3.0.zip/content",
+      "bytes": 9386959
+    },
+    {
+      "name": "saltre2024-repository.json",
+      "url": "https://zenodo.org/api/records/11078937",
+      "bytes": 4133
+    },
+    {
+      "name": "krapp2021-repository.json",
+      "url": "https://zenodo.org/api/records/4531988",
+      "bytes": 5760
+    },
+    {
+      "name": "shao-supplements.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11358479/supplementaryFiles",
+      "bytes": 17262206
+    },
+    {
+      "name": "alathar-supplements.zip",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7500939/supplementaryFiles",
+      "bytes": 16054185
+    },
+    {
+      "file": "saltre2024-code.zip",
+      "url": "https://zenodo.org/api/records/11078938/files/HumanGlobalExpansion-main.zip/content",
+      "bytes": 14599101
+    },
+    {
+      "file": "breeze2016.pdf",
+      "url": "https://research-repository.griffith.edu.au/bitstreams/0a93fa1e-6db4-4564-b256-816c71665d5d/download",
+      "bytes": 563578
+    },
+    {
+      "file": "gurven-site.html",
+      "url": "https://gurven.anth.ucsb.edu/",
+      "bytes": 59904
+    },
+    {
+      "file": "hallett-share.html",
+      "url": "https://figshare.com/s/2c4253aead69d37268a8",
+      "bytes": 0
+    },
+    {
+      "file": "osf-krapp-files.json",
+      "url": "https://api.osf.io/v2/nodes/8n43x/files/",
+      "bytes": 957
+    },
+    {
+      "name": "eriksson2012-si",
+      "url": "https://www.pnas.org/doi/suppl/10.1073/pnas.1209494109/suppl_file/pnas.201209494si.pdf",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "name": "alwusta2018-si",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5935238/supplementaryFiles",
+      "path": "research/calibration/cache/alwusta2018-si.zip",
+      "bytes": 12755971,
+      "type": "application/zip"
+    },
+    {
+      "name": "shao2024-si",
+      "url": "https://static-content.springer-cdn.com/esm/art%3A10.1038%2Fs41467-024-51349-y/MediaObjects/41467_2024_51349_MOESM1_ESM.pdf",
+      "error": "HTTP Error 502: Bad Gateway"
+    },
+    {
+      "name": "spratt2016-si",
+      "url": "https://cp.copernicus.org/articles/12/1079/2016/cp-12-1079-2016-supplement.pdf",
+      "path": "research/calibration/cache/spratt2016-si.pdf",
+      "bytes": 227643,
+      "type": "application/pdf"
+    }
+  ],
+  "excluded_leads": [
+    "Zenodo4531988 is an unrelated software dependency; not Krapp climate data.",
+    "Unrelated medical/yeast search hits excluded."
+  ],
+  "not_acquired": [
+    {
+      "source_id": "niche2025",
+      "url": "https://figshare.com/s/2c4253aead69d37268a8",
+      "reason": "Returned zero bytes; not evidence that data are unavailable to others."
+    },
+    {
+      "source_id": "ourway2024",
+      "url": "https://api.figshare.com/v2/articles/26174980",
+      "reason": "Metadata retrieved; 5.5 GB Europe archive deferred."
+    },
+    {
+      "source_id": "krapp-data",
+      "url": "https://api.osf.io/v2/nodes/8n43x/files/osfstorage/",
+      "reason": "Repository inventory found; data files not downloaded."
+    }
+  ]
+}

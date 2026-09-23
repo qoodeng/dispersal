@@ -1,0 +1,27 @@
+{
+  "source": "etopo2022",
+  "source_sha256": "9267bb335c77884ffeeb333136d02352ac25256857b28708e1fed8e746eed07a",
+  "output_sha256": "e144b6d0b3ad5cdd85382096b071270f43970aa6d7167e3412f078f8e5890361",
+  "shape": [
+    450,
+    450
+  ],
+  "native_shape": [
+    2700,
+    2700
+  ],
+  "summary_resolution_degrees": 0.1,
+  "coordinate_order": "preserved from ETOPO; inspect coordinates, do not assume south-up",
+  "methods": {
+    "elevation": "block mean/min/max/population SD",
+    "slope": "central differences on native grid with latitude-dependent horizontal spacing; first-order outer boundaries",
+    "land_fraction": "fraction of samples at or above EGM2008 zero; modern relief descriptor only"
+  },
+  "limitations": [
+    "Geographic summaries, not the final equal-area simulation mesh",
+    "Zero elevation is not an ancient shoreline classification",
+    "Mean slope does not resolve pass connectivity; retain native relief",
+    "No population movement law inferred from slope",
+    "No sub-resolution detail invented"
+  ]
+}

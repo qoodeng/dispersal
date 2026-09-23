@@ -1,0 +1,398 @@
+{
+  "schema": "dated-environment-windows/1",
+  "places": [
+    {
+      "id": "aqaba",
+      "name": "Gulf of Aqaba",
+      "center": [
+        28.5,
+        34.7
+      ]
+    },
+    {
+      "id": "sinai",
+      "name": "Suez & Sinai",
+      "center": [
+        29.9,
+        32.5
+      ]
+    },
+    {
+      "id": "nile",
+      "name": "Nile valley",
+      "center": [
+        25.7,
+        32.65
+      ]
+    },
+    {
+      "id": "levant",
+      "name": "Southern Levant",
+      "center": [
+        32.0,
+        35.3
+      ]
+    },
+    {
+      "id": "horn",
+      "name": "Horn of Africa",
+      "center": [
+        11.5,
+        42.5
+      ]
+    },
+    {
+      "id": "mandeb",
+      "name": "Bab el-Mandeb",
+      "center": [
+        12.7,
+        43.3
+      ]
+    }
+  ],
+  "epochs": [
+    0,
+    120000,
+    100000,
+    80000,
+    60000,
+    40000
+  ],
+  "files": [
+    {
+      "file": "aqaba-0.json",
+      "sha256": "1bda1860ad14518cf3c85425c4d89aee1644e3a40081e6cb4716296c59cb047b",
+      "landKm2": 11261.0,
+      "supportedKm2": 6212.25,
+      "supportedSites": 287,
+      "seaLevelM": 0.0
+    },
+    {
+      "file": "sinai-0.json",
+      "sha256": "7d28913a41f90c002ec208df2bf9fd9cdff652d36bd95e6ed1c58c870bd26a03",
+      "landKm2": 12810.5,
+      "supportedKm2": 2247.25,
+      "supportedSites": 71,
+      "seaLevelM": 0.0
+    },
+    {
+      "file": "nile-0.json",
+      "sha256": "554762202777e3e139a1a822f1b0b8778cdb6c365e675dc61956b266fa8a0eb9",
+      "landKm2": 14400.0,
+      "supportedKm2": 662.5,
+      "supportedSites": 22,
+      "seaLevelM": 0.0
+    },
+    {
+      "file": "levant-0.json",
+      "sha256": "cef1d78362e3fd66261a7cb3b3760643ccd6a09c704451e20cdd47b50dcbe6b8",
+      "landKm2": 13435.5,
+      "supportedKm2": 12437.25,
+      "supportedSites": 498,
+      "seaLevelM": 0.0
+    },
+    {
+      "file": "horn-0.json",
+      "sha256": "4ca3400bf574dcf7e2e404608191bba229b581e076ab8dcf6c0bca527c9268d4",
+      "landKm2": 13635.0,
+      "supportedKm2": 4115.25,
+      "supportedSites": 131,
+      "seaLevelM": 0.0
+    },
+    {
+      "file": "mandeb-0.json",
+      "sha256": "12138ab7b3a312f5bd8bc579bd26947fdbc74db486267ea0c85380d411e16870",
+      "landKm2": 7347.25,
+      "supportedKm2": 2065.25,
+      "supportedSites": 114,
+      "seaLevelM": 0.0
+    },
+    {
+      "file": "aqaba-120000.json",
+      "sha256": "e2a2727c7d0bc00e1baf46c52cd1d089c385083c384f8fe2d5ad561215ff52a4",
+      "landKm2": 11395.0,
+      "supportedKm2": 9566.0,
+      "supportedSites": 449,
+      "seaLevelM": -3.73
+    },
+    {
+      "file": "sinai-120000.json",
+      "sha256": "82d35b08f977c36293b4486ec67539240d154b99a8bc83b7cc43094482c14fb9",
+      "landKm2": 12849.5,
+      "supportedKm2": 5184.0,
+      "supportedSites": 188,
+      "seaLevelM": -3.73
+    },
+    {
+      "file": "nile-120000.json",
+      "sha256": "f63cc1b994b885e57b48e20309a5ef892bbe28e3594e1946606a65735467bf58",
+      "landKm2": 14400.0,
+      "supportedKm2": 2050.0,
+      "supportedSites": 70,
+      "seaLevelM": -3.73
+    },
+    {
+      "file": "levant-120000.json",
+      "sha256": "227fa81af75d1c51e1ed1838c01cc98a1e6ba5b3d9fff9e68099b1d870679c80",
+      "landKm2": 13440.75,
+      "supportedKm2": 12437.25,
+      "supportedSites": 497,
+      "seaLevelM": -3.73
+    },
+    {
+      "file": "horn-120000.json",
+      "sha256": "efd401f04313cec144d7b346b77e1a1c2af1dd471168baaba34486e2e76f43d5",
+      "landKm2": 13642.0,
+      "supportedKm2": 13130.5,
+      "supportedSites": 531,
+      "seaLevelM": -3.73
+    },
+    {
+      "file": "mandeb-120000.json",
+      "sha256": "b1787a6090e458e27e6319f575c67b323e18762bd0771057c6dc84adf61c7096",
+      "landKm2": 7752.25,
+      "supportedKm2": 2065.25,
+      "supportedSites": 114,
+      "seaLevelM": -3.73
+    },
+    {
+      "file": "aqaba-100000.json",
+      "sha256": "9bd95e03a36a543d27fe555cac1285a4ce1d4b531d70bd95de8135bfb4667232",
+      "landKm2": 11777.0,
+      "supportedKm2": 6222.75,
+      "supportedSites": 273,
+      "seaLevelM": -22.77
+    },
+    {
+      "file": "sinai-100000.json",
+      "sha256": "0c1b0b770709b25caf2227a461fab24edacf81c57297339d32b52779c090fab0",
+      "landKm2": 13194.0,
+      "supportedKm2": 1416.0,
+      "supportedSites": 42,
+      "seaLevelM": -22.77
+    },
+    {
+      "file": "nile-100000.json",
+      "sha256": "937d3655c4abd54197e9ce060fdbc39643c366bd23d7dcc889cb95d049740c03",
+      "landKm2": 14400.0,
+      "supportedKm2": 662.5,
+      "supportedSites": 22,
+      "seaLevelM": -22.77
+    },
+    {
+      "file": "levant-100000.json",
+      "sha256": "d57bb561284f3519e48f5d86690f7d4ca9191d067ae50e1958375e1637f767a7",
+      "landKm2": 13524.75,
+      "supportedKm2": 12458.75,
+      "supportedSites": 495,
+      "seaLevelM": -22.77
+    },
+    {
+      "file": "horn-100000.json",
+      "sha256": "789e360b178398b357e2ed35067e7aa40d43541c4aff07635f279c4f71ef4e87",
+      "landKm2": 13666.25,
+      "supportedKm2": 13484.75,
+      "supportedSites": 542,
+      "seaLevelM": -22.77
+    },
+    {
+      "file": "mandeb-100000.json",
+      "sha256": "8edb2b47aa5ddc7c6cc9e036726840b32b129d2361e2792ea524cf09814157cb",
+      "landKm2": 9004.5,
+      "supportedKm2": 5909.75,
+      "supportedSites": 338,
+      "seaLevelM": -22.77
+    },
+    {
+      "file": "aqaba-80000.json",
+      "sha256": "f8346b48885b5860d5c6feaaae50c437402f3a91f0bd4cd9ea66855d625d4b2a",
+      "landKm2": 11842.0,
+      "supportedKm2": 9509.75,
+      "supportedSites": 428,
+      "seaLevelM": -33.5
+    },
+    {
+      "file": "sinai-80000.json",
+      "sha256": "36172652ba985cca8dddcd639fca56735579c8ed8c1cc0eba3ad024be8dd9ab9",
+      "landKm2": 13389.5,
+      "supportedKm2": 1594.25,
+      "supportedSites": 45,
+      "seaLevelM": -33.5
+    },
+    {
+      "file": "nile-80000.json",
+      "sha256": "e35e6877d756c104192a7ec1635cfcd30f5aff0738a34bc016e2c2118b6e58d4",
+      "landKm2": 14400.0,
+      "supportedKm2": 662.5,
+      "supportedSites": 22,
+      "seaLevelM": -33.5
+    },
+    {
+      "file": "levant-80000.json",
+      "sha256": "e79f86dc48a22cb3e459eecd8ceccd5e88bcb752f92894632decedcd374c6e1c",
+      "landKm2": 13620.0,
+      "supportedKm2": 12474.0,
+      "supportedSites": 491,
+      "seaLevelM": -33.5
+    },
+    {
+      "file": "horn-80000.json",
+      "sha256": "9bff94572c89c0c8e0286c15b01fa98004570576e172e595e668f8085bb57ed7",
+      "landKm2": 13681.25,
+      "supportedKm2": 13499.75,
+      "supportedSites": 542,
+      "seaLevelM": -33.5
+    },
+    {
+      "file": "mandeb-80000.json",
+      "sha256": "704946c4127bdb573a601e7aa48c643f77b85ee12b6c3dd46f97aee7db4f574b",
+      "landKm2": 9843.0,
+      "supportedKm2": 7726.5,
+      "supportedSites": 411,
+      "seaLevelM": -33.5
+    },
+    {
+      "file": "aqaba-60000.json",
+      "sha256": "61cdb601b2b77b9d3a6fb81ae2650c3502dbe4e1dcc1cdd0cd41bd91708b80d5",
+      "landKm2": 12155.25,
+      "supportedKm2": 6260.75,
+      "supportedSites": 269,
+      "seaLevelM": -87.78
+    },
+    {
+      "file": "sinai-60000.json",
+      "sha256": "b34fe754e21270973eeb712a8e3e102a2fb00960c4735bcf59784164e1bc1920",
+      "landKm2": 14400.0,
+      "supportedKm2": 1237.75,
+      "supportedSites": 35,
+      "seaLevelM": -87.78
+    },
+    {
+      "file": "nile-60000.json",
+      "sha256": "4df5e7ac7d4a28e1a2e9ec534a9bd688f19de7ee4ec5d1fd84a6c7200e7d1e39",
+      "landKm2": 14400.0,
+      "supportedKm2": 0.0,
+      "supportedSites": 0,
+      "seaLevelM": -87.78
+    },
+    {
+      "file": "levant-60000.json",
+      "sha256": "fd5c758cce762eb27a604e1f89e6388b3e410e694ff625cae3aa32634216e3c0",
+      "landKm2": 14164.5,
+      "supportedKm2": 14072.25,
+      "supportedSites": 546,
+      "seaLevelM": -87.78
+    },
+    {
+      "file": "horn-60000.json",
+      "sha256": "828342820837d5df22ad50fc4973fae15420dd1ceff8e3749b6b63086b642aff",
+      "landKm2": 13793.25,
+      "supportedKm2": 13603.75,
+      "supportedSites": 542,
+      "seaLevelM": -87.78
+    },
+    {
+      "file": "mandeb-60000.json",
+      "sha256": "7325f048353d880f25862ba3f151bbad4539315257202c5b1da2389a0054ffd2",
+      "landKm2": 11764.5,
+      "supportedKm2": 9393.0,
+      "supportedSites": 418,
+      "seaLevelM": -87.78
+    },
+    {
+      "file": "aqaba-40000.json",
+      "sha256": "b10e57d43ad1736a4cba323af086289062edce5be2252cf18d42af8faad608ff",
+      "landKm2": 12155.25,
+      "supportedKm2": 6260.75,
+      "supportedSites": 269,
+      "seaLevelM": -87.35
+    },
+    {
+      "file": "sinai-40000.json",
+      "sha256": "96f4d3cab3ce0789440d4e53bad132eb35820334f62892d243b78fc713e12139",
+      "landKm2": 14400.0,
+      "supportedKm2": 1416.0,
+      "supportedSites": 38,
+      "seaLevelM": -87.35
+    },
+    {
+      "file": "nile-40000.json",
+      "sha256": "cb15aaf41415af9359a6a5d184b0e3286bb2c0ef612226282e9065a73129bda4",
+      "landKm2": 14400.0,
+      "supportedKm2": 0.0,
+      "supportedSites": 0,
+      "seaLevelM": -87.35
+    },
+    {
+      "file": "levant-40000.json",
+      "sha256": "068a5edfab1bab06dbfffc92573deb915394ed782231b882aec8a7bff265dd7f",
+      "landKm2": 14164.5,
+      "supportedKm2": 14072.25,
+      "supportedSites": 546,
+      "seaLevelM": -87.35
+    },
+    {
+      "file": "horn-40000.json",
+      "sha256": "fdcc538cd84220eb48163feb93301c55ffc30d307c8968036c0d84a21295d3aa",
+      "landKm2": 13793.25,
+      "supportedKm2": 13603.75,
+      "supportedSites": 542,
+      "seaLevelM": -87.35
+    },
+    {
+      "file": "mandeb-40000.json",
+      "sha256": "463542e361d1ce6c8941fad1bc73478b734e46f8cc4de41f763150e03f3f61ba",
+      "landKm2": 11759.25,
+      "supportedKm2": 8451.5,
+      "supportedSites": 386,
+      "seaLevelM": -87.35
+    }
+  ],
+  "sources": [
+    {
+      "id": "climate",
+      "doi": "10.1038/s41597-020-0552-1",
+      "url": "https://zenodo.org/records/7062281",
+      "file": "Beyer2020_annual.nc",
+      "sha256": "96db0f56c65da55c11a9eb03e309b19343084adc57e234f65ee5f75587ea220c",
+      "variables": [
+        "bio01 degrees C",
+        "bio12 mm/year"
+      ],
+      "native_resolution": "0.5 degrees"
+    },
+    {
+      "id": "elevation",
+      "doi": "10.25921/fd45-gt74",
+      "sha256": "9267bb335c77884ffeeb333136d02352ac25256857b28708e1fed8e746eed07a",
+      "native_resolution": "60 arcseconds, EGM2008"
+    },
+    {
+      "id": "sea-level",
+      "doi": "10.5194/cp-12-1079-2016",
+      "sha256": "d8f93b0e20e1a100ba1c6cd295e5aff93dcd66f3c9402245634f21d50f5eb094",
+      "column": "median, published stack; age_ka in thousands of years before present"
+    },
+    {
+      "id": "density",
+      "url": "/spatial/ecology-fit.json",
+      "observations": "/spatial/calibration-observations.csv"
+    }
+  ],
+  "methods": {
+    "shoreline": "Four-connected marine flood fill on native regional ETOPO grid, seeded from three deep marine cells (Mediterranean 34N25E, Red Sea 20N38E, Arabian Sea 15N58E). Inland below-sea depressions are not automatically ocean. Missing elevation blocks connectivity. Uniform global median sea level applied to modern EGM2008 relief is an exploratory scenario, not local relative sea-level reconstruction.",
+    "climate": "Exact dated native climate cells; nearest containing cell, no spatial downscaling. Convex-hull support of modern density observations enforced.",
+    "density": "Existing coefficients and identical 500 block bootstraps. Integrate reference density over known dry cell area; sites require >=80% supported area.",
+    "sites": "Seed1709 irregular numerical sites, minimum3km separation, 550 maximum; not archaeological camps.",
+    "experiment": "Environment frozen at selected date during each100-year modern-analogue demographic/movement experiment. No claim that groups or routes reconstruct past occupation."
+  },
+  "limits": [
+    "No local tectonics or glacial-isostatic adjustment",
+    "Modern topography not palaeotopography",
+    "No dated freshwater or river crossing model",
+    "No food stocks or famine response",
+    "No independent ancient transfer validation",
+    "No arrival-date prediction",
+    "No evolving environment within a run"
+  ]
+}

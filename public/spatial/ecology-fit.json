@@ -1,0 +1,61 @@
+{
+  "density": {
+    "n": 111,
+    "blocked_cv_log_rmse": 1.5128023409746238,
+    "intercept_baseline_log_rmse": 1.5764109676359364,
+    "accepted_climate_relationship": true,
+    "cv": "5 folds, all members of each20degree geographic block held together; exploratory single fixed split, not independent external validation"
+  },
+  "annual_distance": {
+    "n": 111,
+    "blocked_cv_log_rmse": 1.21043969662871,
+    "intercept_baseline_log_rmse": 1.088573543743057,
+    "accepted_climate_relationship": false,
+    "cv": "5 folds, all members of each20degree geographic block held together; exploratory single fixed split, not independent external validation"
+  },
+  "annual_moves": {
+    "n": 111,
+    "blocked_cv_log_rmse": 0.786705492866703,
+    "intercept_baseline_log_rmse": 0.7210976778918399,
+    "accepted_climate_relationship": false,
+    "cv": "5 folds, all members of each20degree geographic block held together; exploratory single fixed split, not independent external validation"
+  },
+  "distance_per_move": {
+    "n": 111,
+    "blocked_cv_log_rmse": 0.5556504111886569,
+    "intercept_baseline_log_rmse": 0.5436584908942094,
+    "accepted_climate_relationship": false,
+    "cv": "5 folds, all members of each20degree geographic block held together; exploratory single fixed split, not independent external validation"
+  },
+  "schema": "ecology-calibration/1",
+  "selection": "subpop n; fishing<40%; nomov>=1/year; positive original dismov. This is a terrestrial-mobile analogue subset, not a universal forager model.",
+  "density_units": "Original density people/100km\u00b2, converted to people/km\u00b2; area original100km\u00b2 units.",
+  "distance_units": "Original dismov miles/year multiplied by exact1.609344; derived kmov not used.",
+  "density_model": {
+    "formula": "ln(people/km\u00b2)=b0+b1 ln(annual rainfall mm)+b2 T/10+b3 (T/10)^2",
+    "coefficients": [
+      -8.237578028534859,
+      0.7965338329511309,
+      1.6104343763594173,
+      -0.5773531717237528
+    ],
+    "residual_sd": 1.143473859364268,
+    "uncertainty": "500 spatial-block coefficient bootstraps plus held-out log RMSE; displayed90% approximate predictive envelope, no prehistoric transfer uncertainty"
+  },
+  "mobility_choice": "Climate regressions failed blocked-CV baseline; rejected. Use observed joint annual moves/distance pairs from retained111 rows, not climate-predicted mobility. Pair is sampled once per group, no claim empirical route destinations.",
+  "coverage": {
+    "land_km2": 11237.5,
+    "in_domain_km2": 6212.25,
+    "supported_sites": 287,
+    "reference_people_known_cells": 204.39969263166165
+  },
+  "limits": [
+    "Density is occupancy reference, not carrying capacity or food production",
+    "Weak cross-validated density skill; very wide predictive ranges",
+    "Shared cross-cultural/linguistic dependence not fully controlled",
+    "Climate source resolution0.5degree, not terrain resolution",
+    "Selection threshold fishing40 is an analyst choice requiring sensitivity",
+    "No annual food depletion/recovery or famine response calibrated",
+    "Movement scheduling and preference remain modeled assumptions"
+  ]
+}

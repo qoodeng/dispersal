@@ -1,0 +1,59 @@
+{
+  "reportingTests": true,
+  "domainCapacityGuard": true,
+  "results": [
+    {
+      "foodSupply": 0,
+      "people": 511,
+      "births": 1532,
+      "deaths": 1447,
+      "departures": 0,
+      "traveledKm": 0,
+      "meanNetKm": 0,
+      "medianCompletedResidenceDays": null,
+      "medianCurrentResidenceYears": 100,
+      "longestCurrentResidenceYears": 100,
+      "groupsResidentAtLeastYear": 6,
+      "provisionBlockedGroups": 0,
+      "deficitFraction": 1,
+      "energyBalanced": true
+    },
+    {
+      "foodSupply": 500,
+      "people": 511,
+      "births": 1532,
+      "deaths": 1447,
+      "departures": 298,
+      "traveledKm": 3162.7741763381664,
+      "meanNetKm": 55.59408425534969,
+      "medianCompletedResidenceDays": 1.0000000000000004,
+      "medianCurrentResidenceYears": 99.72630657945524,
+      "longestCurrentResidenceYears": 99.89449894609851,
+      "groupsResidentAtLeastYear": 6,
+      "provisionBlockedGroups": 5,
+      "deficitFraction": 0.9240988859722419,
+      "energyBalanced": true
+    },
+    {
+      "foodSupply": 2000,
+      "people": 511,
+      "births": 1532,
+      "deaths": 1447,
+      "departures": 34668,
+      "traveledKm": 473977.2529455411,
+      "meanNetKm": 48.76585559594417,
+      "medianCompletedResidenceDays": 2.4874499368908767,
+      "medianCurrentResidenceYears": 0.04110783348984626,
+      "longestCurrentResidenceYears": 0.196995083228515,
+      "groupsResidentAtLeastYear": 0,
+      "provisionBlockedGroups": 0,
+      "deficitFraction": 0,
+      "energyBalanced": true
+    }
+  ],
+  "viability": {
+    "status": "BLOCKED",
+    "reason": "No resource-condition or scarcity-demography response. Zero food still permits reference population growth.",
+    "zeroFoodPopulation": 511
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "relativeTolerance": 1e-8,
+  "results": [
+    {
+      "knowledge": "perfect",
+      "seasonality": 0,
+      "policy": "food",
+      "frames": 1201,
+      "nativeMs": 751.5882909999999,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 19195,
+        "traveledKm": 308971.38040148147,
+        "meanNetKm": 37.71977143796953,
+        "medianCompletedResidenceDays": 8.360416491904076,
+        "medianCurrentResidenceYears": 0.006410882547783103,
+        "longestCurrentResidenceYears": 0.07653652136232836,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "perfect",
+      "seasonality": 0,
+      "policy": "scheduled",
+      "frames": 1201,
+      "nativeMs": 687.9549589999997,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 5621,
+        "traveledKm": 208366.36345124085,
+        "meanNetKm": 47.860397631906615,
+        "medianCompletedResidenceDays": 31.140130397501775,
+        "medianCurrentResidenceYears": 0.0814113144969042,
+        "longestCurrentResidenceYears": 0.1068800965172585,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0.501536283242732,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "perfect",
+      "seasonality": 0.8,
+      "policy": "food",
+      "frames": 1201,
+      "nativeMs": 803.5993749999998,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 22993,
+        "traveledKm": 342832.4808894165,
+        "meanNetKm": 44.860101177406854,
+        "medianCompletedResidenceDays": 5.9999999999901945,
+        "medianCurrentResidenceYears": 0.023179874468794992,
+        "longestCurrentResidenceYears": 0.05181739940668706,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "perfect",
+      "seasonality": 0.8,
+      "policy": "scheduled",
+      "frames": 1201,
+      "nativeMs": 668.8461660000003,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 5621,
+        "traveledKm": 208366.36345124085,
+        "meanNetKm": 47.860397631906615,
+        "medianCompletedResidenceDays": 31.140130397501775,
+        "medianCurrentResidenceYears": 0.0814113144969042,
+        "longestCurrentResidenceYears": 0.1068800965172585,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0.5076424447591474,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "learned",
+      "seasonality": 0,
+      "policy": "food",
+      "frames": 1201,
+      "nativeMs": 886.4714580000009,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 23887,
+        "traveledKm": 345712.88155320095,
+        "meanNetKm": 47.43045378887674,
+        "medianCompletedResidenceDays": 5.771259401114271,
+        "medianCurrentResidenceYears": 0.02139906781373213,
+        "longestCurrentResidenceYears": 0.06557795767159291,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "learned",
+      "seasonality": 0,
+      "policy": "scheduled",
+      "frames": 1201,
+      "nativeMs": 669.2217079999991,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 5621,
+        "traveledKm": 208366.36345124085,
+        "meanNetKm": 47.860397631906615,
+        "medianCompletedResidenceDays": 31.140130397501775,
+        "medianCurrentResidenceYears": 0.0814113144969042,
+        "longestCurrentResidenceYears": 0.1068800965172585,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0.501536283242732,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "learned",
+      "seasonality": 0.8,
+      "policy": "food",
+      "frames": 1201,
+      "nativeMs": 1120.0502500000002,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 34668,
+        "traveledKm": 473977.25294554717,
+        "meanNetKm": 48.76585559594417,
+        "medianCompletedResidenceDays": 2.4874499368908767,
+        "medianCurrentResidenceYears": 0.04110783348984626,
+        "longestCurrentResidenceYears": 0.196995083228515,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    },
+    {
+      "knowledge": "learned",
+      "seasonality": 0.8,
+      "policy": "scheduled",
+      "frames": 1201,
+      "nativeMs": 674.4120409999996,
+      "summary": {
+        "people": 511,
+        "births": 1532,
+        "deaths": 1447,
+        "departures": 5621,
+        "traveledKm": 208366.36345124085,
+        "meanNetKm": 47.860397631906615,
+        "medianCompletedResidenceDays": 31.140130397501775,
+        "medianCurrentResidenceYears": 0.0814113144969042,
+        "longestCurrentResidenceYears": 0.1068800965172585,
+        "groupsResidentAtLeastYear": 0,
+        "provisionBlockedGroups": 0,
+        "deficitFraction": 0.5076424447591474,
+        "energyBalanced": true
+      },
+      "allFieldsWithinTolerance": true
+    }
+  ]
+}

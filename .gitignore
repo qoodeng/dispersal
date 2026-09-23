@@ -1,0 +1,22 @@
+node_modules/
+engine/target/
+.sites-runtime/
+.impeccable/review/
+# Downloaded literature cache; record citations and derived metadata instead.
+research/sources/
+
+# Research acquisition cache; source ledger and derived data are tracked.
+research/calibration/cache/
+
+__pycache__/
+
+research/world-v2/runtime/
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
+*.gate.lock*
+
+.regional-venv/

@@ -1,0 +1,11 @@
+{
+  "seeds": 32,
+  "rotationRadians": 0.4487989505128276,
+  "translationKm": [
+    40,
+    -30
+  ],
+  "fixture": "Isotropic equal-food ring; physical camps, origins and resource coordinates transformed together",
+  "choicesAndArrivalTimesInvariant": true,
+  "pass": true
+}

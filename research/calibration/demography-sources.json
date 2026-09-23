@@ -1,0 +1,62 @@
+[
+  {
+    "id": "tuljapurkar2007",
+    "doi": "10.1371/journal.pone.0000785",
+    "url": "https://doi.org/10.1371/journal.pone.0000785",
+    "title": "Why Men Matter: Mating Patterns Drive Evolution of Human Lifespan",
+    "authors": "Tuljapurkar Shripad D.; Puleston Cedric O.; Gurven Michael D.; Hawks John",
+    "year": 2007,
+    "source_type": "academic_article",
+    "locator": "Figure2a and caption; Methods and AppendixS1 inspected",
+    "review_status": "Named sections reviewed via NCBI full-text XML; not a complete systematic review",
+    "model_use": "Digitized normalized female fertility shape for Dobe !Kung1963\u20131974. Figure-derived, not an original numeric table. Two-sex discussion identifies limits of female-driven reproduction.",
+    "accessed": "2026-09-18",
+    "license": "See article; figure2 in tuljapurkar2007 explicitly CC BY",
+    "correction_ids": []
+  },
+  {
+    "id": "muller2020",
+    "doi": "10.1016/j.jhevol.2020.102795",
+    "url": "https://doi.org/10.1016/j.jhevol.2020.102795",
+    "title": "Sexual dimorphism in chimpanzee (Pan troglodytes schweinfurthii) and human age-specific fertility",
+    "authors": "Muller Martin N.; Blurton Jones Nicholas G.; Colchero Fernando; Thompson Melissa Emery; Enigk Drew K.; Feldblum Joseph T.; Hahn Beatrice H.; Langergraber Kevin E.; Scully Erik J.; Vigilant Linda; Walker Kara K.; Wrangham Richard W.; Wroblewski Emily E.; Pusey Anne E.",
+    "year": 2020,
+    "source_type": "academic_article",
+    "locator": "Methods Equations1\u20134; Hadza discussion; Tables1\u201311 inspected",
+    "review_status": "Named sections reviewed via NCBI full-text XML; not a complete systematic review",
+    "model_use": "Annual Bernoulli fertility is a published reference-model precedent; reproductive heterogeneity and sampling matter. No chimpanzee values used for humans. Hadza numerical schedule not extracted.",
+    "accessed": "2026-09-18",
+    "license": "See article; figure2 in tuljapurkar2007 explicitly CC BY",
+    "correction_ids": []
+  },
+  {
+    "id": "vandaalen2017",
+    "doi": "10.1007/s12080-017-0335-2",
+    "url": "https://doi.org/10.1007/s12080-017-0335-2",
+    "title": "Lifetime reproductive output: individual stochasticity, variance, and sensitivity analysis",
+    "authors": "van Daalen Silke F.; Caswell Hal",
+    "year": 2017,
+    "source_type": "academic_article",
+    "locator": "Table1 and human-population example",
+    "review_status": "Named sections reviewed via NCBI full-text XML; not a complete systematic review",
+    "model_use": "Distinguish empirical reproductive moments from assumed Bernoulli/Poisson reproduction; no new numeric rates adopted.",
+    "accessed": "2026-09-18",
+    "license": "See article; figure2 in tuljapurkar2007 explicitly CC BY",
+    "correction_ids": []
+  },
+  {
+    "id": "hawkes2009",
+    "doi": "10.1002/ajhb.20890",
+    "url": "https://doi.org/10.1002/ajhb.20890",
+    "title": "Mortality and Fertility Rates in Humans and Chimpanzees: How Within-Species Variation Complicates Cross-Species Comparisons",
+    "authors": "HAWKES KRISTEN; SMITH KEN R.; ROBSON SHANNEN L.",
+    "year": 2009,
+    "source_type": "academic_article",
+    "locator": "Introduction and mortality/fertility comparison; Table1",
+    "review_status": "Named sections reviewed via NCBI full-text XML; not a complete systematic review",
+    "model_use": "Within-population heterogeneity limits comparisons and transfer. No fitted mortality coefficients adopted from this paper.",
+    "accessed": "2026-09-18",
+    "license": "See article; figure2 in tuljapurkar2007 explicitly CC BY",
+    "correction_ids": []
+  }
+]

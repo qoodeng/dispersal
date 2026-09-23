@@ -1,0 +1,21 @@
+{
+  "doi": "10.7717/peerj.13066",
+  "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9074880/supplementaryFiles",
+  "accessed": "2026-09-18",
+  "archive_sha256": "b7fa1d929010f575563a2f7281a971720752fb59965bbe3cb7b6ca3975385669",
+  "license": "CC BY 4.0, as declared in the primary article",
+  "files": [
+    {
+      "file": "harvest.xlsx",
+      "archive_member": "peerj-10-13066-s001.xlsx",
+      "sha256": "02acf375a926cd615ea84b99ca4fd63e03303174e6a6aff1affc0077d430c535",
+      "bytes": 106157
+    },
+    {
+      "file": "analysis.rmd",
+      "archive_member": "peerj-10-13066-s002.rmd",
+      "sha256": "1de9f0c3272fd6a1585902ca16a42de5e553fc864f31fd434bc814617cc08520",
+      "bytes": 39081
+    }
+  ]
+}

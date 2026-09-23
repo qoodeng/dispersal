@@ -1,0 +1,68 @@
+[
+  {
+    "seed": 1,
+    "people": 654,
+    "births": 1878,
+    "deaths": 1650,
+    "departures": 24926,
+    "traveledKm": 372306.82290425414,
+    "meanNetKm": 34.08346406949976,
+    "medianCompletedResidenceDays": 6.023522423768446,
+    "deficitFraction": 0,
+    "energyBalanced": true,
+    "immediateReturnFraction": 0.0072213752708015725,
+    "uniqueUndirectedEdgesPerGroup": 1324.8333333333333,
+    "uniqueDestinationsPerGroup": [
+      202,
+      210,
+      136,
+      132,
+      172,
+      135
+    ]
+  },
+  {
+    "seed": 42,
+    "people": 580,
+    "births": 1713,
+    "deaths": 1559,
+    "departures": 22451,
+    "traveledKm": 354350.0526744119,
+    "meanNetKm": 39.3377720210699,
+    "medianCompletedResidenceDays": 7.28352301417064,
+    "deficitFraction": 0,
+    "energyBalanced": true,
+    "immediateReturnFraction": 0.0038751057859338113,
+    "uniqueUndirectedEdgesPerGroup": 1367,
+    "uniqueDestinationsPerGroup": [
+      166,
+      174,
+      179,
+      202,
+      156,
+      130
+    ]
+  },
+  {
+    "seed": 123,
+    "people": 511,
+    "births": 1532,
+    "deaths": 1447,
+    "departures": 19226,
+    "traveledKm": 310760.82975868427,
+    "meanNetKm": 43.78853833913984,
+    "medianCompletedResidenceDays": 8.330432860300302,
+    "deficitFraction": 0,
+    "energyBalanced": true,
+    "immediateReturnFraction": 0.004265057734318111,
+    "uniqueUndirectedEdgesPerGroup": 1368.8333333333333,
+    "uniqueDestinationsPerGroup": [
+      209,
+      175,
+      165,
+      135,
+      223,
+      161
+    ]
+  }
+]

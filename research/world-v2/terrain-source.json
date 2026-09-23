@@ -1,0 +1,42 @@
+{
+  "source_id": "etopo2022",
+  "doi": "10.25921/fd45-gt74",
+  "url": "https://www.ngdc.noaa.gov/thredds/dodsC/global/ETOPO2022/60s/60s_surface_elev_netcdf/ETOPO_2022_v1_60s_N90W180_surface.nc",
+  "accessed": "2026-09-18",
+  "product": "ETOPO2022 v1 60arcsecond surface",
+  "vertical_reference": "EGM2008",
+  "vertical_epsg": "EPSG:3855",
+  "units": "meters positive up",
+  "bounds": [
+    20,
+    -5,
+    65,
+    40
+  ],
+  "shape": [
+    2700,
+    2700
+  ],
+  "native_resolution_degrees": 0.016666666666666666,
+  "sha256": "9267bb335c77884ffeeb333136d02352ac25256857b28708e1fed8e746eed07a",
+  "bytes": 22957383,
+  "use": "modern topography/bathymetry input; not ancient coastline",
+  "pending": [
+    "regional sea-level and vertical-datum treatment",
+    "palaeoshoreline uncertainty",
+    "subgrid pass connectivity"
+  ],
+  "source_attributes": {
+    "long_name": "z",
+    "grid_mapping": "crs",
+    "units": "meters",
+    "positive": "up",
+    "standard_name": "height",
+    "vert_crs_name": "EGM2008",
+    "vert_crs_epsg": "EPSG:3855",
+    "_ChunkSizes": [
+      1350,
+      2700
+    ]
+  }
+}

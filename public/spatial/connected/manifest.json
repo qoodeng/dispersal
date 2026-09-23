@@ -1,0 +1,139 @@
+{
+  "schema": "connected-region/1",
+  "status": "M1 engineering geography, not validated habitability",
+  "sha256": "2ee9ddad96047ca7a27b67d15c8a8769ea1fe857d6b2961690ffe56011ab8e4f",
+  "terrain": {
+    "source_id": "etopo2022",
+    "doi": "10.25921/fd45-gt74",
+    "url": "https://www.ngdc.noaa.gov/thredds/dodsC/global/ETOPO2022/60s/60s_surface_elev_netcdf/ETOPO_2022_v1_60s_N90W180_surface.nc",
+    "accessed": "2026-09-18",
+    "product": "ETOPO2022 v1 60arcsecond surface",
+    "vertical_reference": "EGM2008",
+    "vertical_epsg": "EPSG:3855",
+    "units": "meters positive up",
+    "bounds": [
+      20,
+      -5,
+      65,
+      40
+    ],
+    "shape": [
+      2700,
+      2700
+    ],
+    "native_resolution_degrees": 0.016666666666666666,
+    "sha256": "9267bb335c77884ffeeb333136d02352ac25256857b28708e1fed8e746eed07a",
+    "bytes": 22957383,
+    "use": "modern topography/bathymetry input; not ancient coastline",
+    "pending": [
+      "regional sea-level and vertical-datum treatment",
+      "palaeoshoreline uncertainty",
+      "subgrid pass connectivity"
+    ],
+    "source_attributes": {
+      "long_name": "z",
+      "grid_mapping": "crs",
+      "units": "meters",
+      "positive": "up",
+      "standard_name": "height",
+      "vert_crs_name": "EGM2008",
+      "vert_crs_epsg": "EPSG:3855",
+      "_ChunkSizes": [
+        1350,
+        2700
+      ]
+    }
+  },
+  "seaLevelM": -22.77,
+  "projection": "+proj=aeqd +lat_0=24 +lon_0=39 +datum=WGS84 +units=km +type=crs",
+  "extentKm": 3000.0,
+  "displayCellKm": 10.0,
+  "routeSamplingKm": 0.5,
+  "routeMaximumKm": 55,
+  "campMinimumSeparationKm": 15.0,
+  "siteSeed": 19092026,
+  "sites": 14882,
+  "edges": 127661,
+  "components": 98,
+  "anchors": {
+    "Nile": {
+      "site": 14443,
+      "distanceKm": 8.863183327190354,
+      "component": 0
+    },
+    "Sinai": {
+      "site": 5627,
+      "distanceKm": 6.359665104371544,
+      "component": 0
+    },
+    "Levant": {
+      "site": 8782,
+      "distanceKm": 6.7977505677748455,
+      "component": 0
+    },
+    "Arabia": {
+      "site": 2568,
+      "distanceKm": 13.625860768854652,
+      "component": 0
+    },
+    "NortheastAfrica": {
+      "site": 13945,
+      "distanceKm": 9.158293605913379,
+      "component": 0
+    }
+  },
+  "foodCells": 416150,
+  "foragingQuadratureKm": 2.5,
+  "foragingRadiusKm": 7.5,
+  "foragingEffort": "weight 1/(1+round-trip terrain-cost/6km); synthetic assumption",
+  "food": "uniform synthetic kcal/km2/day with spatially phased annual forcing",
+  "water": "unknown; engineering runs assume availability, no regional viability claim",
+  "referencePeople": "ones are land initialization eligibility, not density estimates",
+  "limitations": [
+    "modern relief at uniform global sea level",
+    "sub-kilometer obstacles unresolved",
+    "no freshwater access",
+    "static 100ka geography",
+    "no historical occupation prediction"
+  ],
+  "expandedWorldSha256": "db0d9b12d453023597fa010f0f783c9b9b97d6f85d0b9f0863b19d1368d6d6ba",
+  "dataParts": [
+    {
+      "file": "resources-0.json",
+      "sha256": "c702510d764057d66d09cb453c3d4979fc177c3f519782f1c0bad016190db653",
+      "foodCells": 100000,
+      "access": 100000
+    },
+    {
+      "file": "resources-1.json",
+      "sha256": "e44c58a45db6972c86991791edc0eca6c2f564ca734976cd99842c7d27088b20",
+      "foodCells": 100000,
+      "access": 100000
+    },
+    {
+      "file": "resources-2.json",
+      "sha256": "81a21908084003e40236e49e1c98de304ae34168aaa48c77b78e755d7d214459",
+      "foodCells": 100000,
+      "access": 100000
+    },
+    {
+      "file": "resources-3.json",
+      "sha256": "6b8a8ac0e142ec909cda9c3761ce4e4bc2355f4281e11c7ea6de66c904543370",
+      "foodCells": 100000,
+      "access": 100000
+    },
+    {
+      "file": "resources-4.json",
+      "sha256": "ec274e929a0e7078952fc6751a205de7c1429b73e51f7478fbf762b110bdeb45",
+      "foodCells": 16150,
+      "access": 16150
+    }
+  ],
+  "displayTerrain": {
+    "file": "terrain-100000.png",
+    "cellKm": 2,
+    "sha256": "7929a0d2f702c2cde8517c23596037b04d1f8522a17e3b9d37113cbe940ca251",
+    "note": "Overview only; native-grid routes use conservative half-kilometer sampling."
+  },
+  "destinationQuadrature": "Candidate probabilities weighted by represented land area from nearest-camp allocation of fixed resource quadrature; this allocation does not allocate or duplicate food."
+}

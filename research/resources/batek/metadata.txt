@@ -1,0 +1,18 @@
+### This is a metadata file to accompany Venkataraman, Kraft, Dominy, and Endicott, "Hunter-gatherer residential mobility and the marginal value of rainforest patches." Code and data associated with this project is archived at https://github.com/ThomasKraft/HunterGathererMarginalValueTheorem. The metadata here is specifically in reference to the file “campmovementdata.RData” which can be accessed at https://github.com/ThomasKraft/HunterGathererMarginalValueTheorem/blob/master/Data/campmovementdata.RData. ###
+
+# When first loaded in R, this .Rdata file will import a data frame called “tot” that includes the variables below. Descriptions for the variables are as follows:
+
+
+“Cum.Jul.Date” = The unique “cumulative” Julian date relevant to each row, starting at 1 for the first day of data collection and increasing from there. This variable is coded as a character string, which causes it to be treated as a factor (categorical variable) when used.
+ 
+“Camp.number” = A unique camp identifier number assigned to each of the 11 Batek camps analyzed. This variable is coded as a factor (with 11 levels).
+
+“variable” = The resource set for a given row (which is defined by a given cumulative julian date and camp number). There are five levels of this factor (categorical variable), corresponding to each of the resource sets considered for analysis. Descriptions of the levels are as follows: “tot_rat_only” = rattan; “tot_tuber” = tubers; “tot_meat” = meat; “tot_rat” = all wild foods and rattan; “tot” = all wild foods (no rattan)
+
+“value” = Per capita returns in kilocalories. Thus, "value" for a given row represents the total returns (in kcal) for a given resource set brought into camp on a single day, divided by the number of foragers in camp on that camp.
+  
+“value” = Per capita 
+
+“count” = Within-camp day occupation number. For each camp-resource set combination, this variable is a sequential vector that goes from day 1 (or day zero once the full code has been run) to the last day in camp. Thus, all rows representing foraging returns on the fourth day spent in camp 1 will have a value of 4 for this variable (or 5 once the full code has been run).
+
+“Avg” = Per-capita environmental average foraging returns. Note that each resource set has a single value of “Avg” that is repeated for all rows in which the focal resource set is the same. 

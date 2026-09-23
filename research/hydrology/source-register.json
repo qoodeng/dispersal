@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "doi": "10.1038/s41559-018-0518-2",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5935238/supplementaryFiles",
+      "archive": "alwusta2018-si.zip",
+      "member": "NIHMS76394-supplement-Supplementary_information.pdf",
+      "member_sha256": "97b52fcd60c95fcfd89622ff357d346cd3387420fe11654123e5e9dbdc16ecbe",
+      "archive_sha256": "f5c4959fb9f278ebba69710d919599245c3190e38139a1017dd56c6b421bf4b8",
+      "reviewed": "2026-09-19"
+    },
+    {
+      "doi": "10.1126/sciadv.aba8940",
+      "url": "https://doi.org/10.1126/sciadv.aba8940",
+      "archive": "alathar-supplements.zip",
+      "member": "aba8940_SM.pdf",
+      "member_sha256": "fd86a56257aad33798250bb7ffbaa386cca61828cd9724a8329ff07300b141c9",
+      "archive_sha256": "66da9917f6f1f0aab5ef9b4d14b9e65edbc75d9d5a371a7e97e22358fe6c5ff6",
+      "reviewed": "2026-09-19"
+    },
+    {
+      "doi": "10.1038/s41586-021-03863-y",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8443443/supplementaryFiles",
+      "archive": "arabia2021-supplements.zip",
+      "member": "41586_2021_3863_MOESM1_ESM.pdf",
+      "member_sha256": "bbc5fe9d70705f63b6c55dc07e451314b6b1df4d220010d0b010782c7b359309",
+      "archive_sha256": "878bd3416c6fda1127e2605e4708a7666dd91d5e607fac052d7cef622f9c5764",
+      "reviewed": "2026-09-19"
+    }
+  ],
+  "correction": {
+    "doi": "10.1038/s41586-021-04289-2",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8810378/",
+    "sha256": "e6f6030c46b6086071c6d97f99bd3a1ac790af80a1f33f57c9365cdd7dd39dc6"
+  }
+}

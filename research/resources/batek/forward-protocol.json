@@ -1,0 +1,16 @@
+{
+ "schema":"batek-forward-protocol/1",
+ "scope":"Development follow-up on already inspected data; not a fresh confirmatory holdout",
+ "frozen_before_forward_scores":true,
+ "minimum_history_days":3,
+ "resources":["tot","tot_rat"],
+ "complete_camps":[2,3,5,6,9,10,11],
+ "models":["other-camp mean","local running mean","last observed day","local exponential cumulative gain","local Michaelis-Menten cumulative gain","local Holling III cumulative gain"],
+ "forecast":"One day ahead from day4; use only earlier days in focal camp. Other-camp baseline excludes all focal camp observations. All forecasts evaluated on identical eligible rows.",
+ "fit":"Fit daily increments by positive bounded nonlinear least squares using only available local history. Same bounds and three starts as prior development test. Failure falls back to local mean and is counted.",
+ "scores":["equal-camp mean RMSE","equal-camp mean MAE","per-camp scores","paired camp-bootstrap differences against each baseline"],
+ "bootstrap":"2000 resamples of whole evaluable camps, seed20260919; percentile95% interval; descriptive small-sample uncertainty only",
+ "selection":"No candidate tuning after scores. A candidate proceeds only if its RMSE beats every baseline and its paired bootstrap difference upper bound is below zero against every baseline. Still requires independent population and relocation evaluation.",
+ "leakage_checks":"Each prediction records history end < target day. Changing future target values must leave that forecast unchanged. Changing other-camp observations cannot alter local-only model forecasts.",
+ "limitations":["Camp3 has only3 days and cannot be evaluated after warmup","No observations after departure; scores conditional on remaining in camp","Return forecasts do not validate departure timing","Same population and overlapping development data","No regional transfer"]
+}

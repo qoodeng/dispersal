@@ -1,0 +1,18 @@
+{
+  "schema": "dispersal-model-contract/3",
+  "default": "Integrated connected-region synthetic food experiment",
+  "status": "M1 engineering scope; no historical validity claim",
+  "activeContract": "/spatial/resource-experiment.json",
+  "legacyReferenceContract": "/spatial/model-contract-reference-v2.json",
+  "modes": {
+    "integrated": "Physical accessible food, travel, memory, lagged resource-demography response, conserved lifecycle, experimental establishment and recolonization.",
+    "uncoupled": "Same integrated lifecycle and resources, reference demography without food response.",
+    "reference": "Local dated windows only: transferred modern density/mobility references, no food feedback."
+  },
+  "unknown": [
+    "Regional freshwater",
+    "Ancient resource conversion and subsistence",
+    "Dynamic historical environment",
+    "Calibrated arrival/occupation inference"
+  ]
+}

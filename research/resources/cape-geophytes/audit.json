@@ -1,0 +1,88 @@
+{
+  "schema": "cape-harvest-audit/1",
+  "raw_rows": 229,
+  "retained_rows": 175,
+  "excluded_rows": 54,
+  "author_species_exclusions": [
+    "Albuca goswinii",
+    "Asparagus asparagoides",
+    "Boophone guttata",
+    "Drimia elata",
+    "Eriospermum pubescens",
+    "Eriospermum sp",
+    "Euphorbia burmannii",
+    "Hyacinthaceae",
+    "Ledebouria sp",
+    "None",
+    "Prionium serratum",
+    "Unknown sp",
+    "Unknown sp 1",
+    "Unknown sp 10",
+    "Unknown sp 11",
+    "Unknown sp 2",
+    "Unknown sp 3",
+    "Unknown sp 4",
+    "Unknown sp 5",
+    "Unknown sp 6",
+    "Unknown sp 7",
+    "Unknown sp 8",
+    "Unknown sp 9",
+    "wachendorfia speciflora"
+  ],
+  "author_part_exclusions": [
+    "Leaves",
+    "berries",
+    "seedpod"
+  ],
+  "observed_plot_years": 55,
+  "plots": 19,
+  "complete_plots": 18,
+  "year_summaries": [
+    {
+      "Year": 2015,
+      "count": 19,
+      "sum": 7713.78,
+      "mean": 405.9884210526,
+      "std": 433.0184225522
+    },
+    {
+      "Year": 2016,
+      "count": 18,
+      "sum": 6334.46,
+      "mean": 351.9144444444,
+      "std": 312.0522842734
+    },
+    {
+      "Year": 2017,
+      "count": 18,
+      "sum": 3365.65,
+      "mean": 186.9805555556,
+      "std": 170.5460611397
+    }
+  ],
+  "total_kg": 17.413890000000002,
+  "paper_total_kg": 17.2,
+  "difference_from_paper_total_kg": 0.2138900000000028,
+  "paper_plot_means_g": {
+    "2015": 411.0,
+    "2016": 372.6,
+    "2017": 187.0
+  },
+  "fraction_of_2015_total": {
+    "2016": 0.8412219275518023,
+    "2017": 0.4469613164286653
+  },
+  "plots_exceeding_half_initial_yield": {
+    "2016": 13,
+    "2017": 10
+  },
+  "regional_adoption": false,
+  "interpretation": [
+    "Measured spring harvest mass, not standing stock or annual production",
+    "Repeated harvest does not distinguish recruitment, dormancy, missed individuals and growth",
+    "Selected USO-bearing plots are not unbiased regional biomass density samples",
+    "Medicinal surrogate Kedrostis nana retained by source study; cannot all be called human food intake",
+    "Duration repeated across species rows cannot be summed to obtain effort",
+    "No paired camp relocation outcome"
+  ]
+}

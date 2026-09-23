@@ -1,0 +1,17 @@
+{
+  "schema":"batek-departure-protocol/1",
+  "scope":"Development evaluation on previously inspected data, not independent confirmation or ancient transfer",
+  "question":"Do observed food returns improve next-departure decisions over camp-age alone?",
+  "complete_camps":[2,3,5,6,9,10,11],
+  "target":"Leave at the end of the final observed day of a complete camp; other days stay. Predictions at day end may use that day's returns but never later returns or total camp duration.",
+  "resources":["tot","tot_rat"],
+  "models":["constant departure hazard","log camp age","log camp age plus log last-three-day mean return relative to earlier running mean"],
+  "features":"age=ln(day); decline=ln((mean returns days max(1,day-2)..day +1)/(mean returns days1..max(1,day-3) +1)); decline zero before day4. The1kcal offset is numerical regularization, not physiology.",
+  "estimator":"Logistic regression with L2 C=1, unpenalized intercept; training-fold StandardScaler; no class balancing; no tuned hyperparameters. Constant uses Beta(1,1) smoothed training events/exposure.",
+  "split":"Leave one complete camp out; train on all other complete camps; day-weighted fitting; same eligible rows for every model.",
+  "scores":["equal-camp mean log loss","equal-camp mean Brier score","per-camp scores","paired whole-camp bootstrap95% intervals of candidate minus baseline"],
+  "adoption":"Resource candidate must improve log loss against both baselines with paired bootstrap upper bound below0, and not worsen Brier score. This permits further independent evaluation only, never automatic ancient adoption.",
+  "bootstrap":{"replicates":5000,"seed":20260919},
+  "leakage_checks":["Changing future focal returns leaves earlier predictions unchanged","All feature scaling and regression exclude focal camp"],
+  "limits":["Only7departures","Rows within camps dependent","Observations end at departure; counterfactual return after staying is unknown","No destination selection or freshwater effect identified","Food/trade denominator and camp11 duration discrepancies retained","No threshold selected from evaluation scores"]
+}

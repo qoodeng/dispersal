@@ -1,0 +1,49 @@
+{
+  "commit": "11d09bf6c35d90d23c7c60b3871fb9c31b880340",
+  "accessed": "2026-09-18",
+  "artifacts": [
+    {
+      "file": "LRB.csv",
+      "url": "https://raw.githubusercontent.com/benmarwick/binford/11d09bf6c35d90d23c7c60b3871fb9c31b880340/data-raw/LRB.csv",
+      "sha256": "ce9f73cb9141efb8603ac1c86eeb8028fa3dce1afdf0859bedb1e222bad067f9",
+      "bytes": 944965
+    },
+    {
+      "file": "LRBkey.csv",
+      "url": "https://raw.githubusercontent.com/benmarwick/binford/11d09bf6c35d90d23c7c60b3871fb9c31b880340/data-raw/LRBkey.csv",
+      "sha256": "1ee587a5ed69621035c86fc6daa8f1fca4048ee91b8182198f15f992f89eb8c1",
+      "bytes": 100950
+    },
+    {
+      "file": "LRBcodebook.txt",
+      "url": "https://raw.githubusercontent.com/benmarwick/binford/11d09bf6c35d90d23c7c60b3871fb9c31b880340/data-raw/LRBcodebook.txt",
+      "sha256": "3428c409dfe62f3de64c0368b2ab2f74ab935d897539f1dc265e3f2f382be6b5",
+      "bytes": 166703
+    },
+    {
+      "file": "DESCRIPTION",
+      "url": "https://raw.githubusercontent.com/benmarwick/binford/11d09bf6c35d90d23c7c60b3871fb9c31b880340/DESCRIPTION",
+      "sha256": "838b1d59ecf5b0a61dad2995cc9711a26997a271ed2a7f99a0a205b4e9662036",
+      "bytes": 780
+    },
+    {
+      "file": "modern-climate-patch.nc",
+      "source_url": "https://zenodo.org/api/records/7062281/files/Beyer2020_annual_vars_v1.1.0.nc/content",
+      "doi": "10.1038/s41597-020-0552-1",
+      "source_bytes": 323469170,
+      "source_sha256": "96db0f56c65da55c11a9eb03e309b19343084adc57e234f65ee5f75587ea220c",
+      "sha256": "64422b2d6638cde25a36e05bfae453e0ed9e82deafd5795fb63f7696bb34325a",
+      "extraction": "bio01, bio12, npp; time0, latitude27.5\u201329.5, longitude33.5\u201335.5, native0.5degrees; decode_times=False",
+      "used": "bio01 temperature Celsius, bio12 annual precipitation mm; npp retained but not used as food",
+      "time_reference": "time0 years since1950 baseline; do not interpret as observed2026 climate",
+      "license": "CC BY4.0"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://benmarwick.r-universe.dev/binford/data/LRB?format=csv",
+      "status": 401,
+      "result": "Not used; obtained pinned maintainer GitHub source instead"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "integrity_checks": "passed",
+  "checks": [
+    "33 unique cited sources with locators and review status",
+    "10 unique archaeological records linked to registered sources",
+    "Minimum-age and asymmetric uncertainty distinctions retained",
+    "799 sequential sea-level rows with ordered quantiles",
+    "Published-input demographic eigenvalue reproduced",
+    "Synthetic growth\u2013diffusion non-identifiability example checked",
+    "19 locally retained acquisition hashes verified"
+  ],
+  "historical_calibration": "not performed",
+  "historical_predictions_enabled": false,
+  "unresolved_date_conventions": [
+    "aw-pd40",
+    "aw-pd17",
+    "aw-pd41",
+    "aw-pd15",
+    "al-pd61",
+    "al-pd62"
+  ],
+  "other_blockers": [
+    "Matched fertility data and transfer uncertainty",
+    "More independent regional benchmark chronologies",
+    "Sea-level datum and fine-scale route geometry",
+    "Scientific transport solver and synthetic parameter recovery",
+    "Posterior fit and held-out predictive evaluation"
+  ]
+}

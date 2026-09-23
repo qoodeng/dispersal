@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "checks": [
+    "41original time slices retained",
+    "Native0.5degree resolution retained",
+    "Spherical areas positive",
+    "Exact-time and halfway interpolation checked",
+    "Out-of-coverage and nonfinite time rejected",
+    "Missing endpoint remains unknown"
+  ],
+  "historical_claims_validated": false
+}

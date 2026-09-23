@@ -1,0 +1,42 @@
+{
+  "doi": "10.1073/pnas.1617542114",
+  "commit": "7671a0730565a58434ec6e296a35bec7ae24ae7f",
+  "accessed": "2026-09-18",
+  "files": [
+    {
+      "file": "metadata.txt",
+      "url": "https://raw.githubusercontent.com/ThomasKraft/HunterGathererMarginalValueTheorem/7671a0730565a58434ec6e296a35bec7ae24ae7f/Data/campmovementdata%20metadata.txt",
+      "sha256": "5583445d4bff08a8272462e7ef25987867ed7ccdd79adcc537d0764bb8828ba4",
+      "bytes": 2424
+    },
+    {
+      "file": "campmovementdata.RData",
+      "url": "https://raw.githubusercontent.com/ThomasKraft/HunterGathererMarginalValueTheorem/7671a0730565a58434ec6e296a35bec7ae24ae7f/Data/campmovementdata.RData",
+      "sha256": "852ed9493d5c54517674297af9efb217c70980b83d0ab339e6c1341a20510926",
+      "bytes": 4050
+    },
+    {
+      "file": "analysis.R",
+      "url": "https://raw.githubusercontent.com/ThomasKraft/HunterGathererMarginalValueTheorem/7671a0730565a58434ec6e296a35bec7ae24ae7f/Published%20code/Venkataraman%20et%20al.%20HG%20mobility.R",
+      "sha256": "13c0f4201988bf295137218f933dbf5efc836af6be5a59b98548e36e87a692d4",
+      "bytes": 15100
+    },
+    {
+      "file": "LICENSE",
+      "url": "https://raw.githubusercontent.com/ThomasKraft/HunterGathererMarginalValueTheorem/7671a0730565a58434ec6e296a35bec7ae24ae7f/LICENSE",
+      "sha256": "d48bc99acaf2e8327094255b7b8ecac0603c131361aecc2ff45fd26cab60bb8c",
+      "bytes": 1079
+    }
+  ],
+  "article_review": {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5373393/?report=xml",
+    "sha256_of_acquired_html": "663bb630e2a9e8e4126ebdc0d1526e0524dc7ddea9b472af8d7a8b4099bd3282",
+    "locators": [
+      "Methods",
+      "SI Text",
+      "Tables S1\u2013S4",
+      "Tables 1\u20132"
+    ],
+    "transcribed_table": "travel.csv from Table S3"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "dispersal-spatial-contract/1",
+  "status": "integrated mechanism experiment; not historical inference",
+  "sourced": [
+    {
+      "component": "modern terrain",
+      "source": "NOAA ETOPO2022 v1 60 arcseconds",
+      "doi": "10.25921/fd45-gt74",
+      "provenance": "input-manifest.json"
+    },
+    {
+      "component": "modern pooled-sex !Kung mortality",
+      "doi": "10.1111/j.1728-4457.2007.00171.x",
+      "location": "Table 2",
+      "coefficients": [
+        0.34,
+        0.913,
+        0.01,
+        0.000331,
+        0.077
+      ]
+    },
+    {
+      "component": "digitized female fertility age shape",
+      "doi": "10.1371/journal.pone.0000785",
+      "location": "Figure 2a Dobe !Kung",
+      "extraction": "/reference/fertility-reference.json"
+    },
+    {
+      "component": "modern intrinsic growth fitting target",
+      "doi": "10.1098/rstb.2019.0708",
+      "targetAnnualLogRate": 0.0026,
+      "note": "Fitted demographic reference, not independent historical validation; full register in sources.json"
+    }
+  ],
+  "scenarioAssumptions": {
+    "initialization": "Each age-sex cohort floor(count/10), distributed round-robin among six groups on six southwest land sites; 426 initial people",
+    "resources": "Uniform site budgets in person-years, not calories; renewal user parameter 10\u2013200 per site/year; storage cap 3 times renewal",
+    "renewalTiming": "Before annual consumption; add min(renewal, storage capacity minus current stock)",
+    "consumption": "One abstract budget unit per person per annual step. Residents share local stock and deficits proportionally. At departure, a group withdraws min(available stock, current people * ceil(travel duration)) into carried inventory. Travelers consume only that inventory, never later departure-site renewal. Whole-year transit charging includes the arrival step. Leftovers deposit at arrival, with storage overflow recorded as discarded. Transport/storage capacity is not calibrated; there is no starvation or fecundity response.",
+    "destinationChoice": "If current (stock + renewal)/claimed population <1.5, evaluate directly connected sites within12km; score=(stock + renewal)/(claimed population + group people)/(1 + route cost/travel budget); relocate only if score exceeds local ratio by0.05. Claims include residents and travelers assigned to that destination. Annual ID priority rotates. This is a heuristic, not fitted human behavior.",
+    "travelCost": "distance_km + 4 * total absolute elevation change_km, sampled every <=0.25km on resampled elevation. Symmetric sensitivity rule, not validated physiological cost.",
+    "travelTime": "cost / residential travel budget (1\u201340 km-equivalent/year); not literal daily walking speed",
+    "barrier": "All cells touched by a segment must be positive elevation; unknowns and window exterior blocked. Present-day conservative elevation mask, not a verified water/palaeoland map.",
+    "groupFission": "Resident group >90 people splits half of each cohort (integer floor), with count conservation. No kinship, partner or family rules; max512 groups software bound.",
+    "sites": "550 irregular candidate sites, minimum3km spacing. They are numerical decision sites, not reconstructed settlements. Local point locations remain continuous during transit.",
+    "time": "100 elapsed years, no BP date; annual decisions/demography, exact scheduled arrival time, continuous route interpolation",
+    "demography": "Same modern rates in all habitats, including travelers. No pregnancy, spacing, famine or partner state; 0.5 female birth probability. Annual newborn convention retained."
+  },
+  "requiredBeforeHistoricalUse": [
+    "Resource and freshwater evidence and calibration",
+    "Climate/vegetation integration",
+    "Palaeoshorelines and relative sea-level uncertainty",
+    "Grid/site density convergence and directional bias experiments",
+    "Travel and relocation behavioral calibration",
+    "Independent archaeological observation model and holdout validation",
+    "Uncertainty propagation",
+    "Broader geography and window-boundary treatment"
+  ],
+  "verification": "checks.json plus 35 Rust unit tests. Resource identity includes site stock, carried stock, consumption and discarded overflow. Accounting correctness is not empirical validation."
+}

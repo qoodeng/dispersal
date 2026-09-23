@@ -1,0 +1,230 @@
+Order,PlotNo,Date,Year,Forager ID,StartTime,StopTime,Duration_min,Species,CommonName,PartCollected,GrossWt_lb,GrossWt_n,EdibleWt_lb,EdibleWt_g,EdibleWt_n,ProcessingTime_min,excel_row,exclusion
+84.0,Plot18,2015-08-27,2015,1,12:36:00,13:26:00,50,Ferraria crispa,?,Corm,,,0.28,127.01,93.0,3,2,
+1.0,Plot01,2015-09-03,2015,2,13:59:00,16:46:00,167,Babiana patula,bobbejaantjie,Corm,0.02,2.0,0.0517,23.45,2.0,,3,
+2.0,Plot01,2015-09-03,2015,2,13:59:00,16:46:00,167,Cyphia digitata,baroe,Tuber,,,0.075,34.02,1.0,,4,
+6.0,Plot01,2016-09-01,2016,2,13:40:00,14:42:00,62,Babiana patula,bobbejaantjie,Corm,,,0.06,27.22,4.0,,5,
+14.0,Plot11,2015-11-06,2015,2,10:20:00,11:00:00,40,Conicosia pugioniformis,varkwortel,Root,,,0.24,108.86,22.0,,6,
+16.0,Plot11,2015-11-06,2015,2,10:20:00,11:00:00,40,Pelargonium triste,kaneelbol,Tuber,,,0.05,22.68,3.0,,7,
+23.0,Plot12,2015-11-06,2015,2,12:18:00,12:32:00,14,Cassine perugua,,berries,0.195,147.0,0.11,49.9,147.0,,8,author part exclusion
+24.0,Plot12,2015-11-06,2015,2,12:18:00,12:32:00,14,Osteospermum monolifera,bietou,berries,0.02,1.0,0.01,4.54,1.0,,9,author part exclusion
+26.0,Plot12,2015-11-06,2015,2,12:18:00,12:32:00,14,Pelargonium lobatum,platblaar patat,Tuber,,,0.46,208.65,5.0,,10,
+27.0,Plot12,2015-11-06,2015,2,12:18:00,12:32:00,14,Searsia glauca,,berries,0.05,138.0,0.03,13.61,138.0,,11,author part exclusion
+43.0,Plot14,2015-08-25,2015,2,11:07:00,11:59:00,52,Babiana patula,bobbejaantjie,Corm,0.05,2.0,0.02,9.07,2.0,,12,
+45.0,Plot14,2015-08-25,2015,2,11:07:00,11:59:00,52,Pelargonium lobatum,platblaar patat,Tuber,,,0.205,92.99,18.0,,13,
+48.0,Plot14,2015-08-25,2015,2,11:07:00,11:59:00,52,Wachendorfia paniculata,?,Bulb,,,0.02,9.07,11.0,,14,
+57.0,Plot15,2015-08-25,2015,2,13:55:00,14:31:00,36,Babiana ambigua,bobbejaantjie,Corm,,,0.015,6.8,2.0,,15,
+59.0,Plot15,2015-08-25,2015,2,13:55:00,14:31:00,36,Pelargonium lobatum,platblaar patat,Tuber,,,0.18,81.65,6.0,,16,
+61.0,Plot15,2015-08-25,2015,2,13:55:00,14:31:00,36,Pelargonium triste,kaneelbol,Tuber,,,0.045,20.41,1.0,,17,
+67.0,Plot16,2015-08-26,2015,2,12:01:00,14:01:00,120,Chasmanthe aethiopica,pypie,Corm,,,0.37,167.83,59.0,,18,
+71.0,Plot16,2015-08-26,2015,2,12:01:00,14:01:00,120,Pelargonium triste,kaneelbol,Tuber,,,0.08,36.29,1.0,,19,
+78.0,Plot17,2015-08-26,2015,2,16:26:00,17:20:00,54,Kedrostis nana,?,Tuber,,,0.25,113.4,2.0,,20,
+78.0,Plot17,2015-08-26,2015,2,16:26:00,17:20:00,54,Kedrostis nana,?,Tuber,,,0.25,113.4,2.0,,21,
+92.0,Plot19,2015-09-02,2015,2,12:04:00,12:31:00,27,Babiana patula,bobbejaantjie,Corm,,,0.01,4.54,1.0,,22,
+112.0,Plot20,2015-09-03,2015,2,09:24:00,11:34:00,130,Babiana patula,bobbejaantjie,Corm,0.02,2.0,0.01,4.54,2.0,0.5,23,
+115.0,Plot20,2015-09-03,2015,2,09:24:00,11:34:00,130,Pelargonium repaceum,,Tuber,0.53,46.0,0.515,233.6,46.0,2,24,
+116.0,Plot20,2015-09-03,2015,2,09:24:00,11:34:00,130,Satyrium longicolle,Satyrium spp. (1 and 2),Tuber,0.095,21.0,0.055,24.95,15.0,0.5,25,
+120.0,Plot20,2016-09-03,2016,2,14:30:00,15:31:00,61,Babiana patula,bobbejaantjie,Corm,,,0.01,4.54,1.0,,26,
+128.0,Plot03,2016-08-30,2016,2,15:30:00,16:30:00,60,Babiana patula,bobbejaantjie,Corm,0.06,2.0,0.03,13.61,2.0,,27,
+130.0,Plot03,2016-08-30,2016,2,15:30:00,16:30:00,60,Pelargonium repaceum,,Tuber,,,0.07,31.75,1.0,,28,
+150.0,Plot05,2016-09-02,2016,2,13:22:00,15:39:00,137,Oxalis pes-caprae,suuring,Leaves,,,0.5,226.8,1297.27,,29,author part exclusion
+153.0,Plot06,2015-10-05,2015,2,10:46:00,12:14:00,88,Chasmanthe aethiopica,pypie,Corm,,,0.93,421.84,210.0,,30,
+159.0,Plot07,2015-10-05,2015,2,14:00:00,15:00:00,60,Satyrium carneum,?,Tuber,,,0.82,371.95,230.0,,31,
+171.0,Plot08,2015-10-06,2015,2,11:02:00,12:45:00,103,Babiana patula,bobbejaantjie,Corm,0.03,1.0,0.025,11.34,1.0,,32,
+174.0,Plot08,2015-10-06,2015,2,11:02:00,12:45:00,103,Hyacinthaceae,? anna,Bulb,0.07,10.0,0.045,20.41,10.0,,33,author species exclusion
+179.0,Plot08,2015-10-06,2015,2,11:02:00,12:45:00,103,Watsonia sp,oranje waspypie,Corm,0.098,3.0,0.03,13.61,3.0,,34,
+189.0,Plot08,2016-08-30,2016,2,13:30:00,14:31:00,61,Babiana patula,bobbejaantjie,Corm,0.06,2.0,0.03,13.61,2.0,,35,
+192.0,Plot08,2016-08-30,2016,2,13:30:00,14:31:00,61,Tritonia crocata,Hanekammetjie,Corm,,,0.4,181.44,93.0,,36,
+193.0,Plot08,2016-08-30,2016,2,13:30:00,14:31:00,61,Pelargonium lobatum,platblaar patat,Tuber,,,0.75,340.19,7.0,,37,
+195.0,Plot08,2016-08-30,2016,2,13:30:00,14:31:00,61,Pelargonium repaceum,,Tuber,,,0.07,31.75,1.0,,38,
+196.0,Plot08,2016-08-30,2016,2,13:30:00,14:31:00,61,Unknown sp 3,Krismis blom,,0.07,1.0,0.3,136.08,1.0,,39,author species exclusion
+201.0,Plot09,2015-10-06,2015,2,15:35:00,16:52:00,77,Albuca goswinii,?,Bulb,0.21,27.0,0.15,68.04,27.0,,40,author species exclusion
+203.0,Plot09,2015-10-06,2015,2,15:35:00,16:52:00,77,Cyphia digitata,baroe,Tuber,,,0.29,131.54,5.0,,41,
+207.0,Plot09,2015-10-06,2015,2,15:35:00,16:52:00,77,Tritonia crocata,kalkoentjie,Corm,0.1,29.0,0.02,9.07,29.0,8,42,
+212.0,Plot09,2016-08-30,2016,2,10:35:00,12:03:00,88,Cyphia digitata,baroe,Tuber,,,0.5,226.8,7.0,,43,
+215.0,Plot09,2016-08-30,2016,2,10:35:00,12:03:00,88,Tritonia crocata,kalkoentjie,Corm,0.18,44.0,0.054,24.49,44.0,,44,
+247.0,Plot02,2017-09-02,2017,2,14:00:00,15:02:00,62,Gladiolus teretifolius,Rooi pypie,Corm,,,0.03,13.61,2.0,,45,
+249.0,Plot02,2017-09-02,2017,2,14:00:00,15:02:00,62,Satyrium longicolle,Satyrium gloss,Tuber,,,0.1,45.36,8.0,,46,
+250.0,Plot06,2017-09-02,2017,2,10:32:00,10:40:00,8,Chasmanthe aethiopica,pypie,Corm,,,0.07,31.75,7.0,,47,
+252.0,Plot07,2017-09-02,2017,2,10:19:00,10:41:00,22,Satyrium carneum,,Tuber,,,0.73,331.12,27.0,,48,
+255.0,Plot07,2017-09-02,2017,2,10:19:00,10:41:00,22,Babiana ambigua,bobbejaantjie,Corm,,,0.07,31.75,11.0,,49,
+258.0,Plot12,2017-09-02,2017,2,09:17:00,09:52:00,35,Pelargonium lobatum,platblaar patat,Tuber,,,0.09,40.82,4.0,,50,
+259.0,Plot12,2017-09-02,2017,2,09:17:00,09:52:00,35,Chasmanthe aethiopica,pypie,Corm,,,0.03,13.61,1.0,,51,
+260.0,Plot12,2017-09-02,2017,2,09:17:00,09:52:00,35,Babiana ambigua,bobbejaantjie,Corm,,,0.09,40.82,5.0,,52,
+261.0,Plot20,2017-09-02,2017,2,13:02:00,13:26:00,24,Gladiolus teretifolius,Rooi pypie,Corm,,,0.7,317.51,3.0,,53,
+263.0,Plot03,2017-09-04,2017,2,12:46:00,13:26:00,40,Babiana patula,bobbejaantjie,Corm,,,0.08,36.29,4.0,,54,
+265.0,Plot08,2017-09-04,2017,2,14:26:00,15:31:00,65,Pelargonium lobatum,platblaar patat,Tuber,,,0.27,122.47,13.0,,55,
+266.0,Plot08,2017-09-04,2017,2,14:26:00,15:31:00,65,Tritonia crocata,Hanekammetjie,Corm,,,0.08,36.29,27.0,,56,
+268.0,Plot09,2017-09-04,2017,2,16:12:00,17:11:00,59,Cyphia digitata,baroe,Tuber,,,0.35,158.76,4.0,,57,
+271.0,Plot09,2017-09-04,2017,2,16:12:00,17:11:00,59,Babiana patula,bobbejaantjie,Corm,,,0.03,13.61,3.0,,58,
+272.0,Plot18,2017-09-04,2017,2,10:05:00,10:55:00,50,Cyphia digitata,baroe,Tuber,,,0.32,145.15,4.0,,59,
+274.0,Plot18,2017-09-04,2017,2,10:05:00,10:55:00,50,Ferraria crispa,,Corm,,,0.07,31.75,1.0,,60,
+41.0,Plot13,2016-10-19,2016,3,14:41:00,15:27:00,46,Prionium serratum,palmiet,Meristem,,,1.52,689.46,5.0,,61,author species exclusion
+85.0,Plot18,2015-08-27,2015,4,12:36:00,13:26:00,50,Ferraria crispa,?,Corm,,,0.335,151.95,153.0,,62,
+99.0,Plot02,2015-09-07,2015,5,09:49:00,12:21:00,152,Cyphia digitata,baroe,Tuber,,,0.05,22.68,7.0,,63,
+102.0,Plot02,2015-09-07,2015,5,09:49:00,12:21:00,152,Satyrium longicolle,?,Tuber,,,0.535,242.67,100.0,,64,
+125.0,Plot03,2015-09-08,2015,5,12:35:00,13:13:00,38,Babiana patula,bobbejaantjie,Corm,0.08,7.0,0.0192,8.71,7.0,2.5,65,
+132.0,Plot04,2015-09-09,2015,5,12:27:00,13:01:00,34,Freesia sp,vrot patat/ Mike bulb,Corm,0.0225,4.0,0.01,4.54,4.0,,66,
+141.0,Plot05,2015-09-09,2015,5,14:20:00,16:20:00,120,Oxalis pes-caprae,suuring,Leaves,,,1.5,680.39,207.0,,67,author part exclusion
+142.0,Plot05,2015-09-09,2015,5,14:20:00,16:20:00,120,Oxalis pes-caprae,suuring (nuts),nuts,,,0.03,13.61,141.0,,68,
+144.0,Plot05,2015-09-09,2015,5,14:20:00,16:20:00,120,Oxalis pes-caprae,suuring (Root),Root,,,0.145,65.77,0.0,,69,
+15.0,Plot11,2015-11-06,2015,6,10:20:00,11:00:00,40,Conicosia pugioniformis,varkwortel,Root,,,0.26,117.93,10.0,,70,
+25.0,Plot12,2015-11-06,2015,6,12:18:00,12:32:00,14,Pelargonium lobatum,platblaar patat,Tuber,,,0.265,120.2,3.0,,71,
+28.0,Plot12,2015-11-06,2015,6,12:18:00,12:32:00,14,Searsia glauca,,berries,0.305,790.0,0.08,36.29,790.0,,72,author part exclusion
+36.0,Plot13,2015-11-12,2015,6,09:54:00,12:07:00,133,Prionium serratum,palmiet,Meristem,22.03,59.0,4.59,2081.99,59.0,36,73,author species exclusion
+136.0,Plot04,2016-09-02,2016,7,11:28:00,12:13:00,45,Freesia sp,vrot patat/ Mike bulb,Corm,0.04,4.0,0.04,18.14,4.0,,74,
+137.0,Plot04,2016-09-02,2016,7,11:28:00,12:13:00,45,Euphorbia burmannii,bobbejaanbolle,,,,0.37,167.83,120.0,,75,author species exclusion
+147.0,Plot05,2016-09-02,2016,7,13:22:00,15:39:00,137,Oxalis pes-caprae,suuring,Leaves,,,0.27,122.47,700.53,,76,author part exclusion
+217.0,Plot04,2017-08-31,2017,7,12:49:00,13:29:00,40,Euphorbia burmannii,bobbejaanbolle,,,,0.24,108.86,57.0,,77,author species exclusion
+218.0,Plot04,2017-08-31,2017,7,12:49:00,13:29:00,40,Freesia sp,vrot patat/ Mike bulb,Corm,,,0.03,13.61,3.0,,78,
+220.0,Plot05,2017-08-31,2017,7,13:52:00,14:17:00,25,Mesembryanthemum atenus,,Leaves,,,2.43,1102.23,20.0,,79,author part exclusion
+221.0,Plot10,2017-08-31,2017,7,10:02:00,10:52:00,50,Watsonia fourcadii,pypie,Corm,,,0.06,27.22,4.0,,80,
+224.0,Plot10,2017-08-31,2017,7,10:02:00,10:52:00,50,Unknown sp 9,Langblaar,Corm,,,0.02,9.07,17.0,,81,author species exclusion
+225.0,Plot01,2017-09-01,2017,8,14:30:00,14:50:00,20,,,,,,,,,,82,missing edible mass
+228.0,Plot14,2017-09-01,2017,8,13:15:00,14:00:00,45,Pelargonium lobatum,platblaar patat,Tuber,,,0.29,131.54,11.0,,83,
+232.0,Plot14,2017-09-01,2017,8,13:15:00,14:00:00,45,Asparagus asparagoides,creeper,Tuber,,,0.55,249.48,2.0,,84,author species exclusion
+235.0,Plot15,2017-09-01,2017,8,11:19:00,11:47:00,28,Euphorbia burmannii,,,,,0.04,18.14,4.0,,85,author species exclusion
+236.0,Plot16,2017-09-01,2017,8,09:00:00,09:40:00,40,Chasmanthe aethiopica,pypie,Corm,,,0.12,54.43,6.0,,86,
+241.0,Plot17,2017-09-01,2017,8,10:19:00,10:41:00,22,Kedrostis nana,,Tuber,,,0.12,54.43,1.0,,87,
+244.0,Plot19,2017-09-01,2017,8,15:55:00,16:25:00,30,Unknown sp 10,,,,,0.07,31.75,1.0,,88,author species exclusion
+9.0,Plot10,2015-10-09,2015,9,11:03:00,12:55:00,112,Watsonia fourcadii,waspypie,Corm,7.725,148.0,2.12,961.62,148.0,57,89,
+100.0,Plot02,2015-09-07,2015,10,09:49:00,12:21:00,152,Cyphia digitata,baroe,Tuber,,,0.015,6.8,4.0,,90,
+101.0,Plot02,2015-09-07,2015,10,09:49:00,12:21:00,152,Satyrium longicolle,?,Tuber,,,0.49,222.26,88.0,,91,
+126.0,Plot03,2015-09-08,2015,10,12:35:00,13:13:00,38,Babiana patula,bobbejaantjie,Corm,0.1,10.0,0.025,11.34,10.0,2.5,92,
+133.0,Plot04,2015-09-09,2015,10,12:27:00,13:01:00,34,Freesia sp,vrot patat/ Mike bulb,Corm,0.0225,4.0,0.01,4.54,4.0,,93,
+140.0,Plot05,2015-09-09,2015,10,14:20:00,16:20:00,120,Oxalis pes-caprae,suuring,Leaves,,,1.25,566.99,250.0,,94,author part exclusion
+143.0,Plot05,2015-09-09,2015,10,14:20:00,16:20:00,120,Oxalis pes-caprae,suuring (nuts),nuts,,,0.03,13.61,200.0,,95,
+145.0,Plot05,2015-09-09,2015,10,14:20:00,16:20:00,120,Oxalis pes-caprae,suuring (Root),Root,,,0.2,90.72,0.0,,96,
+8.0,Plot10,2015-10-09,2015,11,11:03:00,12:55:00,112,Watsonia fourcadii,waspypie,Corm,5.68,146.0,2.085,945.74,146.0,40,97,
+,Plot13,2017-12-31,2017,12,14:43:00,15:40:00,57,Prionium serratum,palmiet,Meristem,,,0.94,426.38,14.0,,98,author species exclusion
+37.0,Plot13,2015-11-12,2015,13,09:54:00,12:07:00,133,Prionium serratum,palmiet,Meristem,12.315,44.0,4.0,1814.37,58.0,,99,author species exclusion
+88.0,Plot18,2016-08-31,2016,14,10:35:00,14:31:00,236,Cyphia digitata,baroe,Tuber,,,0.11,49.9,2.0,,100,
+40.0,Plot13,2016-10-19,2016,15,14:41:00,15:27:00,46,Prionium serratum,palmiet,Meristem,,,2.78,1260.99,10.0,,101,author species exclusion
+264.0,Plot03,2017-09-04,2017,16,12:46:00,13:26:00,40,Unknown sp 4,,,,,0.06,27.22,1.0,,102,author species exclusion
+267.0,Plot08,2017-09-04,2017,16,14:26:00,15:31:00,65,Tritonia crocata,Hanekammetjie,Corm,,,0.07,31.75,17.0,,103,
+269.0,Plot09,2017-09-04,2017,16,16:12:00,17:11:00,59,Cyphia digitata,baroe,Tuber,,,0.02,9.07,1.0,,104,
+270.0,Plot09,2017-09-04,2017,16,16:12:00,17:11:00,59,Tritonia crocata,,Corm,,,0.04,18.14,4.0,,105,
+273.0,Plot18,2017-09-04,2017,16,10:05:00,10:55:00,50,Ferraria crispa,,Corm,,,0.14,63.5,27.0,,106,
+12.0,Plot10,2016-09-04,2016,17,10:48:00,11:27:00,39,Watsonia fourcadii,waspypie,Corm,,,1.25,566.99,40.0,white: 0.9(40),107,
+89.0,Plot18,2016-08-31,2016,17,10:35:00,14:31:00,236,Cyphia digitata,baroe,Tuber,,,1.15,521.63,10.0,,108,
+135.0,Plot04,2016-09-02,2016,17,11:28:00,12:13:00,45,Freesia sp,vrot patat/ Mike bulb,Corm,0.04,4.0,0.03,13.61,4.0,,109,
+138.0,Plot04,2016-09-02,2016,17,11:28:00,12:13:00,45,Euphorbia burmannii,bobbejaanbolle,,,,0.42,190.51,118.0,,110,author species exclusion
+149.0,Plot05,2016-09-02,2016,17,13:22:00,15:39:00,137,Oxalis pes-caprae,suuring,Leaves,,,0.41,185.97,1063.76,,111,author part exclusion
+216.0,Plot04,2017-08-31,2017,17,12:49:00,13:29:00,40,Euphorbia burmannii,bobbejaanbolle,,,,0.31,140.61,78.0,,112,author species exclusion
+219.0,Plot05,2017-08-31,2017,17,13:52:00,14:17:00,25,Mesembryanthemum atenus,,Leaves,,,2.41,1093.16,20.0,,113,author part exclusion
+222.0,Plot10,2017-08-31,2017,17,10:02:00,10:52:00,50,Watsonia fourcadii,pypie,Corm,,,0.04,18.14,3.0,,114,
+223.0,Plot10,2017-08-31,2017,17,10:02:00,10:52:00,50,Unknown sp 9,Langblaar,Corm,,,0.03,13.61,28.0,,115,author species exclusion
+11.0,Plot10,2016-09-04,2016,18,10:48:00,11:27:00,39,Watsonia fourcadii,waspypie,Corm,,,0.53,240.4,16.0,white: 0.31(16),116,
+18.0,Plot11,2016-09-01,2016,19,11:20:00,12:02:00,42,Conicosia pugioniformis,varkwortel,Root,0.49,7.0,0.15,68.04,7.0,,117,
+32.0,Plot12,2016-09-01,2016,19,13:50:00,14:33:00,43,Chasmanthe aethiopica,pypie,Corm,,,0.22,99.79,10.0,,118,
+34.0,Plot12,2016-09-01,2016,19,13:50:00,14:33:00,43,Pelargonium lobatum,platblaar patat,Tuber,,,0.34,154.22,6.0,,119,
+46.0,Plot14,2015-08-25,2015,19,11:07:00,11:59:00,52,Pelargonium lobatum,platblaar patat,Tuber,,,0.285,129.27,24.0,1,120,
+52.0,Plot14,2016-09-01,2016,19,08:22:00,09:11:00,49,Babiana patula,bobbejaantjie,Corm,0.08,2.0,0.06,27.22,2.0,,121,
+53.0,Plot14,2016-09-01,2016,19,08:22:00,09:11:00,49,Chasmanthe aethiopica,pypie,Corm,,,0.01,4.54,1.0,,122,
+55.0,Plot14,2016-09-01,2016,19,08:22:00,09:11:00,49,Pelargonium lobatum,platblaar patat,Tuber,,,0.83,376.48,26.0,,123,
+60.0,Plot15,2015-08-25,2015,19,13:55:00,14:31:00,36,Pelargonium lobatum,platblaar patat,Tuber,,,0.615,278.96,8.0,1,124,
+64.0,Plot15,2016-09-01,2016,19,10:06:00,10:38:00,32,Pelargonium lobatum,platblaar patat,Tuber,,,0.08,36.29,4.0,,125,
+65.0,Plot15,2016-09-01,2016,19,10:06:00,10:38:00,32,Pelargonium triste,kaneelbol,Tuber,,,0.08,36.29,2.0,,126,
+68.0,Plot16,2015-08-26,2015,19,12:01:00,14:01:00,120,Chasmanthe aethiopica,pypie,Corm,,,0.57,258.55,64.0,,127,
+70.0,Plot16,2015-08-26,2015,19,12:01:00,14:01:00,120,Microloma saggitatum,Por – porkie,seedpod,,,0.065,29.48,2.0,,128,author part exclusion
+74.0,Plot16,2016-09-01,2016,19,15:18:00,16:05:00,47,Chasmanthe aethiopica,pypie,Corm,,,0.6,272.16,36.0,white: .35(26),129,
+77.0,Plot17,2015-08-26,2015,19,16:26:00,17:20:00,54,Kedrostis nana,?,Tuber,,,0.02,9.07,2.0,,130,
+81.0,Plot17,2016-09-03,2016,19,08:44:00,09:33:00,49,Euphorbia burmannii,bobbejaanbolle,,,,0.69,312.98,100.0,,131,author species exclusion
+81.0,Plot17,2016-09-03,2016,19,08:44:00,09:33:00,49,Kedrostis nana,,,,,0.0,0.0,0.0,,132,
+95.0,Plot19,2016-09-04,2016,19,08:39:00,09:00:00,21,Babiana patula,bobbejaantjie,Corm,,,0.02,9.07,1.0,,133,
+97.0,Plot19,2016-09-04,2016,19,08:39:00,09:00:00,21,Babiana patula,bobbejaantjie,Corm,,,0.01,4.54,1.0,,134,
+107.0,Plot02,2016-09-01,2016,19,10:15:00,13:00:00,165,Satyrium longicolle,,Tuber,,,0.74,335.66,86.0,,135,
+121.0,Plot20,2016-09-03,2016,19,14:30:00,15:31:00,61,Babiana patula,bobbejaantjie,Corm,,,0.01,4.54,1.0,,136,
+123.0,Plot20,2016-09-03,2016,19,14:30:00,15:31:00,61,Satyrium longicolle,,Tuber,,,0.11,49.9,20.0,,137,
+152.0,Plot06,2015-10-05,2015,19,10:46:00,12:14:00,88,Chasmanthe aethiopica,pypie,Corm,,,0.695,315.25,68.0,,138,
+158.0,Plot07,2015-10-05,2015,19,14:00:00,15:00:00,60,Satyrium carneum,?,Tuber,,,0.525,238.14,143.0,,139,
+162.0,Plot07,2016-09-03,2016,19,11:29:00,12:15:00,46,Albuca fragrans,,Bulb,0.11,1.0,0.09,40.82,1.0,,140,
+165.0,Plot07,2016-09-03,2016,19,11:29:00,12:15:00,46,Babiana tubulosa,bobbejaantjie (Babiana white),Corm,,,0.08,36.29,8.0,,141,
+166.0,Plot07,2016-09-03,2016,19,11:29:00,12:15:00,46,Chasmanthe aethiopica,pypie,Corm,,,0.08,36.29,6.0,,142,
+168.0,Plot07,2016-09-03,2016,19,11:29:00,12:15:00,46,Satyrium carneum,?,Tuber,,,0.87,394.63,80.0,,143,
+44.0,Plot14,2015-08-25,2015,20,11:07:00,11:59:00,52,Babiana patula,bobbejaantjie,Corm,,,0.025,11.34,4.0,,144,
+47.0,Plot14,2015-08-25,2015,20,11:07:00,11:59:00,52,Pelargonium lobatum,platblaar patat,Tuber,,,0.375,170.1,20.0,,145,
+49.0,Plot14,2015-08-25,2015,20,11:07:00,11:59:00,52,Wachendorfia paniculata,?,Bulb,,,0.035,15.88,30.0,,146,
+58.0,Plot15,2015-08-25,2015,20,13:55:00,14:31:00,36,Babiana ambigua,bobbejaantjie,Corm,,,0.03,13.61,3.0,,147,
+62.0,Plot15,2015-08-25,2015,20,13:55:00,14:31:00,36,Pelargonium triste,kaneelbol,Tuber,,,0.045,20.41,1.0,1,148,
+,Plot13,2017-12-31,2017,21,14:43:00,15:40:00,57,Prionium serratum,palmiet,Meristem,,,1.175,532.97,18.0,,149,author species exclusion
+80.0,Plot17,2016-09-03,2016,22,08:44:00,09:33:00,49,Euphorbia burmannii,bobbejaanbolle,,,,0.32,145.15,56.0,,150,author species exclusion
+122.0,Plot20,2016-09-03,2016,22,14:30:00,15:31:00,61,Babiana patula,bobbejaantjie,Corm,,,0.07,31.75,8.0,,151,
+156.0,Plot06,2016-09-03,2016,22,10:15:00,11:01:00,46,Chasmanthe aethiopica,pypie,Corm,,,0.22,99.79,29.0,,152,
+161.0,Plot07,2016-09-03,2016,22,11:29:00,12:15:00,46,Albuca fragrans,,Bulb,,,0.08,36.29,1.0,,153,
+163.0,Plot07,2016-09-03,2016,22,11:29:00,12:15:00,46,Gladiolus carinatus,Blue bell,Corm,,,0.001,0.45,1.0,,154,
+164.0,Plot07,2016-09-03,2016,22,11:29:00,12:15:00,46,Babiana tubulosa,bobbejaantjie (Babiana white),Corm,,,0.06,27.22,1.0,,155,
+167.0,Plot07,2016-09-03,2016,22,11:29:00,12:15:00,46,Satyrium carneum,?,Tuber,,,0.83,376.48,65.0,,156,
+39.0,Plot13,2016-10-19,2016,23,14:41:00,15:27:00,46,Prionium serratum,palmiet,Meristem,,,6.04,2739.7,31.0,,157,author species exclusion
+3.0,Plot01,2015-09-03,2015,24,13:59:00,16:46:00,167,Cyphia digitata,baroe,Tuber,,,0.1,45.36,1.0,,158,
+5.0,Plot01,2016-09-01,2016,24,13:40:00,14:42:00,62,Babiana patula,bobbejaantjie,Corm,,,0.08,36.29,6.0,,159,
+19.0,Plot11,2016-09-01,2016,24,11:20:00,12:02:00,42,Conicosia pugioniformis,varkwortel,Root,1.12,13.0,0.32,145.15,13.0,,160,
+20.0,Plot11,2016-09-01,2016,24,11:20:00,12:02:00,42,Pelargonium triste,kaneelbol,Tuber,0.13,1.0,0.08,36.29,1.0,,161,
+21.0,Plot11,2016-09-01,2016,24,11:20:00,12:02:00,42,Unknown sp 6,Grass bulb,,,,0.01,4.54,1.0,,162,author species exclusion
+30.0,Plot12,2016-09-01,2016,24,13:50:00,14:33:00,43,Babiana ambigua,bobbejaantjie,Corm,0.11,6.0,0.06,27.22,6.0,,163,
+31.0,Plot12,2016-09-01,2016,24,13:50:00,14:33:00,43,Chasmanthe aethiopica,pypie,Corm,,,0.09,40.82,3.0,,164,
+33.0,Plot12,2016-09-01,2016,24,13:50:00,14:33:00,43,Pelargonium lobatum,platblaar patat,Tuber,,,0.29,131.54,4.0,,165,
+51.0,Plot14,2016-09-01,2016,24,08:22:00,09:11:00,49,Babiana patula,bobbejaantjie,Corm,0.02,2.0,0.01,4.54,1.0,,166,
+54.0,Plot14,2016-09-01,2016,24,08:22:00,09:11:00,49,Pelargonium lobatum,platblaar patat,Tuber,,,0.44,199.58,14.0,,167,
+69.0,Plot16,2015-08-26,2015,24,12:01:00,14:01:00,120,Chasmanthe aethiopica,pypie,Corm,,,0.82,371.95,300.0,,168,
+73.0,Plot16,2016-09-01,2016,24,15:18:00,16:05:00,47,Chasmanthe aethiopica,pypie,Corm,,,0.35,158.76,26.0,white: .24(26),169,
+76.0,Plot17,2015-08-26,2015,24,16:26:00,17:20:00,54,Kedrostis nana,?,Tuber,,,0.195,88.45,5.0,,170,
+83.0,Plot18,2015-08-27,2015,24,12:36:00,13:26:00,50,Ferraria crispa,?,Corm,,,0.21,95.25,50.0,3,171,
+86.0,Plot18,2015-08-27,2015,24,12:36:00,13:26:00,50,Pelargonium lobatum,platblaar patat,Tuber,,,0.05,22.68,1.0,,172,
+93.0,Plot19,2015-09-02,2015,24,12:04:00,12:31:00,27,Babiana patula,bobbejaantjie,Corm,0.015,3.0,0.01,4.54,3.0,1,173,
+96.0,Plot19,2016-09-04,2016,24,08:39:00,09:00:00,21,Babiana patula,bobbejaantjie,Corm,,,0.04,18.14,2.0,,174,
+104.0,Plot02,2016-09-01,2016,24,10:15:00,13:00:00,165,Cyphia digitata,baroe,Tuber,,,0.07,31.75,2.0,,175,
+105.0,Plot02,2016-09-01,2016,24,10:15:00,13:00:00,165,Eriospermum sp,Takblaar,Tuber,,,0.11,49.9,5.0,,176,author species exclusion
+106.0,Plot02,2016-09-01,2016,24,10:15:00,13:00:00,165,Satyrium longicolle,,Tuber,0.18,22.0,0.11,49.9,22.0,,177,
+108.0,Plot02,2016-09-01,2016,24,10:15:00,13:00:00,165,Unknown sp 3,Krismis blom,,0.09,5.0,,0.0,,,178,author species exclusion
+113.0,Plot20,2015-09-03,2015,24,09:24:00,11:34:00,130,Babiana patula,bobbejaantjie,Corm,0.01,1.0,0.01,4.54,1.0,0.5,179,
+114.0,Plot20,2015-09-03,2015,24,09:24:00,11:34:00,130,Pelargonium repaceum,,Tuber,0.105,16.0,0.09,40.82,16.0,0.5,180,
+117.0,Plot20,2015-09-03,2015,24,09:24:00,11:34:00,130,Satyrium longicolle,Satyrium spp. (1 and 2),Tuber,0.125,40.0,0.075,34.02,40.0,0.5,181,
+118.0,Plot20,2015-09-03,2015,24,09:24:00,11:34:00,130,Unknown sp 11,?,,,,0.02,9.07,5.0,,182,author species exclusion
+129.0,Plot03,2016-08-30,2016,24,15:30:00,16:30:00,60,Babiana patula,bobbejaantjie,Corm,0.07,4.0,0.04,18.14,4.0,,183,
+148.0,Plot05,2016-09-02,2016,24,13:22:00,15:39:00,137,Oxalis pes-caprae,suuring,Leaves,,,0.36,163.29,934.04,,184,author part exclusion
+155.0,Plot06,2016-09-03,2016,24,10:15:00,11:01:00,46,Chasmanthe aethiopica,pypie,Corm,,,0.21,95.25,25.0,,185,
+170.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Babiana patula,bobbejaantjie,Corm,0.025,1.0,0.02,9.07,1.0,,186,
+172.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Drimia elata,plat kleinblaar,Bulb,,,0.05,22.68,13.0,,187,author species exclusion
+173.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Eriospermum pubescens,hairy satyrium,Tuber,0.045,9.0,0.045,20.41,9.0,,188,author species exclusion
+175.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Hyacinthaceae,? Anna,Bulb,0.035,6.0,0.025,11.34,1.0,,189,author species exclusion
+176.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Pelargonium lobatum,platblaar patat,Tuber,,,0.065,29.48,4.0,,190,
+177.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Tritonia crocata,kalkoentjie,Corm,0.165,51.0,0.07,31.75,51.0,,191,
+178.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Tritonia crocata,kalkoentjie,Corm,0.14,95.0,0.07,31.75,95.0,15,192,
+180.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Unknown sp 8,purple stem,,0.02,1.0,0.015,6.8,1.0,,193,author species exclusion
+181.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Unknown sp 1,tight lachenalia,Bulb,0.06,2.0,0.05,22.68,2.0,1,194,author species exclusion
+182.0,Plot08,2015-10-06,2015,24,11:02:00,12:45:00,103,Boophone guttata,hairy catcher,Bulb,0.035,2.0,0.034,15.42,2.0,1,195,author species exclusion
+190.0,Plot08,2016-08-30,2016,24,13:30:00,14:31:00,61,Babiana patula,bobbejaantjie,Corm,0.07,4.0,0.04,18.14,4.0,,196,
+191.0,Plot08,2016-08-30,2016,24,13:30:00,14:31:00,61,Tritonia crocata,Hanekammetjie,Corm,,,0.32,145.15,60.0,,197,
+194.0,Plot08,2016-08-30,2016,24,13:30:00,14:31:00,61,Pelargonium lobatum,platblaar patat,Tuber,,,0.32,145.15,5.0,,198,
+199.0,Plot09,2015-10-06,2015,24,15:35:00,16:52:00,77,Unknown sp 5,??,,0.025,5.0,,0.0,,,199,author species exclusion
+200.0,Plot09,2015-10-06,2015,24,15:35:00,16:52:00,77,Albuca goswinii,?,Bulb,0.15,33.0,0.115,52.16,33.0,,200,author species exclusion
+202.0,Plot09,2015-10-06,2015,24,15:35:00,16:52:00,77,Cyphia digitata,baroe,Tuber,,,0.055,24.95,2.0,,201,
+204.0,Plot09,2015-10-06,2015,24,15:35:00,16:52:00,77,Hyacinthaceae,Anna ?,Bulb,,4.0,,0.0,,,202,author species exclusion
+205.0,Plot09,2015-10-06,2015,24,15:35:00,16:52:00,77,Ledebouria sp,Lachenalia sp,Bulb,0.275,,0.205,92.99,5.0,1,203,author species exclusion
+206.0,Plot09,2015-10-06,2015,24,15:35:00,16:52:00,77,Tritonia crocata,kalkoentjie,Corm,0.055,33.0,0.025,11.34,33.0,,204,
+211.0,Plot09,2016-08-30,2016,24,10:35:00,12:03:00,88,Cyphia digitata,baroe,Tuber,,,0.34,154.22,4.0,,205,
+213.0,Plot09,2016-08-30,2016,24,10:35:00,12:03:00,88,Eriospermum pubescens,,Tuber,,,0.08,36.29,5.0,,206,author species exclusion
+214.0,Plot09,2016-08-30,2016,24,10:35:00,12:03:00,88,Tritonia crocata,kalkoentjie,Corm,0.1,21.0,0.03,13.61,21.0,,207,
+225.0,Plot01,2017-09-01,2017,24,14:30:00,14:50:00,20,Cyphia digitata,baroe,Tuber,,,0.04,18.14,1.0,,208,
+226.0,Plot11,2017-09-01,2017,24,11:55:00,12:12:00,17,Conicosia pugioniformis,varkwortel,Root,,,0.13,58.97,4.0,,209,
+227.0,Plot11,2017-09-01,2017,24,11:55:00,12:12:00,17,Pelargonium triste,kaneelbol,Tuber,,,0.07,31.75,5.0,,210,
+229.0,Plot14,2017-09-01,2017,24,13:15:00,14:00:00,45,Babiana patula,bobbejaantjie,Corm,,,0.03,13.61,1.0,,211,
+230.0,Plot14,2017-09-01,2017,24,13:15:00,14:00:00,45,Pelargonium lobatum,platblaar patat,Tuber,,,0.07,31.75,2.0,,212,
+231.0,Plot14,2017-09-01,2017,24,13:15:00,14:00:00,45,Cyphia digitata,baroe,Tuber,,,0.05,22.68,2.0,,213,
+233.0,Plot15,2017-09-01,2017,24,11:19:00,11:47:00,28,Pelargonium triste,kaneelbol,Tuber,,,0.25,113.4,3.0,,214,
+234.0,Plot15,2017-09-01,2017,24,11:19:00,11:47:00,28,Pelargonium lobatum,platblaar patat,Tuber,,,0.07,31.75,4.0,,215,
+237.0,Plot16,2017-09-01,2017,24,09:00:00,09:40:00,40,Chasmanthe aethiopica,pypie,Corm,,,0.1,45.36,12.0,,216,
+238.0,Plot16,2017-09-01,2017,24,09:00:00,09:40:00,40,Kedrostis nana,,Tuber,,,0.62,281.23,2.0,,217,
+239.0,Plot16,2017-09-01,2017,24,09:00:00,09:40:00,40,Euphorbia burmannii,,,,,0.6,272.16,457.0,,218,author species exclusion
+240.0,Plot16,2017-09-01,2017,24,09:00:00,09:40:00,40,Freesia alba,Hanekammetjie,Corm,,,0.04,18.14,3.0,,219,
+242.0,Plot17,2017-09-01,2017,24,10:19:00,10:41:00,22,Kedrostis nana,,Tuber,,,1.14,517.09,6.0,,220,
+243.0,Plot19,2017-09-01,2017,24,15:55:00,16:25:00,30,Babiana patula,bobbejaantjie,Corm,,,0.03,13.61,2.0,,221,
+245.0,Plot19,2017-09-01,2017,24,15:55:00,16:25:00,30,Unknown sp 7,Albuca?,,,,0.04,18.14,2.0,,222,author species exclusion
+246.0,Plot19,2017-09-01,2017,24,15:55:00,16:25:00,30,Unknown sp 2,Unknown piekenien,,,,0.01,4.54,2.0,,223,author species exclusion
+248.0,Plot02,2017-09-02,2017,24,14:00:00,15:02:00,62,Gladiolus teretifolius,Rooi pypie,Corm,,,0.1,45.36,6.0,,224,
+251.0,Plot06,2017-09-02,2017,24,10:32:00,10:40:00,8,Chasmanthe aethiopica,pypie,Corm,,,0.06,27.22,5.0,,225,
+253.0,Plot07,2017-09-02,2017,24,10:19:00,10:41:00,22,Satyrium carneum,,Tuber,,,0.23,104.33,9.0,,226,
+254.0,Plot07,2017-09-02,2017,24,10:19:00,10:41:00,22,Babiana ambigua,bobbejaantjie,Corm,,,0.12,54.43,21.0,,227,
+256.0,Plot12,2017-09-02,2017,24,09:17:00,09:52:00,35,Pelargonium lobatum,platblaar patat,Tuber,,,0.13,58.97,2.0,,228,
+257.0,Plot12,2017-09-02,2017,24,09:17:00,09:52:00,35,Babiana ambigua,bobbejaantjie,Corm,,,0.07,31.75,7.0,,229,
+262.0,Plot20,2017-09-02,2017,24,13:02:00,13:26:00,24,Satyrium longicolle,Satyrium gloss,Tuber,,,0.03,13.61,3.0,,230,

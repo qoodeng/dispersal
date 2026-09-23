@@ -1,0 +1,73 @@
+{
+  "schema": "dispersal-demographic-reference/1",
+  "status": "digitized and calibrated modern reference; not historical inference",
+  "population": "Dobe !Kung reference, 1963\u20131974 fertility figure; pooled-sex modern mortality fit",
+  "source_ids": [
+    "tuljapurkar2007",
+    "gurven2007",
+    "growth2021"
+  ],
+  "source_figure_url": "https://journals.plos.org/plosone/article/figure/image?size=large&id=10.1371/journal.pone.0000785.g002",
+  "source_figure_sha256": "2c94e7dde27d855fdd5a7ad7023ecc31281429fcdc48064e6448d8076f91dbc1",
+  "digitization": {
+    "panel": "Figure 2a, red dashed female curve",
+    "image_pixels": [
+      1921,
+      1534
+    ],
+    "age_x_pixel_formula": "x=153.5+9.4*age",
+    "rate_y_pixel_formula": "y=409.5-352*relative_rate/0.08",
+    "bin_midpoints": [
+      17.5,
+      22.5,
+      27.5,
+      32.5,
+      37.5,
+      42.5,
+      47.5,
+      52.5
+    ],
+    "raw_relative_rates": [
+      0.0004480803136892207,
+      0.052015446633253234,
+      0.06133380243828507,
+      0.04598656952553336,
+      0.027161935702769643,
+      0.011104933365131991,
+      0.0038687061069161395,
+      -9.838096653893965e-05
+    ],
+    "fitted_pixel_rmse": 1.779281596630496,
+    "method": "Least squares piecewise-linear trace through known 5-year midpoints using red pixels. Clip negative rates from pixel error to zero, renormalize sum*5 to1; retain rates as constant within 5-year bins.",
+    "uncertainty": "Image extraction, rendering and bin-boundary uncertainty remain; this is not the original numeric table. Three pixels is a project extraction tolerance, not a statistical confidence interval."
+  },
+  "growth_anchor": {
+    "annual_log_rate": 0.0026,
+    "source_id": "growth2021",
+    "locator": "Table1 Dobe !Kung row citing Howell, pp212\u2013220",
+    "use": "fitting target only; not independent validation"
+  },
+  "fitted_total_fertility_scale": 4.433613975724275,
+  "female_birth_probability": 0.5,
+  "mortality_coefficients": {
+    "a1": 0.34,
+    "b1": 0.913,
+    "a2": 0.01,
+    "a3": 0.000331,
+    "b3": 0.077
+  },
+  "initial_total": 5000,
+  "initial_age_structure": "rounded stable age distribution for calibrated discrete matrix; synthetic initial population",
+  "census_convention": "Survive [age,age+1], then Bernoulli birth among surviving females with probability assigned to age at interval start. Births at endpoint; newborn age0.",
+  "assumptions": [
+    "Five-year age-bin values treated as constant annual probabilities",
+    "Female reproduction conditionally independent between years; no pregnancy or postpartum states",
+    "At most one birth per surviving female per year; no twins",
+    "Equal female/male birth probability is a reference assumption",
+    "Same pooled-sex mortality for both sexes; no partner scarcity",
+    "Fertility set zero below15 and from55, following plotted support as a structural modeling assumption",
+    "No food, density regulation, migration or ancient transfer model"
+  ],
+  "historical_use": "blocked; demographic reference only",
+  "annual_file_sha256": "922747f270419bea36087c2b78540a248097adb8e099de338c05d4a0af56b9f5"
+}

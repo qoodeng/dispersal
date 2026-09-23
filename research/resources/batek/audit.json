@@ -1,0 +1,630 @@
+{
+  "schema": "batek-development-audit/1",
+  "protocol_sha256": "63aa2bdda5da3886dc43683050c67de61ceb4348da7b4e77af455646a65cbd7f",
+  "raw_rows": 520,
+  "zero_anchors": 55,
+  "resource_rows": 465,
+  "camp_days": 93,
+  "complete_camps": [
+    2,
+    3,
+    5,
+    6,
+    9,
+    10,
+    11
+  ],
+  "complete_camp_days": 68,
+  "cumulative_value_checks": true,
+  "additive_resource_checks": true,
+  "metadata_discrepancy": "Archived value is cumulative: nondecreasing sequences, zero origins, and published R directly fitting cumulative gain functions. daily-gains.csv is first differences, not raw value.",
+  "camp11_duration_discrepancy": "Archive has 27 observed days; paper prose gives maximum 24. Retain 27 and flag rather than silently changing data.",
+  "scores": [
+    {
+      "resource": "tot",
+      "model": "constant",
+      "equal_camp_rmse": 2033.350141573306,
+      "improvement_fraction": 0.0
+    },
+    {
+      "resource": "tot",
+      "model": "exponential",
+      "equal_camp_rmse": 2161.617210901612,
+      "improvement_fraction": -0.06308164378863901
+    },
+    {
+      "resource": "tot",
+      "model": "holling_iii",
+      "equal_camp_rmse": 2579.22239618652,
+      "improvement_fraction": -0.26845954538397665
+    },
+    {
+      "resource": "tot",
+      "model": "michaelis_menten",
+      "equal_camp_rmse": 2226.150874610548,
+      "improvement_fraction": -0.09481924883240334
+    },
+    {
+      "resource": "tot_rat",
+      "model": "constant",
+      "equal_camp_rmse": 4830.328838831394,
+      "improvement_fraction": 0.0
+    },
+    {
+      "resource": "tot_rat",
+      "model": "exponential",
+      "equal_camp_rmse": 4947.232486277829,
+      "improvement_fraction": -0.024202005980759944
+    },
+    {
+      "resource": "tot_rat",
+      "model": "holling_iii",
+      "equal_camp_rmse": 6080.427443846095,
+      "improvement_fraction": -0.25880196705554703
+    },
+    {
+      "resource": "tot_rat",
+      "model": "michaelis_menten",
+      "equal_camp_rmse": 4958.86084059248,
+      "improvement_fraction": -0.026609368854519033
+    }
+  ],
+  "folds": [
+    {
+      "resource": "tot",
+      "heldout_camp": 2,
+      "model": "constant",
+      "rmse": 1944.9022386238644,
+      "parameters": [
+        1898.2038112634139
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 2,
+      "model": "exponential",
+      "rmse": 1945.0489987874741,
+      "parameters": [
+        9999999.737017307,
+        0.00018998200390369906
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 2,
+      "model": "michaelis_menten",
+      "rmse": 2448.6940226517418,
+      "parameters": [
+        14454.467534846779,
+        3.245241277341035
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 2,
+      "model": "holling_iii",
+      "rmse": 2707.0656970043606,
+      "parameters": [
+        7544.345261068395,
+        1.0895661344344314
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 3,
+      "model": "constant",
+      "rmse": 5018.207718381399,
+      "parameters": [
+        1368.6100612708008
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 3,
+      "model": "exponential",
+      "rmse": 5018.154893250374,
+      "parameters": [
+        9999999.992448464,
+        0.00013688092063397693
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 3,
+      "model": "michaelis_menten",
+      "rmse": 5013.469172913858,
+      "parameters": [
+        1377286.6955261915,
+        999.9999999999828
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 3,
+      "model": "holling_iii",
+      "rmse": 5873.066460815491,
+      "parameters": [
+        140629.76861500664,
+        33.02307435062702
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 5,
+      "model": "constant",
+      "rmse": 1743.448529578357,
+      "parameters": [
+        2099.572694070412
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 5,
+      "model": "exponential",
+      "rmse": 1782.7347396733753,
+      "parameters": [
+        361760.9842280524,
+        0.0059872173814416035
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 5,
+      "model": "michaelis_menten",
+      "rmse": 1803.793846377824,
+      "parameters": [
+        449516.4984537448,
+        203.93285820064742
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 5,
+      "model": "holling_iii",
+      "rmse": 2257.344629692442,
+      "parameters": [
+        8657.893169161622,
+        1.1052756290427848
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 6,
+      "model": "constant",
+      "rmse": 1074.8702140928362,
+      "parameters": [
+        1956.547049573299
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 6,
+      "model": "exponential",
+      "rmse": 1073.6657765750067,
+      "parameters": [
+        9999999.97800004,
+        0.00019578312299598535
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 6,
+      "model": "michaelis_menten",
+      "rmse": 1063.8974102968175,
+      "parameters": [
+        1971319.1906379205,
+        999.9999999968956
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 6,
+      "model": "holling_iii",
+      "rmse": 1372.603890249926,
+      "parameters": [
+        7222.272236607756,
+        1.1114446816807515
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 9,
+      "model": "constant",
+      "rmse": 1175.0662823008502,
+      "parameters": [
+        2028.6715729545788
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 9,
+      "model": "exponential",
+      "rmse": 1176.0793503569191,
+      "parameters": [
+        9999998.588181071,
+        0.00020307815704227467
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 9,
+      "model": "michaelis_menten",
+      "rmse": 1184.9493806200155,
+      "parameters": [
+        2049381.7734205232,
+        999.9997201788016
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 9,
+      "model": "holling_iii",
+      "rmse": 1396.5707665412494,
+      "parameters": [
+        7918.427009614719,
+        1.0997421564131415
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 10,
+      "model": "constant",
+      "rmse": 743.4570193111934,
+      "parameters": [
+        1948.0623539839917
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 10,
+      "model": "exponential",
+      "rmse": 744.1361566397482,
+      "parameters": [
+        9999999.859673643,
+        0.00019499515973515718
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 10,
+      "model": "michaelis_menten",
+      "rmse": 750.7676989583908,
+      "parameters": [
+        1967839.3588426095,
+        999.9999999831902
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 10,
+      "model": "holling_iii",
+      "rmse": 985.9983541524712,
+      "parameters": [
+        7729.8189596373295,
+        1.108725733043119
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 11,
+      "model": "constant",
+      "rmse": 2533.498988724642,
+      "parameters": [
+        1738.3380945771414
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 11,
+      "model": "exponential",
+      "rmse": 3391.5005610283847,
+      "parameters": [
+        10700.998847854524,
+        0.32149076947065863
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 11,
+      "model": "michaelis_menten",
+      "rmse": 3317.484590455188,
+      "parameters": [
+        15337.580452009111,
+        3.9431108922317826
+      ]
+    },
+    {
+      "resource": "tot",
+      "heldout_camp": 11,
+      "model": "holling_iii",
+      "rmse": 3461.9069748497,
+      "parameters": [
+        7217.5312281729075,
+        1.1307695819737835
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 2,
+      "model": "constant",
+      "rmse": 5326.212196916066,
+      "parameters": [
+        6613.468309454175
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 2,
+      "model": "exponential",
+      "rmse": 5365.4784414106,
+      "parameters": [
+        516392.5498062125,
+        0.013654188869374445
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 2,
+      "model": "michaelis_menten",
+      "rmse": 5360.508436015037,
+      "parameters": [
+        944877.9416653148,
+        133.57014339048888
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 2,
+      "model": "holling_iii",
+      "rmse": 4598.981139811348,
+      "parameters": [
+        29345.46476675977,
+        1.7053736397111998
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 3,
+      "model": "constant",
+      "rmse": 4406.088057424059,
+      "parameters": [
+        5976.351003906008
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 3,
+      "model": "exponential",
+      "rmse": 4385.910825172009,
+      "parameters": [
+        545565.0991455556,
+        0.011641325310960779
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 3,
+      "model": "michaelis_menten",
+      "rmse": 4382.885168011678,
+      "parameters": [
+        996918.6227650875,
+        156.40240111139528
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 3,
+      "model": "holling_iii",
+      "rmse": 5729.8870506910225,
+      "parameters": [
+        36288.634845677,
+        2.6022742373550027
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 5,
+      "model": "constant",
+      "rmse": 3839.9476474471835,
+      "parameters": [
+        5809.491947816731
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 5,
+      "model": "exponential",
+      "rmse": 3819.2624784621507,
+      "parameters": [
+        468993.7709770105,
+        0.013253421238410399
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 5,
+      "model": "michaelis_menten",
+      "rmse": 3819.399459899995,
+      "parameters": [
+        808984.6387844589,
+        129.1505638332271
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 5,
+      "model": "holling_iii",
+      "rmse": 4334.941181430863,
+      "parameters": [
+        24783.19550906214,
+        1.4455074176844867
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 6,
+      "model": "constant",
+      "rmse": 5125.634252702009,
+      "parameters": [
+        6107.8169981892015
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 6,
+      "model": "exponential",
+      "rmse": 5244.184487011088,
+      "parameters": [
+        305545.26073940634,
+        0.021814531365751413
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 6,
+      "model": "michaelis_menten",
+      "rmse": 5263.290740753563,
+      "parameters": [
+        485772.39727839094,
+        71.74593692075423
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 6,
+      "model": "holling_iii",
+      "rmse": 6907.895435205844,
+      "parameters": [
+        27715.615331699533,
+        1.6879339578321289
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 9,
+      "model": "constant",
+      "rmse": 5863.5042165894,
+      "parameters": [
+        5314.149271399309
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 9,
+      "model": "exponential",
+      "rmse": 5855.87349678954,
+      "parameters": [
+        9999997.957577202,
+        0.0005328907909829464
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 9,
+      "model": "michaelis_menten",
+      "rmse": 5835.412825432771,
+      "parameters": [
+        5368847.869784173,
+        999.999802914744
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 9,
+      "model": "holling_iii",
+      "rmse": 8196.182705536226,
+      "parameters": [
+        154722.4393812097,
+        13.789835195510992
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 10,
+      "model": "constant",
+      "rmse": 1859.6933130507473,
+      "parameters": [
+        5757.881609484776
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 10,
+      "model": "exponential",
+      "rmse": 1738.4975911644415,
+      "parameters": [
+        574546.6167100687,
+        0.010582995183904167
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 10,
+      "model": "michaelis_menten",
+      "rmse": 1730.4840564269737,
+      "parameters": [
+        1031969.4822929266,
+        168.98834783813913
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 10,
+      "model": "holling_iii",
+      "rmse": 3171.5816754373805,
+      "parameters": [
+        27237.967565498137,
+        1.7320252944487882
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 11,
+      "model": "constant",
+      "rmse": 7391.222187690292,
+      "parameters": [
+        5750.433486588011
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 11,
+      "model": "exponential",
+      "rmse": 8221.420083934972,
+      "parameters": [
+        96407.08987343522,
+        0.07435834460509995
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 11,
+      "model": "michaelis_menten",
+      "rmse": 8320.045197607336,
+      "parameters": [
+        130399.81958893043,
+        16.85641300358433
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "heldout_camp": 11,
+      "model": "holling_iii",
+      "rmse": 9623.522918809982,
+      "parameters": [
+        26762.33569423075,
+        1.686873849512213
+      ]
+    }
+  ],
+  "adopted_as_regional_default": false,
+  "limitations": [
+    "freshwater limitation",
+    "spatial food stocks",
+    "resource recovery after departure",
+    "causal destination selection",
+    "ancient transfer",
+    "famine demography"
+  ],
+  "validation_scope": "Leave one complete camp out, all rows and resource sets at that camp excluded from training; all seven folds reported. Camps share one population and observation campaign, so external validity remains untested."
+}

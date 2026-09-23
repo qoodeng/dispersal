@@ -1,0 +1,280 @@
+{
+  "schema": "batek-forward-results/1",
+  "protocol_sha256": "5eabdd3ece17328635b4e8974da18e994a040c142d7465d78d9adde53996872b",
+  "evaluated_camps": [
+    2,
+    5,
+    6,
+    9,
+    10,
+    11
+  ],
+  "forecast_days_per_resource": 47,
+  "fallback_count": 0,
+  "leakage_checks_passed": true,
+  "summary": [
+    {
+      "resource": "tot",
+      "model": "other_camp_mean",
+      "rmse": 1737.9130306546404,
+      "mae": 1462.886533813489
+    },
+    {
+      "resource": "tot",
+      "model": "local_mean",
+      "rmse": 1280.0197188734944,
+      "mae": 931.541363070204
+    },
+    {
+      "resource": "tot",
+      "model": "persistence",
+      "rmse": 1614.2153024378604,
+      "mae": 1214.9252935962688
+    },
+    {
+      "resource": "tot",
+      "model": "exponential",
+      "rmse": 1225.5769401161544,
+      "mae": 857.2775901318786
+    },
+    {
+      "resource": "tot",
+      "model": "michaelis_menten",
+      "rmse": 1223.6293604453274,
+      "mae": 852.6714189406476
+    },
+    {
+      "resource": "tot",
+      "model": "holling_iii",
+      "rmse": 1596.7036351537784,
+      "mae": 1217.0092148224849
+    },
+    {
+      "resource": "tot_rat",
+      "model": "other_camp_mean",
+      "rmse": 3898.1281390400254,
+      "mae": 3177.337101290079
+    },
+    {
+      "resource": "tot_rat",
+      "model": "local_mean",
+      "rmse": 4225.520561003506,
+      "mae": 3231.986125921807
+    },
+    {
+      "resource": "tot_rat",
+      "model": "persistence",
+      "rmse": 5363.207358046285,
+      "mae": 4260.010290618258
+    },
+    {
+      "resource": "tot_rat",
+      "model": "exponential",
+      "rmse": 4433.338798484386,
+      "mae": 3466.171899747353
+    },
+    {
+      "resource": "tot_rat",
+      "model": "michaelis_menten",
+      "rmse": 4385.746541106826,
+      "mae": 3378.174409099094
+    },
+    {
+      "resource": "tot_rat",
+      "model": "holling_iii",
+      "rmse": 5574.781163930999,
+      "mae": 4587.596912889962
+    }
+  ],
+  "comparisons": [
+    {
+      "resource": "tot",
+      "model": "exponential",
+      "baseline": "other_camp_mean",
+      "delta_rmse": -512.3360905384857,
+      "interval95": [
+        -1077.964400871953,
+        13.37173661985014
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "exponential",
+      "baseline": "local_mean",
+      "delta_rmse": -54.44277875733989,
+      "interval95": [
+        -290.384998529935,
+        86.26928564100679
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "exponential",
+      "baseline": "persistence",
+      "delta_rmse": -388.63836232170587,
+      "interval95": [
+        -686.2413204523367,
+        -138.56499852335725
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "michaelis_menten",
+      "baseline": "other_camp_mean",
+      "delta_rmse": -514.2836702093128,
+      "interval95": [
+        -1081.573130970129,
+        8.138012580851258
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "michaelis_menten",
+      "baseline": "local_mean",
+      "delta_rmse": -56.39035842816714,
+      "interval95": [
+        -278.34601079937414,
+        74.4014389053148
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "michaelis_menten",
+      "baseline": "persistence",
+      "delta_rmse": -390.58594199253315,
+      "interval95": [
+        -691.9184318482753,
+        -135.23222007712445
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "holling_iii",
+      "baseline": "other_camp_mean",
+      "delta_rmse": -141.20939550086197,
+      "interval95": [
+        -581.4414419966889,
+        340.3195002625701
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "holling_iii",
+      "baseline": "local_mean",
+      "delta_rmse": 316.6839162802838,
+      "interval95": [
+        49.57498593143915,
+        576.6464515891475
+      ]
+    },
+    {
+      "resource": "tot",
+      "model": "holling_iii",
+      "baseline": "persistence",
+      "delta_rmse": -17.51166728408221,
+      "interval95": [
+        -272.37012114463596,
+        181.35781895297532
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "exponential",
+      "baseline": "other_camp_mean",
+      "delta_rmse": 535.2106594443604,
+      "interval95": [
+        -703.4441747551326,
+        1654.6192743883673
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "exponential",
+      "baseline": "local_mean",
+      "delta_rmse": 207.81823748087996,
+      "interval95": [
+        -1074.3039543146713,
+        1649.9403595074402
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "exponential",
+      "baseline": "persistence",
+      "delta_rmse": -929.8685595618985,
+      "interval95": [
+        -2167.1454349600485,
+        507.2486827370013
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "michaelis_menten",
+      "baseline": "other_camp_mean",
+      "delta_rmse": 487.61840206680046,
+      "interval95": [
+        -708.3178029413469,
+        1583.5927498131623
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "michaelis_menten",
+      "baseline": "local_mean",
+      "delta_rmse": 160.22598010332004,
+      "interval95": [
+        -1097.0409055979278,
+        1534.5004927881216
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "michaelis_menten",
+      "baseline": "persistence",
+      "delta_rmse": -977.4608169394583,
+      "interval95": [
+        -2191.0982095337768,
+        419.46842638278605
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "holling_iii",
+      "baseline": "other_camp_mean",
+      "delta_rmse": 1676.6530248909748,
+      "interval95": [
+        122.80637623616619,
+        3159.735086138174
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "holling_iii",
+      "baseline": "local_mean",
+      "delta_rmse": 1349.2606029274946,
+      "interval95": [
+        -522.4599398559309,
+        3337.9143815869134
+      ]
+    },
+    {
+      "resource": "tot_rat",
+      "model": "holling_iii",
+      "baseline": "persistence",
+      "delta_rmse": 211.5738058847162,
+      "interval95": [
+        -871.3776021744301,
+        1825.5689302481105
+      ]
+    }
+  ],
+  "candidates_passing_development_gate": [],
+  "regional_adoption": false,
+  "limitations": [
+    "Camp3 has only3 days and cannot be evaluated after warmup",
+    "No observations after departure; scores conditional on remaining in camp",
+    "Return forecasts do not validate departure timing",
+    "Same population and overlapping development data",
+    "No regional transfer"
+  ]
+}

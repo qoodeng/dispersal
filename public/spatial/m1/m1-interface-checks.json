@@ -1,0 +1,45 @@
+{
+  "hardware": "Mac17,3; Apple M5; 10 CPU cores",
+  "browser": "Codex in-app browser",
+  "date": "2026-09-19",
+  "desktop": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "fps": 60,
+    "frameIntervalP99Ms": 17.7,
+    "updateP99Ms": 2.1,
+    "frames": 3360
+  },
+  "narrow": {
+    "viewport": [
+      390,
+      844
+    ],
+    "fps": 60,
+    "frameIntervalP99Ms": 17.7,
+    "updateP99Ms": 3.5,
+    "frames": 1740,
+    "layer": "food",
+    "scrollWidth": 390,
+    "mapControlHeightPx": 44
+  },
+  "defaultTwoRunComputeSeconds": 6.4,
+  "checked": [
+    "play/pause",
+    "time scrub",
+    "policy selection",
+    "food and terrain layers",
+    "zoom and fit",
+    "keyboard arrow pan",
+    "pointer drag",
+    "group selector including split descendants",
+    "high-food 100-year residence and six viable sites",
+    "download and native replay"
+  ],
+  "reducedMotion": "CSS inspected: decorative transitions/smooth scroll disabled; playback opt-in. OS preference was not changed.",
+  "physicalPhoneTested": false,
+  "consoleErrors": [],
+  "coreChecksPassed": true
+}

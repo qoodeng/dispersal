@@ -1,0 +1,188 @@
+{
+  "schema": "dispersal-evidence/v1",
+  "reviewDate": "2026-09-18",
+  "historicalPredictionsEnabled": false,
+  "sources": {
+    "climate": {
+      "citation": "Beyer, Krapp & Manica (2020), High-resolution terrestrial climate, bioclimate and vegetation for the last 120,000 years",
+      "url": "https://doi.org/10.1038/s41597-020-0552-1",
+      "location": "Methods; Table 1; Data Records",
+      "status": "article methods and actual NetCDF inspected"
+    },
+    "windows": {
+      "citation": "Beyer et al. (2021), Climatic windows for human migration out of Africa in the past 300,000 years",
+      "url": "https://doi.org/10.1038/s41467-021-24779-1",
+      "location": "Results; Discussion; Methods, precipitation threshold",
+      "status": "full text inspected"
+    },
+    "growth": {
+      "citation": "Tallavaara & J\u00f8rgensen (2021), Why are population growth rate estimates of past and present hunter-gatherers so different?",
+      "url": "https://doi.org/10.1098/rstb.2019.0708",
+      "location": "Table 1; simulation analysis; Discussion",
+      "status": "full text inspected"
+    },
+    "density": {
+      "citation": "Tallavaara, Eronen & Luoto (2018), Productivity, biodiversity, and pathogens influence the global hunter-gatherer population density",
+      "url": "https://doi.org/10.1073/pnas.1715638115",
+      "location": "Results; supporting Data analyses sections 3.2\u20133.3; XLS Variable keys",
+      "data": "https://zenodo.org/records/1167852",
+      "status": "article text, supporting analysis and raw data inspected"
+    },
+    "mobility": {
+      "citation": "Hamilton et al. (2016), The ecological and evolutionary energetics of hunter-gatherer residential mobility",
+      "url": "https://doi.org/10.1002/evan.21485",
+      "location": "Introduction definitions; Data; Discussion",
+      "status": "full text inspected"
+    },
+    "sea": {
+      "citation": "Spratt & Lisiecki (2016), A Late Pleistocene sea level stack",
+      "url": "https://doi.org/10.5194/cp-12-1079-2016",
+      "location": "Abstract; supplementary stack table",
+      "status": "screened; not integrated"
+    },
+    "archaeology": {
+      "citation": "Groucutt et al. (2018), Homo sapiens in Arabia by 85,000 years ago",
+      "url": "https://doi.org/10.1038/s41559-018-0518-2",
+      "location": "candidate independent benchmark: Al Wusta",
+      "status": "candidate only; full chronology and site data not extracted"
+    }
+  },
+  "parameters": [
+    {
+      "id": "climate_precipitation",
+      "status": "reconstructed",
+      "valueOrScope": "bio12, mm/year; 41 native snapshots at 2,000-year spacing, 120\u201340 ka BP",
+      "sourceId": "climate",
+      "decision": "environmental screen only; no population conversion",
+      "implementation": "scripts/audit-climate.py"
+    },
+    {
+      "id": "rainfall_threshold",
+      "status": "assumed",
+      "valueOrScope": "90,110,130,200 mm/year scenarios",
+      "sourceId": "windows",
+      "decision": "sensitivity settings, not universal survival cutoffs",
+      "implementation": "scripts/audit-climate.py"
+    },
+    {
+      "id": "modern_land",
+      "status": "modern_cartography",
+      "valueOrScope": "Natural Earth 1:110m; 0.5-degree raster",
+      "sourceId": null,
+      "decision": "engineering fixture only; paleogeographic routing blocked",
+      "implementation": "scripts/prepare-geography.py"
+    },
+    {
+      "id": "habitat_surface",
+      "status": "removed",
+      "valueOrScope": "invented desert and river-like gradients",
+      "sourceId": null,
+      "decision": "replaced by uniform engineering fixture",
+      "implementation": "scripts/prepare-geography.py"
+    },
+    {
+      "id": "coastal_advantage",
+      "status": "removed",
+      "valueOrScope": "previous multiplier 1.8",
+      "sourceId": null,
+      "decision": "no supported universal value; removed control and multiplier",
+      "implementation": "src/worker.ts"
+    },
+    {
+      "id": "carrying_capacity",
+      "status": "unsupported_fixture",
+      "valueOrScope": "2000 * cos(latitude) people per land cell",
+      "sourceId": "density",
+      "decision": "no historical default; observed density is not ecological K",
+      "implementation": "src/worker.ts"
+    },
+    {
+      "id": "growth",
+      "status": "unsupported_fixture",
+      "valueOrScope": "0.008/year initial UI setting; slider 0\u20130.015/year",
+      "sourceId": "growth",
+      "decision": "no validated ancient intrinsic growth rate; fixture only",
+      "implementation": "engine/src/lib.rs"
+    },
+    {
+      "id": "logistic_growth",
+      "status": "model_choice",
+      "valueOrScope": "deterministic density limitation with fixed K",
+      "sourceId": "growth",
+      "decision": "structural assumption, not validated population process",
+      "implementation": "engine/src/lib.rs"
+    },
+    {
+      "id": "initial_population",
+      "status": "unsupported_fixture",
+      "valueOrScope": "1000 people in one selected cell",
+      "sourceId": null,
+      "decision": "initialization uncalibrated; historical use blocked",
+      "implementation": "src/worker.ts"
+    },
+    {
+      "id": "mobility",
+      "status": "unsupported_fixture",
+      "valueOrScope": "0.1/year numerical exchange with distance and capacity modifiers",
+      "sourceId": "mobility",
+      "decision": "not km/year or empirical diffusion; historical use blocked",
+      "implementation": "engine/src/lib.rs"
+    },
+    {
+      "id": "neighbor_graph",
+      "status": "numerical_choice",
+      "valueOrScope": "four neighbors; approximate distance; 1-year step",
+      "sourceId": null,
+      "decision": "conservation tests only; density consistency and convergence unresolved",
+      "implementation": "engine/src/lib.rs"
+    },
+    {
+      "id": "occupancy",
+      "status": "display_choice",
+      "valueOrScope": "25 people per cell",
+      "sourceId": null,
+      "decision": "display threshold only; no settlement inference",
+      "implementation": "src/worker.ts"
+    },
+    {
+      "id": "time_horizon",
+      "status": "fixture_choice",
+      "valueOrScope": "3000 elapsed years, no absolute chronology",
+      "sourceId": null,
+      "decision": "not an Out-of-Africa timescale calibration",
+      "implementation": "src/worker.ts"
+    },
+    {
+      "id": "sea_crossings",
+      "status": "scenario_constraint",
+      "valueOrScope": "off",
+      "sourceId": "sea",
+      "decision": "boats and dated shorelines not implemented; absence is not an empirical claim",
+      "implementation": "scripts/prepare-geography.py"
+    },
+    {
+      "id": "freshwater",
+      "status": "missing",
+      "valueOrScope": "no river/lake/palaeohydrology inputs",
+      "sourceId": "windows",
+      "decision": "rainfall is not freshwater access; historical route inference blocked",
+      "implementation": "scripts/audit-climate.py"
+    },
+    {
+      "id": "subsistence",
+      "status": "missing",
+      "valueOrScope": "no population-specific diet, technology or animal migration model",
+      "sourceId": "density",
+      "decision": "no fixed prehistoric groups inferred from modern ethnography",
+      "implementation": "src/worker.ts"
+    },
+    {
+      "id": "archaeological_validation",
+      "status": "pending",
+      "valueOrScope": "no held-out benchmark evaluated",
+      "sourceId": "archaeology",
+      "decision": "candidate date is not a migration arrival time",
+      "implementation": "SCIENTIFIC-AUDIT.md"
+    }
+  ]
+}

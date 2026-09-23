@@ -1,0 +1,19 @@
+{
+  "schema": "spatial-checks/1",
+  "years": 100,
+  "initialPeople": 426,
+  "finalPeople": 585,
+  "departures": 312,
+  "distinctRoundedBearings": 110,
+  "blockedCandidateEdges": 111,
+  "replay": true,
+  "populationAccounting": true,
+  "resourceAccounting": true,
+  "resourceScenarioChangesRun": true,
+  "shortfalls": 22807,
+  "limits": [
+    "No archaeological validation",
+    "No mesh convergence claim",
+    "Resource parameters are scenario assumptions"
+  ]
+}

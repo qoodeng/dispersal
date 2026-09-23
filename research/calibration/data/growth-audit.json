@@ -1,0 +1,30 @@
+{
+  "status": "published-model input diagnostic; NOT ancient population calibration",
+  "source_id": "sahul2021",
+  "code_source_id": "sahul-code",
+  "annual_lambda_with_published_survival": 1.0037345316731807,
+  "annual_log_growth_with_published_survival": 0.0037275756227864373,
+  "annual_lambda_if_survival_set_to_one": 1.0309086008031125,
+  "annual_log_growth_if_survival_set_to_one": 0.030440550089679587,
+  "cautions": [
+    "Fertility shape comes from world2013lifetable; total is rescaled to 4.69/2 female offspring.",
+    "No-mortality matrix is a modeling construction, not observed human demography.",
+    "Code defines a doubled baseline rate and a separate no-mortality rate; the shown projection branch uses the latter. Do not conflate the variables."
+  ],
+  "identifiability_demo": {
+    "label": "synthetic homogeneous logistic-diffusion example, not historical fit",
+    "speed_formula": "2*sqrt(r_per_year*D_km2_per_year)",
+    "pairs": [
+      {
+        "r": 0.002,
+        "D": 125,
+        "speed_km_year": 1
+      },
+      {
+        "r": 0.008,
+        "D": 31.25,
+        "speed_km_year": 1
+      }
+    ]
+  }
+}

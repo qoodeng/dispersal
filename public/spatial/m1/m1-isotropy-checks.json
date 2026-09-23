@@ -1,0 +1,26 @@
+{
+  "fixture": "Isotropic equal-resource destinations on a 25 km ring, fixed shared starting patch. First choices only, away from boundaries.",
+  "seeds": 8192,
+  "departures": 49152,
+  "harmonics": [
+    {
+      "order": 1,
+      "amplitude": 0.003955642298946987
+    },
+    {
+      "order": 2,
+      "amplitude": 0.00296537774356129
+    },
+    {
+      "order": 3,
+      "amplitude": 0.011270690087037518
+    },
+    {
+      "order": 4,
+      "amplitude": 0.010805211846379727
+    }
+  ],
+  "samplingBound": 0.022081363931275355,
+  "criterion": "Each directional amplitude plus simultaneous Monte Carlo sampling bound is below 0.05.",
+  "pass": true
+}

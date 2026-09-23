@@ -1,0 +1,451 @@
+{
+  "schema": "dispersal-climate-screen/v1",
+  "scientificStatus": "environmental_screen_only",
+  "source": "https://zenodo.org/records/7062281",
+  "download": "https://zenodo.org/api/records/7062281/files/Beyer2020_annual_vars_v1.1.0.nc/content",
+  "paper": "https://doi.org/10.1038/s41597-020-0552-1",
+  "packagingDocumentation": "https://evolecolgroup.github.io/pastclim/reference/Beyer2020.html",
+  "license": "CC-BY-4.0",
+  "sourceMD5": "9773c80fa406eebd71f84a48cf733056",
+  "sourceSHA256": "96db0f56c65da55c11a9eb03e309b19343084adc57e234f65ee5f75587ea220c",
+  "variable": "bio12",
+  "units": "mm/year",
+  "unitsEvidence": "Beyer 2020 Methods: monthly precipitation in mm/month and derived annual bioclimatic precipitation; file long_name Annual Precipitation has no units attribute",
+  "timeConvention": "BP relative to 1950; source uses negative years since 1950",
+  "bounds": [
+    20,
+    -5,
+    65,
+    40
+  ],
+  "cellDegrees": 0.5,
+  "thresholdsMm": [
+    90,
+    110,
+    130,
+    200
+  ],
+  "thresholdSource": "https://doi.org/10.1038/s41467-021-24779-1",
+  "commonValidCells": 5599,
+  "rows": [
+    {
+      "yearsBP": 120000,
+      "validCells": 5599,
+      "fractions": [
+        0.7523465281524824,
+        0.6846638605164,
+        0.6408881428872709,
+        0.5384529900553817
+      ]
+    },
+    {
+      "yearsBP": 118000,
+      "validCells": 5634,
+      "fractions": [
+        0.7235869835713636,
+        0.6694000006156631,
+        0.6196186077549168,
+        0.5139644054153468
+      ]
+    },
+    {
+      "yearsBP": 116000,
+      "validCells": 5674,
+      "fractions": [
+        0.71824839633311,
+        0.6724405009560911,
+        0.6233231827148635,
+        0.5145324161431333
+      ]
+    },
+    {
+      "yearsBP": 114000,
+      "validCells": 5689,
+      "fractions": [
+        0.7116934459749884,
+        0.6648796692943492,
+        0.6171863644855883,
+        0.5059957478101997
+      ]
+    },
+    {
+      "yearsBP": 112000,
+      "validCells": 5722,
+      "fractions": [
+        0.7887707629168355,
+        0.7218712907142887,
+        0.6727733270468205,
+        0.5547620864660706
+      ]
+    },
+    {
+      "yearsBP": 110000,
+      "validCells": 5723,
+      "fractions": [
+        0.7483518455915343,
+        0.7019858851970607,
+        0.6640369594215014,
+        0.5524659593467087
+      ]
+    },
+    {
+      "yearsBP": 108000,
+      "validCells": 5721,
+      "fractions": [
+        0.7344719338090603,
+        0.6818779333614817,
+        0.6346259487784207,
+        0.5157286041740782
+      ]
+    },
+    {
+      "yearsBP": 106000,
+      "validCells": 5709,
+      "fractions": [
+        0.7459812850409216,
+        0.6852326555915047,
+        0.6328647733777332,
+        0.521835859736131
+      ]
+    },
+    {
+      "yearsBP": 104000,
+      "validCells": 5686,
+      "fractions": [
+        0.7443041301319575,
+        0.673603172995913,
+        0.6202106969731558,
+        0.5231495756135055
+      ]
+    },
+    {
+      "yearsBP": 102000,
+      "validCells": 5682,
+      "fractions": [
+        0.7328255817867442,
+        0.6657265750903694,
+        0.6151439310038181,
+        0.5158605738213546
+      ]
+    },
+    {
+      "yearsBP": 100000,
+      "validCells": 5656,
+      "fractions": [
+        0.7323557124762565,
+        0.66228688702715,
+        0.608974385922929,
+        0.5118008102241189
+      ]
+    },
+    {
+      "yearsBP": 98000,
+      "validCells": 5662,
+      "fractions": [
+        0.7149785185794227,
+        0.6465354882107289,
+        0.6009932932920973,
+        0.5057444456697346
+      ]
+    },
+    {
+      "yearsBP": 96000,
+      "validCells": 5675,
+      "fractions": [
+        0.7000681750210738,
+        0.6315158393901736,
+        0.585385139538404,
+        0.479709774458787
+      ]
+    },
+    {
+      "yearsBP": 94000,
+      "validCells": 5718,
+      "fractions": [
+        0.7049529164821846,
+        0.6475360600761679,
+        0.5950171991113851,
+        0.4771266171798537
+      ]
+    },
+    {
+      "yearsBP": 92000,
+      "validCells": 5710,
+      "fractions": [
+        0.7137612024748113,
+        0.6602753964869404,
+        0.611818130786092,
+        0.49079001213511414
+      ]
+    },
+    {
+      "yearsBP": 90000,
+      "validCells": 5708,
+      "fractions": [
+        0.7404127666335174,
+        0.6793463398296563,
+        0.6346054135021965,
+        0.5106771972443119
+      ]
+    },
+    {
+      "yearsBP": 88000,
+      "validCells": 5714,
+      "fractions": [
+        0.7473123546248228,
+        0.6885236621439329,
+        0.6502126632397226,
+        0.5360697784061178
+      ]
+    },
+    {
+      "yearsBP": 86000,
+      "validCells": 5687,
+      "fractions": [
+        0.7560846916402099,
+        0.6984664459211253,
+        0.6492360796372848,
+        0.5332097059095359
+      ]
+    },
+    {
+      "yearsBP": 84000,
+      "validCells": 5682,
+      "fractions": [
+        0.7534432658324728,
+        0.6948363675643745,
+        0.6439232709921978,
+        0.5294346680279207
+      ]
+    },
+    {
+      "yearsBP": 82000,
+      "validCells": 5685,
+      "fractions": [
+        0.7401704879977625,
+        0.6702680106968184,
+        0.6167963579312754,
+        0.5156733548444065
+      ]
+    },
+    {
+      "yearsBP": 80000,
+      "validCells": 5686,
+      "fractions": [
+        0.7358152008350042,
+        0.6614275673843452,
+        0.6103535597466004,
+        0.5154960375437537
+      ]
+    },
+    {
+      "yearsBP": 78000,
+      "validCells": 5679,
+      "fractions": [
+        0.707993464105432,
+        0.6404934558479036,
+        0.5979774199810443,
+        0.49758238982962655
+      ]
+    },
+    {
+      "yearsBP": 76000,
+      "validCells": 5678,
+      "fractions": [
+        0.702738189043127,
+        0.6328041332696992,
+        0.5880360658060432,
+        0.48734136975230125
+      ]
+    },
+    {
+      "yearsBP": 74000,
+      "validCells": 5689,
+      "fractions": [
+        0.6882728610758297,
+        0.6240858422584171,
+        0.5760359922537719,
+        0.4690899161325095
+      ]
+    },
+    {
+      "yearsBP": 72000,
+      "validCells": 5721,
+      "fractions": [
+        0.6828122267418183,
+        0.6180542769417936,
+        0.5700123403861193,
+        0.46096319580170425
+      ]
+    },
+    {
+      "yearsBP": 70000,
+      "validCells": 5748,
+      "fractions": [
+        0.7004124474882861,
+        0.6449490188100128,
+        0.5978139542160977,
+        0.48197709875576983
+      ]
+    },
+    {
+      "yearsBP": 68000,
+      "validCells": 5760,
+      "fractions": [
+        0.7163283952419567,
+        0.6668129295298076,
+        0.6222272074925631,
+        0.5156128278024266
+      ]
+    },
+    {
+      "yearsBP": 66000,
+      "validCells": 5769,
+      "fractions": [
+        0.723842603493817,
+        0.6737911571867723,
+        0.6274010551424644,
+        0.5228605405534665
+      ]
+    },
+    {
+      "yearsBP": 64000,
+      "validCells": 5767,
+      "fractions": [
+        0.7162089534566617,
+        0.6651167127606199,
+        0.6164736716148772,
+        0.5132777516930525
+      ]
+    },
+    {
+      "yearsBP": 62000,
+      "validCells": 5769,
+      "fractions": [
+        0.7276542329614599,
+        0.6740413199239831,
+        0.6217372045886864,
+        0.5255449147717031
+      ]
+    },
+    {
+      "yearsBP": 60000,
+      "validCells": 5767,
+      "fractions": [
+        0.7246763116379272,
+        0.6578847716585194,
+        0.6120829405184497,
+        0.5111545221565396
+      ]
+    },
+    {
+      "yearsBP": 58000,
+      "validCells": 5769,
+      "fractions": [
+        0.7372945952740572,
+        0.6667479148673847,
+        0.618014687446235,
+        0.519780154298151
+      ]
+    },
+    {
+      "yearsBP": 56000,
+      "validCells": 5769,
+      "fractions": [
+        0.7463933214713068,
+        0.680776060158002,
+        0.6270772799176021,
+        0.5271984769637034
+      ]
+    },
+    {
+      "yearsBP": 54000,
+      "validCells": 5762,
+      "fractions": [
+        0.7451162272789544,
+        0.6821599292768287,
+        0.6284186087782934,
+        0.5278476566370686
+      ]
+    },
+    {
+      "yearsBP": 52000,
+      "validCells": 5759,
+      "fractions": [
+        0.7726395087462494,
+        0.7025666770108185,
+        0.6497556190286176,
+        0.5493766578940601
+      ]
+    },
+    {
+      "yearsBP": 50000,
+      "validCells": 5756,
+      "fractions": [
+        0.7257945136814213,
+        0.6640384851145897,
+        0.6157585455703188,
+        0.5107832898082973
+      ]
+    },
+    {
+      "yearsBP": 48000,
+      "validCells": 5762,
+      "fractions": [
+        0.7188718018825251,
+        0.6728708891954619,
+        0.6257700413488085,
+        0.5178555074850303
+      ]
+    },
+    {
+      "yearsBP": 46000,
+      "validCells": 5762,
+      "fractions": [
+        0.725663472311416,
+        0.6697107713032915,
+        0.6240233295493722,
+        0.5160507732175877
+      ]
+    },
+    {
+      "yearsBP": 44000,
+      "validCells": 5762,
+      "fractions": [
+        0.7197077468412723,
+        0.6671348093314238,
+        0.6172192109211952,
+        0.5067776177905449
+      ]
+    },
+    {
+      "yearsBP": 42000,
+      "validCells": 5766,
+      "fractions": [
+        0.707232950170186,
+        0.6540524787385197,
+        0.608706563503497,
+        0.5038786120098546
+      ]
+    },
+    {
+      "yearsBP": 40000,
+      "validCells": 5771,
+      "fractions": [
+        0.7068745811042751,
+        0.6587194876916677,
+        0.6123985194170943,
+        0.5089689715525991
+      ]
+    }
+  ],
+  "interpretation": "Area-weighted fraction of cells with data at ALL 41 snapshots whose reconstructed annual precipitation meets each threshold. Not fraction of ancient habitable land; not a migration probability or population prediction.",
+  "limitations": [
+    "Thresholds are sensitivity scenarios, not universal survival limits.",
+    "Masks exclude ice sheets and internal seas; missing values are not interpreted as uninhabitable land.",
+    "Common-support selection excludes changing land masks.",
+    "No freshwater, routes, sea crossings, population dynamics, seasonality or archaeological validation.",
+    "One climate reconstruction; threshold spread is not a confidence interval."
+  ],
+  "subsetSHA256": "99adcf8e48598622ae63b337951dca943f15e669838b242a4227ff8aac4f09b5"
+}

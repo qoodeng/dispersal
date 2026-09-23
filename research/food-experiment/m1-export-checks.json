@@ -1,0 +1,18 @@
+{
+  "bytes": 92359752,
+  "schema": "dispersal-spatial/2",
+  "engineSha256": "bde2bfb120fa982f150d674b4847f739ca2881ee49e386d8de0695e1b128a530",
+  "framesPerPolicy": 1201,
+  "physicalFoodCells": 416150,
+  "settings": {
+    "coupled": true,
+    "seed": 123,
+    "density": "central",
+    "mode": "food",
+    "foodSupply": 2000,
+    "seasonality": 0.8,
+    "knowledge": "learned"
+  },
+  "replay": "Both policies replayed natively from the browser download; every monthly field compared at relative tolerance 1e-8.",
+  "pass": true
+}

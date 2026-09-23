@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-18",
+  "figure_url": "https://journals.plos.org/plosone/article/figure/image?size=large&id=10.1371/journal.pone.0000785.g002",
+  "figure_sha256": "2c94e7dde27d855fdd5a7ad7023ecc31281429fcdc48064e6448d8076f91dbc1",
+  "article_xml_urls": [
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=1949148",
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7337577",
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=6979506",
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=6121812",
+    "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7741106"
+  ],
+  "supplement": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0000785.s001&type=supplementary",
+  "unresolved": [
+    "Original Howell numeric fertility table not acquired",
+    "Hadza2011 author-hosted PDF returns404",
+    "Hadza2020 supplementary docx not retrieved; no parameters inferred from missing file"
+  ],
+  "notes": "Figure reproduction is CC BY; credited to Tuljapurkar, Puleston and Gurven2007. Full text caches are for local review."
+}

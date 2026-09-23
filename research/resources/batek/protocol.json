@@ -1,0 +1,21 @@
+{
+  "schema": "resource-movement-development-protocol/1",
+  "registered_before_candidate_fitting": true,
+  "scope": "Batek 1975–1976 development benchmark only; not independent population or ancient validation",
+  "source_doi": "10.1073/pnas.1617542114",
+  "source_commit": "7671a0730565a58434ec6e296a35bec7ae24ae7f",
+  "data_audit": "Check sorted count, zero anchors, monotonic cumulative gains and additive resource identities. Published R fits value directly as cumulative gain; do not trust daily-return wording without checking.",
+  "complete_camps": [2,3,5,6,9,10,11],
+  "excluded_shape_camps": {"1":"entry predates observations","4":"entry predates observations","7":"entry and departure uncertain","8":"entry date unknown"},
+  "primary_resource": "tot (wild foods excluding rattan)",
+  "sensitivity_resource": "tot_rat (wild foods plus rice-equivalent rattan proceeds); not prehistoric food",
+  "models": ["constant daily return baseline","asymptotic exponential cumulative gain","Michaelis-Menten cumulative gain","Holling III cumulative gain"],
+  "fit_target": "Daily increments reconstructed by differencing cumulative gains; no zero anchor treated as observed day",
+  "validation": "Leave one complete camp out, all rows and resource sets at that camp excluded from training; all seven folds reported. Camps share one population and observation campaign, so external validity remains untested.",
+  "weighting": "Equal total squared-error weight per training camp; no held-out outcome normalization",
+  "scores": ["per-camp daily-return RMSE","equal-camp mean RMSE","relative improvement over training-only constant baseline"],
+  "fitting": "Fixed positive bounded multistart least squares; amplitude 0.01–10000000 kcal per capita; shape time/rate bounds 0.0001–1000. No changing candidates after seeing scores.",
+  "adoption_gate": "No geographic default from this benchmark. Improvement here only qualifies a candidate for further evaluation. Do not infer residence duration from the held-out camp's fitted full trajectory, stored Avg or observed departure.",
+  "not_identified": ["freshwater limitation","spatial food stocks","resource recovery after departure","causal destination selection","ancient transfer","famine demography"],
+  "interpretation": "Estimated resource returns combine availability, effort, sharing and measurement; a decreasing curve alone does not uniquely identify physical depletion. Published environmental Avg includes the study sample and must not be used as an independent held-out predictor."
+}
