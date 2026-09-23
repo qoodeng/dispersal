@@ -1,7 +1,7 @@
 //! Stochastic metapopulation dynamics: Ricker–Poisson growth, nearest-neighbour
 //! binomial dispersal, and a Poisson archaeological deposition process.
 
-use crate::grid::{Grid, Region, DIRECTIONS, KM_PER_DEGREE};
+use crate::grid::{Direction, Grid, Region, DIRECTIONS, KM_PER_DEGREE};
 use rand_distr::{Distribution, Gamma, Poisson, StandardNormal, StandardUniform};
 use rand_xoshiro::rand_core::SeedableRng;
 use rand_xoshiro::Xoshiro256PlusPlus;
@@ -180,6 +180,10 @@ pub fn leave_probabilities(grid: &Grid, cell: usize, diffusion: f64, dt: f64) ->
     DIRECTIONS.map(|d| diffusion * dt / grid.spacing_km(cell, d).powi(2))
 }
 
+/// Width of the coastal front from which strait crossings are made, km. Convention: one
+/// 1-degree cell width at the strait (12.5N), so the 1-degree link behaves like a grid edge.
+pub const STRAIT_FRONT_KM: f64 = 108.6;
+
 /// Move slots per cell: the four grid directions plus one strait link.
 pub const SLOTS: usize = 5;
 const LINK: usize = 4;
@@ -196,7 +200,11 @@ pub fn move_probabilities(
     let mut p = [0.0; SLOTS];
     p[..4].copy_from_slice(&leave_probabilities(grid, cell, diffusion, dt));
     if let Some(st) = strait.filter(|st| cell == st.a || cell == st.b) {
-        p[LINK] = diffusion * dt / st.distance_km.powi(2);
+        // Diffusive exchange across a crossing front of fixed physical width w over distance L,
+        // per person in a cell of area A: D dt w / (L A). Unlike D dt / L^2, the flux through the
+        // strait then does not depend on the grid resolution.
+        let area = grid.spacing_km(cell, Direction::East) * grid.spacing_km(cell, Direction::North);
+        p[LINK] = diffusion * dt * STRAIT_FRONT_KM / (st.distance_km * area);
     }
     p
 }
@@ -534,7 +542,7 @@ pub fn simulate(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::grid::{Direction, Grid};
+    use crate::grid::Grid;
 
     fn params() -> Params {
         Params {

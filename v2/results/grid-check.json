@@ -1,0 +1,134 @@
+{
+ "sims": 200,
+ "comparison": "1-degree dt 25 vs 0.5-degree dt 6.25, same draws; 1deg_reseeded shows seed noise",
+ "criterion": "fraction reaching the region within 2 binomial SE, median onset within 1 ka",
+ "verdict": "fail",
+ "results": {
+  "arabia_onset_bp/all": {
+   "1deg": {
+    "draws": 200,
+    "fractionReached": 0.8,
+    "medianOnsetKa": 113.34
+   },
+   "1deg_reseeded": {
+    "draws": 200,
+    "fractionReached": 0.795,
+    "medianOnsetKa": 113.85
+   },
+   "0.5deg": {
+    "draws": 200,
+    "fractionReached": 0.76,
+    "medianOnsetKa": 111.72
+   },
+   "fractionGap": 0.04,
+   "fractionTolerance": 0.08,
+   "medianOnsetGapKa": 1.62,
+   "pass": false
+  },
+  "arabia_onset_bp/cannotCross": {
+   "1deg": {
+    "draws": 74,
+    "fractionReached": 0.459,
+    "medianOnsetKa": 111.01
+   },
+   "1deg_reseeded": {
+    "draws": 74,
+    "fractionReached": 0.446,
+    "medianOnsetKa": 111.92
+   },
+   "0.5deg": {
+    "draws": 74,
+    "fractionReached": 0.351,
+    "medianOnsetKa": 111.87
+   },
+   "fractionGap": 0.108,
+   "fractionTolerance": 0.164,
+   "medianOnsetGapKa": 0.86,
+   "pass": true
+  },
+  "arabia_onset_bp/canCross": {
+   "1deg": {
+    "draws": 126,
+    "fractionReached": 1.0,
+    "medianOnsetKa": 113.64
+   },
+   "1deg_reseeded": {
+    "draws": 126,
+    "fractionReached": 1.0,
+    "medianOnsetKa": 113.86
+   },
+   "0.5deg": {
+    "draws": 126,
+    "fractionReached": 1.0,
+    "medianOnsetKa": 110.93
+   },
+   "fractionGap": 0.0,
+   "fractionTolerance": 0.011,
+   "medianOnsetGapKa": 2.71,
+   "pass": false
+  },
+  "levant_onset_bp/all": {
+   "1deg": {
+    "draws": 200,
+    "fractionReached": 0.695,
+    "medianOnsetKa": 110.25
+   },
+   "1deg_reseeded": {
+    "draws": 200,
+    "fractionReached": 0.71,
+    "medianOnsetKa": 110.12
+   },
+   "0.5deg": {
+    "draws": 200,
+    "fractionReached": 0.6,
+    "medianOnsetKa": 109.3
+   },
+   "fractionGap": 0.095,
+   "fractionTolerance": 0.092,
+   "medianOnsetGapKa": 0.95,
+   "pass": false
+  },
+  "levant_onset_bp/cannotCross": {
+   "1deg": {
+    "draws": 74,
+    "fractionReached": 0.459,
+    "medianOnsetKa": 112.05
+   },
+   "1deg_reseeded": {
+    "draws": 74,
+    "fractionReached": 0.446,
+    "medianOnsetKa": 113.75
+   },
+   "0.5deg": {
+    "draws": 74,
+    "fractionReached": 0.338,
+    "medianOnsetKa": 111.46
+   },
+   "fractionGap": 0.121,
+   "fractionTolerance": 0.164,
+   "medianOnsetGapKa": 0.59,
+   "pass": true
+  },
+  "levant_onset_bp/canCross": {
+   "1deg": {
+    "draws": 126,
+    "fractionReached": 0.833,
+    "medianOnsetKa": 109.4
+   },
+   "1deg_reseeded": {
+    "draws": 126,
+    "fractionReached": 0.865,
+    "medianOnsetKa": 109.15
+   },
+   "0.5deg": {
+    "draws": 126,
+    "fractionReached": 0.754,
+    "medianOnsetKa": 108.41
+   },
+   "fractionGap": 0.079,
+   "fractionTolerance": 0.094,
+   "medianOnsetGapKa": 0.99,
+   "pass": true
+  }
+ }
+}
