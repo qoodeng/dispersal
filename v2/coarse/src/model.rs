@@ -307,10 +307,10 @@ pub fn simulate(
     for step in 0..steps {
         let t = s.start_bp - step as f64 * s.dt;
         let snapshot = capacity(grid, p, s, t, &mut k);
-        for c in 0..n {
-            if pop[c] > 0 && !grid.is_land(snapshot, c) {
-                out.lost_to_sea += pop[c];
-                pop[c] = 0;
+        for (c, people) in pop.iter_mut().enumerate() {
+            if *people > 0 && !grid.is_land(snapshot, c) {
+                out.lost_to_sea += *people;
+                *people = 0;
             }
         }
         if snapshot != targets_snapshot {

@@ -47,6 +47,7 @@ PRIORS = {
 NO_EVIDENCE_KA = 30.0  # encoding for "nothing in 120-40 ka"; 10 ka beyond the window edge
 NEVER_KA = 30.0
 T_TESTS = 250
+MAX_PER_SITE_SUMMARIES = 12  # above this, observations are reduced to summary statistics
 ACCEPT_FRACTION = 0.03  # nearest 3%: wider-than-ideal posteriors, i.e. conservative contraction
 
 
@@ -204,7 +205,17 @@ def observations(table, design, rng):
             sigma = design["sigma"]["value"] * (age if kind == "fraction_of_age" else 1.0)
             age = age + rng.normal(size=age.shape) * np.nan_to_num(sigma)
         cols.append(np.where(np.isfinite(age), age / 1000.0, NO_EVIDENCE_KA))
-    return np.column_stack(cols)
+    S = np.column_stack(cols)
+    if S.shape[1] <= MAX_PER_SITE_SUMMARIES:
+        return S
+    # Many sites: nearest-neighbour ABC degrades with dimension, so reduce the
+    # record to the number of sites with evidence, age quantiles across sites,
+    # and the oldest age per region.
+    regions = np.array([s["region"] for s in design["sites"]])
+    reduced = [(S > NO_EVIDENCE_KA).sum(axis=1).astype(float)]
+    reduced += list(np.quantile(S, [1.0, 0.9, 0.75, 0.5], axis=1))
+    reduced += [S[:, regions == r].max(axis=1) for r in sorted(set(regions))]
+    return np.column_stack(reduced)
 
 
 def weighted_quantile(x, w, q):
@@ -412,20 +423,23 @@ def print_report(report):
 
 
 def timestep(args):
-    """Compare region onset distributions at dt 25 vs 10 on the first N draws."""
-    params = (WORK / "params.csv").read_text().splitlines()
-    sub = WORK / "params-timestep.csv"
-    sub.write_text("\n".join(params[: args.sims + 1]) + "\n")
-    rows = {}
-    for dt in (25, 10):
-        out = WORK / f"timestep-dt{dt}.csv"
+    """Is the dt 25 vs 10 year difference larger than seed-to-seed noise at dt 25?"""
+    params = (WORK / "params.csv").read_text().splitlines()[: args.sims + 1]
+    reseeded = [params[0]] + [
+        ",".join([r.split(",")[0], str(int(r.split(",")[1]) + 1)] + r.split(",")[2:]) for r in params[1:]
+    ]
+    runs = {"dt25": (params, 25), "dt25_reseeded": (reseeded, 25), "dt10": (params, 10)}
+    tables = {}
+    for name, (rows, dt) in runs.items():
+        src, out = WORK / f"timestep-{name}.params.csv", WORK / f"timestep-{name}.csv"
+        src.write_text("\n".join(rows) + "\n")
         subprocess.run(
             [
                 str(ENGINE),
                 "--grid",
                 str(GRID),
                 "--params",
-                str(sub),
+                str(src),
                 "--sites",
                 str(WORK / "sites.csv"),
                 "--out",
@@ -435,23 +449,42 @@ def timestep(args):
             ],
             check=True,
         )
-        rows[dt] = read_table(out)
+        tables[name] = read_table(out)
     result = {}
     for q in ("arabia_onset_bp", "levant_onset_bp"):
-        a, b = rows[25][q] / 1000, rows[10][q] / 1000
-        both = np.isfinite(a) & np.isfinite(b)
-        result[q] = {
-            "reachedAgreement": round(float((np.isfinite(a) == np.isfinite(b)).mean()), 3),
-            "medianDifferenceKa": round(float(np.median(a[both] - b[both])), 2),
-            "medianAbsDifferenceKa": round(float(np.median(np.abs(a[both] - b[both]))), 2),
-            "p90AbsDifferenceKa": round(float(np.quantile(np.abs(a[both] - b[both]), 0.9)), 2),
-        }
-    RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "timestep-check.json").write_text(
-        json.dumps({"sims": args.sims, "comparison": "dt 25 vs 10 years, same seeds", "results": result}, indent=1)
-        + "\n"
+        r = {}
+        for name, t in tables.items():
+            x = t[q] / 1000
+            reached = np.isfinite(x)
+            r[name] = {
+                "fractionReached": round(float(reached.mean()), 3),
+                "onsetKaQuantiles10_50_90": [round(float(v), 1) for v in np.quantile(x[reached], [0.1, 0.5, 0.9])],
+            }
+        for a, b in (("dt25", "dt25_reseeded"), ("dt25", "dt10")):
+            x, y = tables[a][q], tables[b][q]
+            r[f"{a}_vs_{b}"] = {
+                "reachedAgreement": round(float((np.isfinite(x) == np.isfinite(y)).mean()), 3),
+                "medianAbsOnsetDifferenceKa": round(float(np.nanmedian(np.abs(x - y)) / 1000), 2),
+            }
+        result[q] = r
+    verdict = (
+        "fail"
+        if abs(
+            result["arabia_onset_bp"]["dt25"]["fractionReached"] - result["arabia_onset_bp"]["dt10"]["fractionReached"]
+        )
+        > 0.05
+        else "pass"
     )
-    print(json.dumps(result, indent=1))
+    report = {
+        "sims": args.sims,
+        "question": "dt 25 vs 10 years, compared with seed-to-seed noise at dt 25",
+        "criterion": "fraction of runs establishing in Arabia differs by at most 0.05 between dt 25 and dt 10",
+        "verdict": verdict,
+        "results": result,
+    }
+    RESULTS.mkdir(exist_ok=True)
+    (RESULTS / "timestep-check.json").write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps(report, indent=1))
 
 
 def main():
