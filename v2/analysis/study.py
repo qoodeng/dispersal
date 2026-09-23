@@ -135,6 +135,8 @@ def resolve_designs():
 def one_sigma_years(row):
     """1-sigma dating error in years from a register row; unknown conventions are read as 1 sigma (wider)."""
     half_width = max(float(row["minus_ka"] or 0), float(row["plus_ka"] or 0)) * 1000
+    if half_width == 0:  # no stated error: assume 6% of the age, a typical luminescence 1-sigma
+        return 0.06 * float(row["age_ka"]) * 1000
     convention = row["uncertainty_convention"].lower()
     two_sigma = any(tag in convention for tag in ("2 sigma", "2σ", "95"))
     return half_width / 2 if two_sigma else half_width
@@ -153,7 +155,12 @@ def evidence_sites(spec):
             continue  # unverified coordinates or age: not usable
         if not spec["minAgeKa"] <= age <= spec["maxAgeKa"]:
             continue
-        if spec.get("attribution") and not any(a in r["hominin_attribution"].lower() for a in spec["attribution"]):
+        attribution, relation = r["hominin_attribution"].lower(), r["relationship_to_human_presence"].lower()
+        if spec.get("attribution") and not any(a in attribution for a in spec["attribution"]):
+            continue
+        if any(a in attribution for a in spec.get("excludeAttribution", [])):
+            continue
+        if any(x in relation for x in spec.get("excludeRelationship", [])):
             continue
         keep.append((r["site"], lat, lon, age, one_sigma_years(r), r["record_id"]))
     sites = {}

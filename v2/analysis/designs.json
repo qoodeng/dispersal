@@ -5,36 +5,140 @@
     "'ingested' uses the only two records in research/calibration/data/archaeological-observations.csv. Al Wusta (27.418N, 39.397E) and Alathar (27.520N, 39.398E) fall in the same 1-degree cell, so the ingested record is one location; its dating error is the wider of the two (Alathar OSL bracket, about 5 ka at 1 sigma).",
     "'illustrative' uses approximate coordinates of well-known Levantine and Arabian Middle Palaeolithic sites, typed from memory for design purposes only. None of them has been ingested, reviewed or attributed; do not treat them as observations.",
     "'dense' is an optimistic upper bound: 40 random Levant/Arabia land cells dated to 2 ka.",
-    "'oracle' removes the archaeological process entirely: the exact first-established time at the illustrative cells. It separates limits of the model from limits of the evidence."
+    "'oracle' removes the archaeological process entirely: the exact first-established time at the illustrative cells. It separates limits of the model from limits of the evidence.",
+    "'register_sapiens' and 'register_all' are built from research/evidence/dated-sites.csv: sites with verified coordinates, one location per site dated by its oldest usable record (layers below a find and palaeoenvironmental-only dates are excluded). 'sapiens' keeps rows attributed to H. sapiens or Homo spp.; 'all' also keeps lithics-only rows and drops Neanderthal-attributed ones."
   ],
   "designs": {
     "ingested": {
-      "sigma": {"kind": "fixed_years", "value": 5000},
-      "sites": [{"name": "nefud_alwusta_alathar", "lat": 27.47, "lon": 39.40}]
+      "sigma": {
+        "kind": "fixed_years",
+        "value": 5000
+      },
+      "sites": [
+        {
+          "name": "nefud_alwusta_alathar",
+          "lat": 27.47,
+          "lon": 39.4
+        }
+      ]
     },
     "illustrative": {
-      "sigma": {"kind": "fraction_of_age", "value": 0.06},
+      "sigma": {
+        "kind": "fraction_of_age",
+        "value": 0.06
+      },
       "sites": [
-        {"name": "skhul", "lat": 32.67, "lon": 34.97},
-        {"name": "qafzeh", "lat": 32.68, "lon": 35.32},
-        {"name": "nesher_ramla", "lat": 31.90, "lon": 34.90},
-        {"name": "boker_tachtit", "lat": 30.80, "lon": 34.80},
-        {"name": "tor_faraj", "lat": 30.00, "lon": 35.40},
-        {"name": "nefud_alwusta_alathar", "lat": 27.47, "lon": 39.40},
-        {"name": "jebel_qattar", "lat": 28.00, "lon": 40.90},
-        {"name": "mundafan", "lat": 18.55, "lon": 45.35},
-        {"name": "shibat_dihya", "lat": 15.00, "lon": 43.60},
-        {"name": "dhofar_nubian", "lat": 17.90, "lon": 53.80},
-        {"name": "jebel_faya", "lat": 25.12, "lon": 55.85}
+        {
+          "name": "skhul",
+          "lat": 32.67,
+          "lon": 34.97
+        },
+        {
+          "name": "qafzeh",
+          "lat": 32.68,
+          "lon": 35.32
+        },
+        {
+          "name": "nesher_ramla",
+          "lat": 31.9,
+          "lon": 34.9
+        },
+        {
+          "name": "boker_tachtit",
+          "lat": 30.8,
+          "lon": 34.8
+        },
+        {
+          "name": "tor_faraj",
+          "lat": 30.0,
+          "lon": 35.4
+        },
+        {
+          "name": "nefud_alwusta_alathar",
+          "lat": 27.47,
+          "lon": 39.4
+        },
+        {
+          "name": "jebel_qattar",
+          "lat": 28.0,
+          "lon": 40.9
+        },
+        {
+          "name": "mundafan",
+          "lat": 18.55,
+          "lon": 45.35
+        },
+        {
+          "name": "shibat_dihya",
+          "lat": 15.0,
+          "lon": 43.6
+        },
+        {
+          "name": "dhofar_nubian",
+          "lat": 17.9,
+          "lon": 53.8
+        },
+        {
+          "name": "jebel_faya",
+          "lat": 25.12,
+          "lon": 55.85
+        }
       ]
     },
     "dense": {
-      "sigma": {"kind": "fixed_years", "value": 2000},
-      "random_sites": {"count": 40, "regions": ["arabia", "levant"], "seed": 2026}
+      "sigma": {
+        "kind": "fixed_years",
+        "value": 2000
+      },
+      "random_sites": {
+        "count": 40,
+        "regions": [
+          "arabia",
+          "levant"
+        ],
+        "seed": 2026
+      }
     },
     "oracle": {
-      "sigma": {"kind": "exact_established"},
+      "sigma": {
+        "kind": "exact_established"
+      },
       "same_sites_as": "illustrative"
+    },
+    "register_sapiens": {
+      "sigma": {
+        "kind": "per_site"
+      },
+      "evidence": {
+        "file": "research/evidence/dated-sites.csv",
+        "minAgeKa": 40,
+        "maxAgeKa": 130,
+        "excludeRelationship": [
+          "bracketing layer below",
+          "palaeoenvironmental"
+        ],
+        "attribution": [
+          "sapiens",
+          "homo spp"
+        ]
+      }
+    },
+    "register_all": {
+      "sigma": {
+        "kind": "per_site"
+      },
+      "evidence": {
+        "file": "research/evidence/dated-sites.csv",
+        "minAgeKa": 40,
+        "maxAgeKa": 130,
+        "excludeRelationship": [
+          "bracketing layer below",
+          "palaeoenvironmental"
+        ],
+        "excludeAttribution": [
+          "neanderthal"
+        ]
+      }
     }
   }
 }
