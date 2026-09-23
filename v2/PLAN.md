@@ -1,6 +1,6 @@
 # Dispersal v2 plan
 
-Status: proposed 23 September 2026. Gate G0 has a first result (see [README](README.md#g0-result)).
+Status: proposed 23 September 2026. Current gate status and results are in [README](README.md#status-by-gate).
 
 ## Relationship to v1
 

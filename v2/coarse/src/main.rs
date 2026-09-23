@@ -1,7 +1,7 @@
 //! Batch runner: simulate every parameter row and write one summary row each.
 //!
 //! coarse --grid GRID.json --params PARAMS.csv --sites SITES.csv --out OUT.csv
-//!        [--dt YEARS] [--southern-crossing]
+//!        [--dt YEARS] [--southern-crossing] [--source-max-lat DEGREES]
 //!
 //! PARAMS.csv columns: id,seed,growth,diffusion,rain_half,density,detection
 //! SITES.csv columns:  name,lat,lon
@@ -71,6 +71,9 @@ fn run(args: &[String]) -> Result<(), String> {
     };
     if let Some(dt) = flag("--dt") {
         scenario.dt = dt.parse().map_err(|_| "bad --dt")?;
+    }
+    if let Some(lat) = flag("--source-max-lat") {
+        scenario.source_max_lat = lat.parse().map_err(|_| "bad --source-max-lat")?;
     }
 
     let sites = read_csv(&need("--sites")?)?;
@@ -152,11 +155,12 @@ fn run(args: &[String]) -> Result<(), String> {
     let path = need("--out")?;
     std::fs::write(&path, out).map_err(|e| format!("{path}: {e}"))?;
     eprintln!(
-        "{} runs, {} sites, dt {} yr, southern crossing {}: {:.1} s",
+        "{} runs, {} sites, dt {} yr, southern crossing {}, source south of {}N: {:.1} s",
         jobs.len(),
         cells.len(),
         scenario.dt,
         scenario.southern_crossing,
+        scenario.source_max_lat,
         started.elapsed().as_secs_f64()
     );
     Ok(())

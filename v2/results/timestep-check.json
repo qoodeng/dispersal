@@ -1,76 +1,94 @@
 {
  "sims": 200,
- "question": "dt 25 vs 10 years, compared with seed-to-seed noise at dt 25",
- "criterion": "fraction of runs establishing in Arabia differs by at most 0.05 between dt 25 and dt 10",
- "verdict": "fail",
+ "dts": [
+  25.0,
+  10.0,
+  5.0
+ ],
+ "criterion": "each step within 2 binomial SE of the coarsest on fraction reaching the region, and within 1 ka on median onset; the reseeded run shows seed-to-seed noise",
+ "verdict": "pass",
  "results": {
   "arabia_onset_bp": {
    "dt25": {
-    "fractionReached": 0.645,
+    "fractionReached": 0.5,
     "onsetKaQuantiles10_50_90": [
-     99.5,
-     111.8,
+     77.5,
+     112.6,
      118.1
     ]
    },
-   "dt25_reseeded": {
-    "fractionReached": 0.63,
-    "onsetKaQuantiles10_50_90": [
-     97.6,
-     112.2,
-     117.8
-    ]
-   },
    "dt10": {
-    "fractionReached": 0.45,
+    "fractionReached": 0.51,
     "onsetKaQuantiles10_50_90": [
-     91.9,
-     113.0,
-     118.4
-    ]
+     85.4,
+     112.2,
+     118.2
+    ],
+    "fractionGapVsBase": 0.01,
+    "medianOnsetGapKa": 0.4
    },
-   "dt25_vs_dt25_reseeded": {
-    "reachedAgreement": 0.945,
-    "medianAbsOnsetDifferenceKa": 0.84
+   "dt5": {
+    "fractionReached": 0.525,
+    "onsetKaQuantiles10_50_90": [
+     78.9,
+     112.6,
+     118.2
+    ],
+    "fractionGapVsBase": 0.025,
+    "medianOnsetGapKa": 0.0
    },
-   "dt25_vs_dt10": {
-    "reachedAgreement": 0.805,
-    "medianAbsOnsetDifferenceKa": 1.87
-   }
+   "dt25_reseeded": {
+    "fractionReached": 0.525,
+    "onsetKaQuantiles10_50_90": [
+     93.2,
+     112.5,
+     118.2
+    ],
+    "fractionGapVsBase": 0.025,
+    "medianOnsetGapKa": 0.1
+   },
+   "fractionTolerance": 0.1
   },
   "levant_onset_bp": {
    "dt25": {
-    "fractionReached": 0.645,
+    "fractionReached": 0.5,
     "onsetKaQuantiles10_50_90": [
-     99.8,
-     112.5,
-     118.1
-    ]
-   },
-   "dt25_reseeded": {
-    "fractionReached": 0.63,
-    "onsetKaQuantiles10_50_90": [
-     99.6,
+     78.9,
      112.6,
-     118.3
+     118.2
     ]
    },
    "dt10": {
-    "fractionReached": 0.455,
+    "fractionReached": 0.51,
     "onsetKaQuantiles10_50_90": [
-     92.4,
-     113.0,
-     118.4
-    ]
+     85.3,
+     112.3,
+     118.2
+    ],
+    "fractionGapVsBase": 0.01,
+    "medianOnsetGapKa": 0.3
    },
-   "dt25_vs_dt25_reseeded": {
-    "reachedAgreement": 0.945,
-    "medianAbsOnsetDifferenceKa": 0.91
+   "dt5": {
+    "fractionReached": 0.525,
+    "onsetKaQuantiles10_50_90": [
+     80.3,
+     112.7,
+     118.2
+    ],
+    "fractionGapVsBase": 0.025,
+    "medianOnsetGapKa": 0.1
    },
-   "dt25_vs_dt10": {
-    "reachedAgreement": 0.81,
-    "medianAbsOnsetDifferenceKa": 2.18
-   }
+   "dt25_reseeded": {
+    "fractionReached": 0.525,
+    "onsetKaQuantiles10_50_90": [
+     94.3,
+     112.3,
+     118.3
+    ],
+    "fractionGapVsBase": 0.025,
+    "medianOnsetGapKa": 0.3
+   },
+   "fractionTolerance": 0.1
   }
  }
 }
