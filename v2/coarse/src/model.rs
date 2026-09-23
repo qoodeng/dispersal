@@ -21,6 +21,9 @@ pub struct Params {
     pub density: f64,
     /// Dated-find deposition rate, finds per person-year.
     pub detection: f64,
+    /// Longest open-water leg people can cross, km (0 = walking only). Used
+    /// only when the scenario has a strait.
+    pub crossing_km: f64,
 }
 
 /// Fixed structural settings of a run.
@@ -38,6 +41,9 @@ pub struct Scenario {
     pub suitability_width: f64,
     /// African land cells south of this latitude start at carrying capacity.
     pub source_max_lat: f64,
+    /// A water crossing between two neighbouring cells, open in a snapshot
+    /// when its gap is no longer than `Params::crossing_km`.
+    pub strait: Option<Strait>,
     /// Gross birth rate b per year; sets demographic turnover (noise), not
     /// net growth. Assumption: hunter-gatherer crude birth rates are roughly
     /// 0.03-0.06 per year; it must be at least the largest growth rate.
@@ -55,7 +61,33 @@ impl Default for Scenario {
             suitability_width: 0.15,
             source_max_lat: 15.0,
             birth_rate: 0.045,
+            strait: None,
         }
+    }
+}
+
+/// A strait crossing: two neighbouring cells and the open-water gap between
+/// them in each grid snapshot.
+#[derive(Clone, Debug)]
+pub struct Strait {
+    pub a: usize,
+    pub b: usize,
+    pub gap_km: Vec<f64>,
+}
+
+impl Strait {
+    pub fn new(grid: &Grid, a: usize, b: usize, gap_km: Vec<f64>) -> Result<Self, String> {
+        if !DIRECTIONS.iter().any(|&d| grid.neighbour(a, d) == Some(b)) {
+            return Err("strait cells must be grid neighbours".into());
+        }
+        if gap_km.len() != grid.snapshots_bp.len() || !gap_km.iter().all(|g| g.is_finite() && *g >= 0.0) {
+            return Err("strait needs one finite, non-negative gap per snapshot".into());
+        }
+        Ok(Strait { a, b, gap_km })
+    }
+
+    fn open(&self, snapshot: usize, crossing_km: f64) -> Option<(usize, usize)> {
+        (self.gap_km[snapshot] <= crossing_km).then_some((self.a, self.b))
     }
 }
 
@@ -95,6 +127,7 @@ impl Params {
             self.rain_half,
             self.density,
             self.detection,
+            self.crossing_km,
         ];
         if !positive.iter().all(|v| v.is_finite() && *v >= 0.0) {
             return Err("parameters must be finite and non-negative".into());
@@ -253,8 +286,13 @@ fn binomial(rng: &mut Rng, n: u64, p: f64) -> u64 {
 
 /// Destination of a move in each direction during one snapshot: the open
 /// neighbour, or the cell itself when the edge is closed.
-pub fn move_targets(grid: &Grid, snapshot: usize, southern_crossing: bool) -> Vec<[usize; 4]> {
-    (0..grid.len())
+pub fn move_targets(
+    grid: &Grid,
+    snapshot: usize,
+    southern_crossing: bool,
+    crossing: Option<(usize, usize)>,
+) -> Vec<[usize; 4]> {
+    let mut targets: Vec<[usize; 4]> = (0..grid.len())
         .map(|cell| {
             DIRECTIONS.map(|d| {
                 grid.neighbour(cell, d)
@@ -262,7 +300,19 @@ pub fn move_targets(grid: &Grid, snapshot: usize, southern_crossing: bool) -> Ve
                     .unwrap_or(cell)
             })
         })
-        .collect()
+        .collect();
+    if let Some((a, b)) = crossing {
+        if grid.is_land(snapshot, a) && grid.is_land(snapshot, b) {
+            for (from, to) in [(a, b), (b, a)] {
+                for (i, &d) in DIRECTIONS.iter().enumerate() {
+                    if grid.neighbour(from, d) == Some(to) {
+                        targets[from][i] = to;
+                    }
+                }
+            }
+        }
+    }
+    targets
 }
 
 /// Per-cell constants for sequential binomial dispersal: for each direction,
@@ -365,7 +415,8 @@ pub fn simulate(
     let moves: Vec<MoveTable> = (0..n)
         .map(|c| MoveTable::new(leave_probabilities(grid, c, p.diffusion, s.dt)))
         .collect();
-    let mut targets = move_targets(grid, 0, s.southern_crossing);
+    let crossing = |snapshot: usize| s.strait.as_ref().and_then(|st| st.open(snapshot, p.crossing_km));
+    let mut targets = move_targets(grid, 0, s.southern_crossing, crossing(0));
     let mut targets_snapshot = 0;
     let mut out = Outcome {
         sites: vec![SiteRecord::default(); sites.len()],
@@ -383,7 +434,7 @@ pub fn simulate(
             }
         }
         if snapshot != targets_snapshot {
-            targets = move_targets(grid, snapshot, s.southern_crossing);
+            targets = move_targets(grid, snapshot, s.southern_crossing, crossing(snapshot));
             targets_snapshot = snapshot;
         }
         grow(&mut pop, &k, p.growth, s.birth_rate, s.dt, &mut rng);
@@ -446,6 +497,7 @@ mod tests {
             rain_half: 100.0,
             density: 10.0,
             detection: 1e-6,
+            crossing_km: 0.0,
         }
     }
 
@@ -464,7 +516,7 @@ mod tests {
         let moves: Vec<_> = (0..30)
             .map(|c| MoveTable::new(leave_probabilities(&g, c, 2_000.0, 1.0)))
             .collect();
-        let targets = move_targets(&g, 0, false);
+        let targets = move_targets(&g, 0, false, None);
         for _ in 0..200 {
             disperse(&pop, &mut next, &moves, &targets, &mut rng);
             std::mem::swap(&mut pop, &mut next);
@@ -553,6 +605,32 @@ mod tests {
     }
 
     #[test]
+    fn strait_opens_only_when_gap_is_crossable() {
+        let mut g = Grid::uniform(2, 1, 10_000.0, 500.0);
+        g.latitudes = vec![12.5];
+        g.regions = vec![Region::Africa, Region::Arabia];
+        let strait = Strait::new(&g, 0, 1, vec![5.0, 5.0]).unwrap();
+        assert!(Strait::new(&g, 0, 0, vec![5.0, 5.0]).is_err());
+        let closed = move_targets(&g, 0, false, strait.open(0, 4.9));
+        let open = move_targets(&g, 0, false, strait.open(0, 5.0));
+        assert_eq!(closed, vec![[0, 0, 0, 0], [1, 1, 1, 1]]);
+        assert_eq!(open[0][0], 1, "Africa cell moves east across the strait");
+        assert_eq!(open[1][1], 0, "Arabia cell moves west across the strait");
+        // People are conserved across an open strait.
+        let moves: Vec<_> = (0..2)
+            .map(|c| MoveTable::new(leave_probabilities(&g, c, 2_000.0, 1.0)))
+            .collect();
+        let mut rng = Rng::seed_from_u64(4);
+        let (mut pop, mut next) = (vec![10_000u64, 0], vec![0u64; 2]);
+        for _ in 0..50 {
+            disperse(&pop, &mut next, &moves, &open, &mut rng);
+            std::mem::swap(&mut pop, &mut next);
+        }
+        assert_eq!(pop.iter().sum::<u64>(), 10_000);
+        assert!(pop[1] > 0);
+    }
+
+    #[test]
     fn southern_strait_is_closed_unless_crossing_scenario() {
         let mut g = Grid::uniform(2, 1, 10_000.0, 500.0);
         g.latitudes = vec![12.0];
@@ -610,6 +688,7 @@ mod tests {
             rain_half: 100.0,
             density: 1e5,
             detection: 0.0,
+            crossing_km: 0.0,
         };
         let s = Scenario::default();
         let mut rng = Rng::seed_from_u64(11);
@@ -621,7 +700,7 @@ mod tests {
         let moves: Vec<_> = (0..w)
             .map(|c| MoveTable::new(leave_probabilities(&g, c, p.diffusion, s.dt)))
             .collect();
-        let targets = move_targets(&g, 0, false);
+        let targets = move_targets(&g, 0, false, None);
         let front =
             |pop: &[u64], k: &[f64]| (0..w).filter(|&c| pop[c] as f64 >= 0.5 * k[c]).max().unwrap_or(0);
         let (mut t0, mut x0) = (None, 0);

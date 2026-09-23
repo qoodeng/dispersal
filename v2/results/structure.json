@@ -2,99 +2,51 @@
  "schema": "dispersal-v2-structure/1",
  "base": "table.csv",
  "alternatives": {
-  "table-south.csv": {
+  "table-closed.csv": {
    "scenario": {
-    "southernCrossing": true,
+    "southernCrossing": false,
     "sourceMaxLat": 15.0,
     "dt": 25
    },
    "draws": 1000,
    "sensitivity": {
     "arabia_onset_bp": {
-     "fractionReachedBase": 0.503,
-     "fractionReachedAlternative": 1.0,
-     "drawsWhereReachedDiffers": 0.497,
-     "medianOnsetShiftKa": 6.83
+     "fractionReachedBase": 0.825,
+     "fractionReachedAlternative": 0.489,
+     "drawsWhereReachedDiffers": 0.336,
+     "medianOnsetShiftKa": 0.0
     },
     "levant_onset_bp": {
-     "fractionReachedBase": 0.502,
-     "fractionReachedAlternative": 0.92,
-     "drawsWhereReachedDiffers": 0.418,
-     "medianOnsetShiftKa": 0.76
+     "fractionReachedBase": 0.749,
+     "fractionReachedAlternative": 0.491,
+     "drawsWhereReachedDiffers": 0.258,
+     "medianOnsetShiftKa": 0.0
     }
    },
    "discrimination": {
     "ingested": {
-     "brierSkill": -0.025,
-     "accuracy": 0.515
+     "brierSkill": -0.011,
+     "accuracy": 0.53
     },
     "illustrative": {
-     "brierSkill": 0.279,
-     "accuracy": 0.765
+     "brierSkill": 0.1,
+     "accuracy": 0.66
     },
     "dense": {
-     "brierSkill": 0.347,
-     "accuracy": 0.79
+     "brierSkill": 0.137,
+     "accuracy": 0.685
     },
     "register_sapiens": {
-     "brierSkill": 0.101,
-     "accuracy": 0.655
+     "brierSkill": 0.024,
+     "accuracy": 0.588
     },
     "register_all": {
-     "brierSkill": 0.204,
-     "accuracy": 0.71
+     "brierSkill": 0.095,
+     "accuracy": 0.63
     },
     "oracle": {
-     "brierSkill": 0.93,
-     "accuracy": 0.98
-    }
-   }
-  },
-  "table-source5.csv": {
-   "scenario": {
-    "southernCrossing": false,
-    "sourceMaxLat": 5.0,
-    "dt": 25
-   },
-   "draws": 1000,
-   "sensitivity": {
-    "arabia_onset_bp": {
-     "fractionReachedBase": 0.503,
-     "fractionReachedAlternative": 0.482,
-     "drawsWhereReachedDiffers": 0.049,
-     "medianOnsetShiftKa": -1.38
-    },
-    "levant_onset_bp": {
-     "fractionReachedBase": 0.502,
-     "fractionReachedAlternative": 0.483,
-     "drawsWhereReachedDiffers": 0.047,
-     "medianOnsetShiftKa": -1.33
-    }
-   },
-   "discrimination": {
-    "ingested": {
-     "brierSkill": -0.031,
-     "accuracy": 0.477
-    },
-    "illustrative": {
-     "brierSkill": -0.035,
-     "accuracy": 0.477
-    },
-    "dense": {
-     "brierSkill": -0.03,
-     "accuracy": 0.492
-    },
-    "register_sapiens": {
-     "brierSkill": -0.032,
-     "accuracy": 0.48
-    },
-    "register_all": {
-     "brierSkill": -0.036,
-     "accuracy": 0.522
-    },
-    "oracle": {
-     "brierSkill": 0.023,
-     "accuracy": 0.555
+     "brierSkill": 0.233,
+     "accuracy": 0.693
     }
    }
   }

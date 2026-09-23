@@ -10,11 +10,15 @@ echo "== Python: ruff"
 uvx ruff format --check analysis
 uvx ruff check analysis
 
-echo "== Grid is reproducible from its checksummed source"
+echo "== Grid and strait are reproducible from their checksummed sources"
 before=$(sha256sum data/grid.json | cut -d' ' -f1)
 uv run python analysis/prepare_grid.py > /dev/null
 after=$(sha256sum data/grid.json | cut -d' ' -f1)
 [ "$before" = "$after" ] || { echo "data/grid.json changed when regenerated"; exit 1; }
+before=$(sha256sum data/strait.json | cut -d' ' -f1)
+uv run python analysis/strait.py > /dev/null
+after=$(sha256sum data/strait.json | cut -d' ' -f1)
+[ "$before" = "$after" ] || { echo "data/strait.json changed when regenerated"; exit 1; }
 
 echo "== Smoke study (small, separate work directory)"
 cargo build --release --manifest-path coarse/Cargo.toml -q
