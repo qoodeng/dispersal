@@ -2,15 +2,15 @@
  "schema": "dispersal-v2-identifiability/1",
  "inputs": {
   "paramsFile": "params.csv",
-  "params": "7c949dcfa624600eb5775278f4a47b63e6f8a9cc8d54bcfa1dbd5988c60bf95c",
+  "params": "5c29126e6a498cb6b87250e681de6f1c7c3ad9aa443e6930ff8814fadcc26870",
   "sites": "23ad568407bfdd880a0286321d480c3eb6b0c183352f5c2aa3fb2dada7858751",
   "grid": "fa91d76412582f5088fb24cee383b8704a98300838d7db7f9530760a9a034827",
-  "engine": "69f5d7020a21c6581fc2e8c4892dc0b16883a6d559a1838e8f3934a441ef9d4d",
+  "engine": "4956f96c3996d872e678ee5e8bf5994718c5679022a4ebd54a5c49a8d168ec7d",
   "dt": 25,
   "southernCrossing": false,
   "sourceMaxLat": 15.0,
   "strait": {
-   "sha256": "78d9cd28e5f28997101722c23b265ecd188af8a291f758082858a52f7861ecb5",
+   "sha256": "b7f568dac5a5d49d8ecd927eec43020e3181b5b1ce1f06faf5a0f1e8bea45db0",
    "series": "median"
   }
  },
@@ -56,9 +56,9 @@
    "meaning": "dated-find deposition and recovery rate"
   },
   "crossing_km": {
-   "kind": "log_uniform",
+   "kind": "truncated_log_normal",
    "low": 1.0,
-   "high": 40.0,
+   "high": 100.0,
    "units": "km",
    "meaning": "longest open-water leg people can cross"
   }
@@ -70,40 +70,40 @@
   "onsets": "ka; runs that never establish in the region are coded as 30 ka"
  },
  "priorPredictive": {
-  "fractionReachingArabia": 0.806,
+  "fractionReachingArabia": 0.908,
   "arabiaOnsetKaQuantiles": [
-   67.3,
-   100.9,
-   114.6,
-   119.0,
+   66.5,
+   69.9,
+   111.9,
+   117.6,
    120.0
   ],
-  "fractionReachingLevant": 0.732,
+  "fractionReachingLevant": 0.801,
   "byCrossingKm": [
    {
     "crossingKm": [
      0,
      3.8
     ],
-    "draws": 1112,
-    "fractionReachingArabia": 0.477,
-    "medianOnsetKa": 112.8
+    "draws": 520,
+    "fractionReachingArabia": 0.469,
+    "medianOnsetKa": 112.0
    },
    {
     "crossingKm": [
      3.8,
      5.2
     ],
-    "draws": 275,
+    "draws": 346,
     "fractionReachingArabia": 1.0,
-    "medianOnsetKa": 80.6
+    "medianOnsetKa": 67.9
    },
    {
     "crossingKm": [
      5.2,
      10.4
     ],
-    "draws": 560,
+    "draws": 1059,
     "fractionReachingArabia": 1.0,
     "medianOnsetKa": 70.0
    },
@@ -112,25 +112,25 @@
      10.4,
      15.3
     ],
-    "draws": 305,
+    "draws": 475,
     "fractionReachingArabia": 1.0,
-    "medianOnsetKa": 113.2
+    "medianOnsetKa": 112.4
    },
    {
     "crossingKm": [
      15.3,
      20.0
     ],
-    "draws": 214,
+    "draws": 241,
     "fractionReachingArabia": 1.0,
-    "medianOnsetKa": 118.0
+    "medianOnsetKa": 117.9
    },
    {
     "crossingKm": [
      20.0,
      null
     ],
-    "draws": 534,
+    "draws": 359,
     "fractionReachingArabia": 1.0,
     "medianOnsetKa": 119.9
    }
@@ -139,559 +139,559 @@
  "designs": {
   "ingested": {
    "sites": 1,
-   "fractionOfRunsWithAnyEvidence": 0.239,
+   "fractionOfRunsWithAnyEvidence": 0.248,
    "results": {
     "growth": {
-     "contraction": 0.037,
-     "coverage50": 0.464,
-     "coverage90": 0.892,
-     "medianWidth90": 0.892,
+     "contraction": 0.027,
+     "coverage50": 0.484,
+     "coverage90": 0.88,
+     "medianWidth90": 0.896,
      "priorWidth90": 0.902
     },
     "diffusion": {
-     "contraction": 0.03,
-     "coverage50": 0.492,
-     "coverage90": 0.868,
-     "medianWidth90": 0.881,
+     "contraction": 0.024,
+     "coverage50": 0.468,
+     "coverage90": 0.876,
+     "medianWidth90": 0.882,
      "priorWidth90": 0.894
     },
     "rain_half": {
-     "contraction": 0.186,
-     "coverage50": 0.504,
-     "coverage90": 0.924,
-     "medianWidth90": 0.84,
+     "contraction": 0.168,
+     "coverage50": 0.548,
+     "coverage90": 0.928,
+     "medianWidth90": 0.844,
      "priorWidth90": 0.894
     },
     "density": {
-     "contraction": 0.086,
-     "coverage50": 0.536,
-     "coverage90": 0.912,
-     "medianWidth90": 0.868,
+     "contraction": 0.083,
+     "coverage50": 0.556,
+     "coverage90": 0.9,
+     "medianWidth90": 0.87,
      "priorWidth90": 0.896
     },
     "detection": {
-     "contraction": 0.251,
-     "coverage50": 0.496,
-     "coverage90": 0.84,
-     "medianWidth90": 0.827,
+     "contraction": 0.28,
+     "coverage50": 0.44,
+     "coverage90": 0.836,
+     "medianWidth90": 0.815,
      "priorWidth90": 0.889
     },
     "crossing_km": {
-     "contraction": 0.022,
+     "contraction": 0.017,
      "coverage50": 0.48,
      "coverage90": 0.924,
-     "medianWidth90": 0.882,
+     "medianWidth90": 0.885,
      "priorWidth90": 0.89
     },
     "arabia_onset_ka": {
-     "contraction": 0.168,
-     "coverage50": 0.596,
-     "coverage90": 0.92,
-     "medianWidth90": 89.946,
-     "priorWidth90": 89.975,
+     "contraction": 0.16,
+     "coverage50": 0.532,
+     "coverage90": 0.956,
+     "medianWidth90": 89.875,
+     "priorWidth90": 89.95,
      "whetherReached": {
-      "brierSkill": 0.076,
-      "priorProbability": 0.805
+      "brierSkill": 0.055,
+      "priorProbability": 0.91
      },
      "whenReached": {
-      "tests": 203,
-      "medianAbsErrorKa": 5.68,
-      "medianWidth90Ka": 52.87,
-      "coverage90": 0.867,
-      "priorWidth90Ka": 52.66,
-      "priorMedianAbsErrorKa": 5.15
+      "tests": 221,
+      "medianAbsErrorKa": 8.47,
+      "medianWidth90Ka": 53.42,
+      "coverage90": 0.932,
+      "priorWidth90Ka": 53.5,
+      "priorMedianAbsErrorKa": 6.6
      }
     },
     "levant_onset_ka": {
-     "contraction": 0.217,
-     "coverage50": 0.688,
-     "coverage90": 0.92,
-     "medianWidth90": 87.12,
-     "priorWidth90": 88.15,
+     "contraction": 0.204,
+     "coverage50": 0.58,
+     "coverage90": 0.932,
+     "medianWidth90": 87.175,
+     "priorWidth90": 88.1,
      "whetherReached": {
-      "brierSkill": 0.128,
-      "priorProbability": 0.732
+      "brierSkill": 0.08,
+      "priorProbability": 0.802
      },
      "whenReached": {
-      "tests": 183,
-      "medianAbsErrorKa": 7.43,
-      "medianWidth90Ka": 64.08,
-      "coverage90": 0.809,
-      "priorWidth90Ka": 64.98,
-      "priorMedianAbsErrorKa": 6.44
+      "tests": 196,
+      "medianAbsErrorKa": 9.22,
+      "medianWidth90Ka": 66.91,
+      "coverage90": 0.852,
+      "priorWidth90Ka": 67.21,
+      "priorMedianAbsErrorKa": 7.91
      }
     },
     "arabia_occupied_fraction": {
-     "contraction": 0.17,
-     "coverage50": 0.6,
-     "coverage90": 0.916,
-     "medianWidth90": 0.999,
-     "priorWidth90": 1.0
+     "contraction": 0.163,
+     "coverage50": 0.528,
+     "coverage90": 0.96,
+     "medianWidth90": 0.998,
+     "priorWidth90": 0.999
     }
    }
   },
   "illustrative": {
    "sites": 10,
-   "fractionOfRunsWithAnyEvidence": 0.666,
+   "fractionOfRunsWithAnyEvidence": 0.726,
    "results": {
     "growth": {
      "contraction": 0.153,
-     "coverage50": 0.468,
-     "coverage90": 0.9,
+     "coverage50": 0.52,
+     "coverage90": 0.904,
      "medianWidth90": 0.857,
      "priorWidth90": 0.902
     },
     "diffusion": {
-     "contraction": 0.061,
+     "contraction": 0.093,
      "coverage50": 0.476,
-     "coverage90": 0.872,
-     "medianWidth90": 0.874,
+     "coverage90": 0.864,
+     "medianWidth90": 0.868,
      "priorWidth90": 0.894
     },
     "rain_half": {
-     "contraction": 0.27,
-     "coverage50": 0.516,
-     "coverage90": 0.888,
-     "medianWidth90": 0.795,
+     "contraction": 0.266,
+     "coverage50": 0.544,
+     "coverage90": 0.9,
+     "medianWidth90": 0.808,
      "priorWidth90": 0.894
     },
     "density": {
-     "contraction": 0.19,
-     "coverage50": 0.512,
+     "contraction": 0.186,
+     "coverage50": 0.532,
      "coverage90": 0.904,
-     "medianWidth90": 0.835,
+     "medianWidth90": 0.829,
      "priorWidth90": 0.896
     },
     "detection": {
-     "contraction": 0.377,
-     "coverage50": 0.488,
-     "coverage90": 0.856,
-     "medianWidth90": 0.722,
+     "contraction": 0.499,
+     "coverage50": 0.496,
+     "coverage90": 0.864,
+     "medianWidth90": 0.643,
      "priorWidth90": 0.889
     },
     "crossing_km": {
-     "contraction": 0.229,
-     "coverage50": 0.468,
-     "coverage90": 0.912,
-     "medianWidth90": 0.841,
+     "contraction": 0.14,
+     "coverage50": 0.524,
+     "coverage90": 0.928,
+     "medianWidth90": 0.865,
      "priorWidth90": 0.89
     },
     "arabia_onset_ka": {
-     "contraction": 0.554,
-     "coverage50": 0.58,
-     "coverage90": 0.916,
-     "medianWidth90": 53.678,
-     "priorWidth90": 89.975,
+     "contraction": 0.458,
+     "coverage50": 0.652,
+     "coverage90": 0.948,
+     "medianWidth90": 50.743,
+     "priorWidth90": 89.95,
      "whetherReached": {
-      "brierSkill": 0.474,
-      "priorProbability": 0.805
+      "brierSkill": 0.314,
+      "priorProbability": 0.91
      },
      "whenReached": {
-      "tests": 203,
-      "medianAbsErrorKa": 3.22,
-      "medianWidth90Ka": 50.48,
-      "coverage90": 0.901,
-      "priorWidth90Ka": 52.66,
-      "priorMedianAbsErrorKa": 5.15
+      "tests": 221,
+      "medianAbsErrorKa": 2.92,
+      "medianWidth90Ka": 50.03,
+      "coverage90": 0.937,
+      "priorWidth90Ka": 53.5,
+      "priorMedianAbsErrorKa": 6.6
      }
     },
     "levant_onset_ka": {
-     "contraction": 0.558,
-     "coverage50": 0.62,
-     "coverage90": 0.924,
-     "medianWidth90": 79.081,
-     "priorWidth90": 88.15,
+     "contraction": 0.545,
+     "coverage50": 0.632,
+     "coverage90": 0.936,
+     "medianWidth90": 60.226,
+     "priorWidth90": 88.1,
      "whetherReached": {
-      "brierSkill": 0.399,
-      "priorProbability": 0.732
+      "brierSkill": 0.378,
+      "priorProbability": 0.802
      },
      "whenReached": {
-      "tests": 183,
-      "medianAbsErrorKa": 6.15,
-      "medianWidth90Ka": 53.15,
-      "coverage90": 0.885,
-      "priorWidth90Ka": 64.98,
-      "priorMedianAbsErrorKa": 6.44
+      "tests": 196,
+      "medianAbsErrorKa": 4.95,
+      "medianWidth90Ka": 46.75,
+      "coverage90": 0.898,
+      "priorWidth90Ka": 67.21,
+      "priorMedianAbsErrorKa": 7.91
      }
     },
     "arabia_occupied_fraction": {
-     "contraction": 0.552,
-     "coverage50": 0.58,
-     "coverage90": 0.924,
-     "medianWidth90": 0.674,
-     "priorWidth90": 1.0
+     "contraction": 0.474,
+     "coverage50": 0.648,
+     "coverage90": 0.944,
+     "medianWidth90": 0.637,
+     "priorWidth90": 0.999
     }
    }
   },
   "dense": {
    "sites": 40,
-   "fractionOfRunsWithAnyEvidence": 0.719,
+   "fractionOfRunsWithAnyEvidence": 0.792,
    "results": {
     "growth": {
-     "contraction": 0.118,
-     "coverage50": 0.484,
-     "coverage90": 0.892,
+     "contraction": 0.124,
+     "coverage50": 0.456,
+     "coverage90": 0.908,
      "medianWidth90": 0.867,
      "priorWidth90": 0.902
     },
     "diffusion": {
-     "contraction": 0.064,
-     "coverage50": 0.484,
-     "coverage90": 0.892,
+     "contraction": 0.08,
+     "coverage50": 0.504,
+     "coverage90": 0.884,
      "medianWidth90": 0.875,
      "priorWidth90": 0.894
     },
     "rain_half": {
-     "contraction": 0.216,
-     "coverage50": 0.544,
-     "coverage90": 0.908,
-     "medianWidth90": 0.817,
+     "contraction": 0.237,
+     "coverage50": 0.54,
+     "coverage90": 0.912,
+     "medianWidth90": 0.819,
      "priorWidth90": 0.894
     },
     "density": {
-     "contraction": 0.203,
-     "coverage50": 0.504,
-     "coverage90": 0.908,
-     "medianWidth90": 0.83,
+     "contraction": 0.194,
+     "coverage50": 0.536,
+     "coverage90": 0.904,
+     "medianWidth90": 0.834,
      "priorWidth90": 0.896
     },
     "detection": {
-     "contraction": 0.454,
-     "coverage50": 0.448,
-     "coverage90": 0.876,
-     "medianWidth90": 0.613,
+     "contraction": 0.54,
+     "coverage50": 0.488,
+     "coverage90": 0.888,
+     "medianWidth90": 0.587,
      "priorWidth90": 0.889
     },
     "crossing_km": {
-     "contraction": 0.265,
-     "coverage50": 0.48,
-     "coverage90": 0.904,
-     "medianWidth90": 0.822,
+     "contraction": 0.191,
+     "coverage50": 0.516,
+     "coverage90": 0.936,
+     "medianWidth90": 0.851,
      "priorWidth90": 0.89
     },
     "arabia_onset_ka": {
-     "contraction": 0.704,
-     "coverage50": 0.56,
+     "contraction": 0.621,
+     "coverage50": 0.664,
      "coverage90": 0.928,
-     "medianWidth90": 28.272,
-     "priorWidth90": 89.975,
+     "medianWidth90": 21.361,
+     "priorWidth90": 89.95,
      "whetherReached": {
-      "brierSkill": 0.6,
-      "priorProbability": 0.805
+      "brierSkill": 0.411,
+      "priorProbability": 0.91
      },
      "whenReached": {
-      "tests": 203,
-      "medianAbsErrorKa": 2.17,
-      "medianWidth90Ka": 17.72,
-      "coverage90": 0.906,
-      "priorWidth90Ka": 52.66,
-      "priorMedianAbsErrorKa": 5.15
+      "tests": 221,
+      "medianAbsErrorKa": 1.91,
+      "medianWidth90Ka": 16.04,
+      "coverage90": 0.919,
+      "priorWidth90Ka": 53.5,
+      "priorMedianAbsErrorKa": 6.6
      }
     },
     "levant_onset_ka": {
-     "contraction": 0.675,
-     "coverage50": 0.608,
-     "coverage90": 0.92,
-     "medianWidth90": 55.173,
-     "priorWidth90": 88.15,
+     "contraction": 0.643,
+     "coverage50": 0.612,
+     "coverage90": 0.932,
+     "medianWidth90": 56.887,
+     "priorWidth90": 88.1,
      "whetherReached": {
-      "brierSkill": 0.545,
-      "priorProbability": 0.732
+      "brierSkill": 0.428,
+      "priorProbability": 0.802
      },
      "whenReached": {
-      "tests": 183,
-      "medianAbsErrorKa": 4.7,
-      "medianWidth90Ka": 36.58,
-      "coverage90": 0.863,
-      "priorWidth90Ka": 64.98,
-      "priorMedianAbsErrorKa": 6.44
+      "tests": 196,
+      "medianAbsErrorKa": 4.59,
+      "medianWidth90Ka": 34.39,
+      "coverage90": 0.893,
+      "priorWidth90Ka": 67.21,
+      "priorMedianAbsErrorKa": 7.91
      }
     },
     "arabia_occupied_fraction": {
-     "contraction": 0.706,
-     "coverage50": 0.572,
-     "coverage90": 0.944,
-     "medianWidth90": 0.354,
-     "priorWidth90": 1.0
+     "contraction": 0.648,
+     "coverage50": 0.692,
+     "coverage90": 0.928,
+     "medianWidth90": 0.258,
+     "priorWidth90": 0.999
     }
    }
   },
   "register_sapiens": {
    "sites": 5,
-   "fractionOfRunsWithAnyEvidence": 0.557,
+   "fractionOfRunsWithAnyEvidence": 0.599,
    "results": {
     "growth": {
-     "contraction": 0.107,
-     "coverage50": 0.48,
-     "coverage90": 0.896,
-     "medianWidth90": 0.871,
+     "contraction": 0.118,
+     "coverage50": 0.496,
+     "coverage90": 0.892,
+     "medianWidth90": 0.864,
      "priorWidth90": 0.902
     },
     "diffusion": {
-     "contraction": 0.081,
-     "coverage50": 0.452,
-     "coverage90": 0.864,
-     "medianWidth90": 0.878,
+     "contraction": 0.089,
+     "coverage50": 0.46,
+     "coverage90": 0.844,
+     "medianWidth90": 0.876,
      "priorWidth90": 0.894
     },
     "rain_half": {
      "contraction": 0.214,
-     "coverage50": 0.476,
-     "coverage90": 0.896,
-     "medianWidth90": 0.823,
+     "coverage50": 0.516,
+     "coverage90": 0.916,
+     "medianWidth90": 0.824,
      "priorWidth90": 0.894
     },
     "density": {
-     "contraction": 0.21,
-     "coverage50": 0.524,
-     "coverage90": 0.892,
-     "medianWidth90": 0.832,
+     "contraction": 0.183,
+     "coverage50": 0.52,
+     "coverage90": 0.888,
+     "medianWidth90": 0.844,
      "priorWidth90": 0.896
     },
     "detection": {
-     "contraction": 0.318,
-     "coverage50": 0.476,
+     "contraction": 0.362,
+     "coverage50": 0.468,
      "coverage90": 0.852,
-     "medianWidth90": 0.762,
+     "medianWidth90": 0.709,
      "priorWidth90": 0.889
     },
     "crossing_km": {
-     "contraction": 0.098,
-     "coverage50": 0.468,
-     "coverage90": 0.94,
-     "medianWidth90": 0.872,
+     "contraction": 0.093,
+     "coverage50": 0.488,
+     "coverage90": 0.932,
+     "medianWidth90": 0.874,
      "priorWidth90": 0.89
     },
     "arabia_onset_ka": {
-     "contraction": 0.39,
-     "coverage50": 0.624,
-     "coverage90": 0.884,
-     "medianWidth90": 63.914,
-     "priorWidth90": 89.975,
+     "contraction": 0.361,
+     "coverage50": 0.56,
+     "coverage90": 0.928,
+     "medianWidth90": 52.362,
+     "priorWidth90": 89.95,
      "whetherReached": {
-      "brierSkill": 0.23,
-      "priorProbability": 0.805
+      "brierSkill": 0.18,
+      "priorProbability": 0.91
      },
      "whenReached": {
-      "tests": 203,
-      "medianAbsErrorKa": 4.4,
-      "medianWidth90Ka": 51.89,
-      "coverage90": 0.862,
-      "priorWidth90Ka": 52.66,
-      "priorMedianAbsErrorKa": 5.15
+      "tests": 221,
+      "medianAbsErrorKa": 4.06,
+      "medianWidth90Ka": 50.74,
+      "coverage90": 0.905,
+      "priorWidth90Ka": 53.5,
+      "priorMedianAbsErrorKa": 6.6
      }
     },
     "levant_onset_ka": {
-     "contraction": 0.533,
-     "coverage50": 0.62,
-     "coverage90": 0.908,
-     "medianWidth90": 69.282,
-     "priorWidth90": 88.15,
+     "contraction": 0.498,
+     "coverage50": 0.636,
+     "coverage90": 0.916,
+     "medianWidth90": 64.805,
+     "priorWidth90": 88.1,
      "whetherReached": {
-      "brierSkill": 0.375,
-      "priorProbability": 0.732
+      "brierSkill": 0.354,
+      "priorProbability": 0.802
      },
      "whenReached": {
-      "tests": 183,
-      "medianAbsErrorKa": 6.43,
-      "medianWidth90Ka": 50.87,
-      "coverage90": 0.858,
-      "priorWidth90Ka": 64.98,
-      "priorMedianAbsErrorKa": 6.44
+      "tests": 196,
+      "medianAbsErrorKa": 6.62,
+      "medianWidth90Ka": 51.34,
+      "coverage90": 0.867,
+      "priorWidth90Ka": 67.21,
+      "priorMedianAbsErrorKa": 7.91
      }
     },
     "arabia_occupied_fraction": {
-     "contraction": 0.404,
-     "coverage50": 0.616,
-     "coverage90": 0.888,
-     "medianWidth90": 0.817,
-     "priorWidth90": 1.0
+     "contraction": 0.385,
+     "coverage50": 0.56,
+     "coverage90": 0.932,
+     "medianWidth90": 0.658,
+     "priorWidth90": 0.999
     }
    }
   },
   "register_all": {
    "sites": 12,
-   "fractionOfRunsWithAnyEvidence": 0.668,
+   "fractionOfRunsWithAnyEvidence": 0.726,
    "results": {
     "growth": {
-     "contraction": 0.114,
-     "coverage50": 0.452,
-     "coverage90": 0.88,
-     "medianWidth90": 0.863,
+     "contraction": 0.129,
+     "coverage50": 0.52,
+     "coverage90": 0.904,
+     "medianWidth90": 0.862,
      "priorWidth90": 0.902
     },
     "diffusion": {
-     "contraction": 0.081,
-     "coverage50": 0.456,
-     "coverage90": 0.868,
-     "medianWidth90": 0.867,
+     "contraction": 0.091,
+     "coverage50": 0.488,
+     "coverage90": 0.884,
+     "medianWidth90": 0.871,
      "priorWidth90": 0.894
     },
     "rain_half": {
-     "contraction": 0.291,
-     "coverage50": 0.516,
-     "coverage90": 0.9,
-     "medianWidth90": 0.786,
+     "contraction": 0.272,
+     "coverage50": 0.536,
+     "coverage90": 0.916,
+     "medianWidth90": 0.805,
      "priorWidth90": 0.894
     },
     "density": {
-     "contraction": 0.202,
-     "coverage50": 0.532,
-     "coverage90": 0.892,
-     "medianWidth90": 0.828,
+     "contraction": 0.169,
+     "coverage50": 0.536,
+     "coverage90": 0.908,
+     "medianWidth90": 0.836,
      "priorWidth90": 0.896
     },
     "detection": {
-     "contraction": 0.362,
-     "coverage50": 0.504,
-     "coverage90": 0.836,
-     "medianWidth90": 0.753,
+     "contraction": 0.458,
+     "coverage50": 0.492,
+     "coverage90": 0.872,
+     "medianWidth90": 0.67,
      "priorWidth90": 0.889
     },
     "crossing_km": {
-     "contraction": 0.195,
-     "coverage50": 0.42,
-     "coverage90": 0.916,
-     "medianWidth90": 0.858,
+     "contraction": 0.14,
+     "coverage50": 0.492,
+     "coverage90": 0.924,
+     "medianWidth90": 0.862,
      "priorWidth90": 0.89
     },
     "arabia_onset_ka": {
-     "contraction": 0.527,
-     "coverage50": 0.596,
-     "coverage90": 0.888,
-     "medianWidth90": 53.573,
-     "priorWidth90": 89.975,
+     "contraction": 0.428,
+     "coverage50": 0.648,
+     "coverage90": 0.94,
+     "medianWidth90": 52.104,
+     "priorWidth90": 89.95,
      "whetherReached": {
-      "brierSkill": 0.414,
-      "priorProbability": 0.805
+      "brierSkill": 0.294,
+      "priorProbability": 0.91
      },
      "whenReached": {
-      "tests": 203,
-      "medianAbsErrorKa": 4.0,
-      "medianWidth90Ka": 51.78,
-      "coverage90": 0.867,
-      "priorWidth90Ka": 52.66,
-      "priorMedianAbsErrorKa": 5.15
+      "tests": 221,
+      "medianAbsErrorKa": 3.08,
+      "medianWidth90Ka": 50.35,
+      "coverage90": 0.923,
+      "priorWidth90Ka": 53.5,
+      "priorMedianAbsErrorKa": 6.6
      }
     },
     "levant_onset_ka": {
-     "contraction": 0.573,
-     "coverage50": 0.616,
-     "coverage90": 0.908,
-     "medianWidth90": 68.007,
-     "priorWidth90": 88.15,
+     "contraction": 0.539,
+     "coverage50": 0.64,
+     "coverage90": 0.916,
+     "medianWidth90": 63.911,
+     "priorWidth90": 88.1,
      "whetherReached": {
-      "brierSkill": 0.427,
-      "priorProbability": 0.732
+      "brierSkill": 0.405,
+      "priorProbability": 0.802
      },
      "whenReached": {
-      "tests": 183,
-      "medianAbsErrorKa": 6.18,
-      "medianWidth90Ka": 52.12,
-      "coverage90": 0.847,
-      "priorWidth90Ka": 64.98,
-      "priorMedianAbsErrorKa": 6.44
+      "tests": 196,
+      "medianAbsErrorKa": 6.93,
+      "medianWidth90Ka": 55.92,
+      "coverage90": 0.888,
+      "priorWidth90Ka": 67.21,
+      "priorMedianAbsErrorKa": 7.91
      }
     },
     "arabia_occupied_fraction": {
-     "contraction": 0.525,
-     "coverage50": 0.588,
-     "coverage90": 0.888,
-     "medianWidth90": 0.677,
-     "priorWidth90": 1.0
+     "contraction": 0.444,
+     "coverage50": 0.648,
+     "coverage90": 0.936,
+     "medianWidth90": 0.654,
+     "priorWidth90": 0.999
     }
    }
   },
   "oracle": {
    "sites": 10,
-   "fractionOfRunsWithAnyEvidence": 0.806,
+   "fractionOfRunsWithAnyEvidence": 0.908,
    "results": {
     "growth": {
-     "contraction": 0.328,
-     "coverage50": 0.512,
-     "coverage90": 0.904,
-     "medianWidth90": 0.75,
+     "contraction": 0.38,
+     "coverage50": 0.456,
+     "coverage90": 0.908,
+     "medianWidth90": 0.726,
      "priorWidth90": 0.902
     },
     "diffusion": {
-     "contraction": 0.25,
-     "coverage50": 0.496,
-     "coverage90": 0.896,
-     "medianWidth90": 0.819,
+     "contraction": 0.278,
+     "coverage50": 0.468,
+     "coverage90": 0.88,
+     "medianWidth90": 0.805,
      "priorWidth90": 0.894
     },
     "rain_half": {
-     "contraction": 0.524,
-     "coverage50": 0.544,
-     "coverage90": 0.9,
-     "medianWidth90": 0.636,
+     "contraction": 0.564,
+     "coverage50": 0.548,
+     "coverage90": 0.884,
+     "medianWidth90": 0.613,
      "priorWidth90": 0.894
     },
     "density": {
-     "contraction": 0.308,
-     "coverage50": 0.536,
-     "coverage90": 0.892,
-     "medianWidth90": 0.776,
+     "contraction": 0.314,
+     "coverage50": 0.58,
+     "coverage90": 0.888,
+     "medianWidth90": 0.79,
      "priorWidth90": 0.896
     },
     "detection": {
-     "contraction": 0.02,
-     "coverage50": 0.488,
-     "coverage90": 0.884,
-     "medianWidth90": 0.878,
+     "contraction": 0.006,
+     "coverage50": 0.5,
+     "coverage90": 0.876,
+     "medianWidth90": 0.885,
      "priorWidth90": 0.889
     },
     "crossing_km": {
-     "contraction": 0.553,
-     "coverage50": 0.532,
-     "coverage90": 0.896,
-     "medianWidth90": 0.615,
+     "contraction": 0.515,
+     "coverage50": 0.556,
+     "coverage90": 0.92,
+     "medianWidth90": 0.576,
      "priorWidth90": 0.89
     },
     "arabia_onset_ka": {
-     "contraction": 0.972,
-     "coverage50": 0.676,
-     "coverage90": 0.94,
-     "medianWidth90": 4.587,
-     "priorWidth90": 89.975,
+     "contraction": 0.976,
+     "coverage50": 0.696,
+     "coverage90": 0.948,
+     "medianWidth90": 5.562,
+     "priorWidth90": 89.95,
      "whetherReached": {
       "brierSkill": 1.0,
-      "priorProbability": 0.805
+      "priorProbability": 0.91
      },
      "whenReached": {
-      "tests": 203,
-      "medianAbsErrorKa": 0.94,
-      "medianWidth90Ka": 6.48,
-      "coverage90": 0.926,
-      "priorWidth90Ka": 52.66,
-      "priorMedianAbsErrorKa": 5.15
+      "tests": 221,
+      "medianAbsErrorKa": 0.73,
+      "medianWidth90Ka": 6.44,
+      "coverage90": 0.941,
+      "priorWidth90Ka": 53.5,
+      "priorMedianAbsErrorKa": 6.6
      }
     },
     "levant_onset_ka": {
-     "contraction": 0.965,
-     "coverage50": 0.7,
-     "coverage90": 0.952,
-     "medianWidth90": 9.512,
-     "priorWidth90": 88.15,
+     "contraction": 0.969,
+     "coverage50": 0.704,
+     "coverage90": 0.96,
+     "medianWidth90": 10.336,
+     "priorWidth90": 88.1,
      "whetherReached": {
-      "brierSkill": 0.953,
-      "priorProbability": 0.732
+      "brierSkill": 0.906,
+      "priorProbability": 0.802
      },
      "whenReached": {
-      "tests": 183,
-      "medianAbsErrorKa": 1.24,
-      "medianWidth90Ka": 11.06,
-      "coverage90": 0.918,
-      "priorWidth90Ka": 64.98,
-      "priorMedianAbsErrorKa": 6.44
+      "tests": 196,
+      "medianAbsErrorKa": 1.47,
+      "medianWidth90Ka": 10.95,
+      "coverage90": 0.939,
+      "priorWidth90Ka": 67.21,
+      "priorMedianAbsErrorKa": 7.91
      }
     },
     "arabia_occupied_fraction": {
-     "contraction": 0.97,
-     "coverage50": 0.704,
-     "coverage90": 0.932,
-     "medianWidth90": 0.061,
-     "priorWidth90": 1.0
+     "contraction": 0.972,
+     "coverage50": 0.72,
+     "coverage90": 0.936,
+     "medianWidth90": 0.066,
+     "priorWidth90": 0.999
     }
    }
   }

@@ -28,6 +28,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from scipy.stats import norm
 
 V2 = Path(__file__).resolve().parents[1]
 GRID = V2 / "data/grid.json"
@@ -43,8 +44,15 @@ PRIORS = {
     "rain_half": ("uniform", 50.0, 250.0, "mm/year", "precipitation at half habitat suitability"),
     "density": ("log_uniform", 1.0, 30.0, "people/100 km^2", "carrying capacity in suitable habitat"),
     "detection": ("log_uniform", 1e-9, 1e-5, "finds/person-year", "dated-find deposition and recovery rate"),
-    # Assumption: agnostic between walking only (below the 3.8 km minimum gap) and short sea crossings.
-    "crossing_km": ("log_uniform", 1.0, 40.0, "km", "longest open-water leg people can cross"),
+    # LogNormal(median 8 km, sigma_ln 0.8) truncated to 1-100 km; sources in research/evidence/crossing-evidence.md.
+    "crossing_km": (
+        "truncated_log_normal",
+        1.0,
+        100.0,
+        "km",
+        "longest open-water leg people can cross",
+        {"median": 8.0, "sigmaLn": 0.8},
+    ),
 }
 STRAIT = V2 / "data/strait.json"
 NO_EVIDENCE_KA = 30.0  # encoding for "nothing in 120-40 ka"; 10 ka beyond the window edge
@@ -55,13 +63,27 @@ MAX_PER_SITE_SUMMARIES = 12  # above this, observations are reduced to summary s
 ACCEPT_FRACTION = 0.03  # nearest 3%: wider-than-ideal posteriors, i.e. conservative contraction
 
 
+def _log_normal_bounds(name):
+    lo, hi, shape = PRIORS[name][1], PRIORS[name][2], PRIORS[name][5]
+    mu, sd = np.log(shape["median"]), shape["sigmaLn"]
+    return mu, sd, norm.cdf((np.log(lo) - mu) / sd), norm.cdf((np.log(hi) - mu) / sd)
+
+
 def to_unit(name, x):
+    """Prior CDF: maps a parameter value to [0, 1]."""
     kind, lo, hi = PRIORS[name][:3]
+    if kind == "truncated_log_normal":
+        mu, sd, c0, c1 = _log_normal_bounds(name)
+        return (norm.cdf((np.log(x) - mu) / sd) - c0) / (c1 - c0)
     return (np.log(x) - np.log(lo)) / (np.log(hi) - np.log(lo)) if kind == "log_uniform" else (x - lo) / (hi - lo)
 
 
 def from_unit(name, u):
+    """Inverse prior CDF."""
     kind, lo, hi = PRIORS[name][:3]
+    if kind == "truncated_log_normal":
+        mu, sd, c0, c1 = _log_normal_bounds(name)
+        return float(np.exp(mu + sd * norm.ppf(c0 + u * (c1 - c0))))
     return np.exp(np.log(lo) + u * (np.log(hi) - np.log(lo))) if kind == "log_uniform" else lo + u * (hi - lo)
 
 
@@ -651,6 +673,85 @@ def timestep(args):
     print(json.dumps(report, indent=1))
 
 
+def gridcheck(args):
+    """G2 grid convergence: 1-degree (dt 25) against 0.5-degree (dt 6.25) on the same draws.
+
+    Also runs the 1-degree grid with different seeds to show seed noise. Passes when the fraction
+    reaching each region is within two binomial standard errors and median onset within 1 ka,
+    overall and separately for draws that can and cannot cross the strait's narrowest gap.
+    """
+    fine_grid, fine_strait = WORK / "grid-0.5.json", WORK / "strait-0.5.json"
+    subprocess.run(
+        [sys.executable, str(V2 / "analysis/prepare_grid.py"), "--cell-degrees", "0.5", "--out", str(fine_grid)],
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
+    subprocess.run(
+        [sys.executable, str(V2 / "analysis/strait.py"), "--grid", str(fine_grid), "--out", str(fine_strait)],
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
+    params = (WORK / "params.csv").read_text().splitlines()[: args.sims + 1]
+    reseeded = [params[0]] + [
+        ",".join([r.split(",")[0], str(int(r.split(",")[1]) + 1)] + r.split(",")[2:]) for r in params[1:]
+    ]
+    sites = WORK / "gridcheck-sites.csv"
+    sites.write_text("name,lat,lon\nnefud,27.42,39.40\n")
+    runs = {
+        "1deg": (params, GRID, STRAIT, 25.0),
+        "1deg_reseeded": (reseeded, GRID, STRAIT, 25.0),
+        "0.5deg": (params, fine_grid, fine_strait, 6.25),
+    }
+    tables = {}
+    for name, (rows, grid, strait, dt) in runs.items():
+        src, out = WORK / f"gridcheck-{name}.params.csv", WORK / f"gridcheck-{name}.csv"
+        src.write_text("\n".join(rows) + "\n")
+        cmd = [str(ENGINE), "--grid", str(grid), "--params", str(src), "--sites", str(sites), "--out", str(out)]
+        subprocess.run(cmd + ["--dt", str(dt), "--strait", str(strait)], check=True)
+        tables[name] = read_table(out)
+    crossing = read_table(WORK / "gridcheck-1deg.params.csv")["crossing_km"]
+    narrowest = min(s["gapKm"]["median"] for s in json.loads(STRAIT.read_text())["snapshots"])
+    subsets = {"all": crossing >= 0, "cannotCross": crossing < narrowest, "canCross": crossing >= narrowest}
+    result, ok = {}, True
+    for q in ("arabia_onset_bp", "levant_onset_bp"):
+        for label, sel in subsets.items():
+            r = {}
+            for name, t in tables.items():
+                x = t[q][sel] / 1000
+                reached = np.isfinite(x)
+                r[name] = {
+                    "draws": int(sel.sum()),
+                    "fractionReached": round(float(reached.mean()), 3),
+                    "medianOnsetKa": round(float(np.median(x[reached])), 2) if reached.any() else None,
+                }
+            p0, n = r["1deg"]["fractionReached"], int(sel.sum())
+            tol = 2 * np.sqrt(2 * max(p0 * (1 - p0), 0.25 / n) / n)
+            gap = abs(r["0.5deg"]["fractionReached"] - p0)
+            m0, m1 = r["1deg"]["medianOnsetKa"], r["0.5deg"]["medianOnsetKa"]
+            median_gap = abs(m1 - m0) if m0 is not None and m1 is not None else None
+            passed = gap <= tol and (median_gap is None or median_gap <= 1.0)
+            r.update(
+                {
+                    "fractionGap": round(gap, 3),
+                    "fractionTolerance": round(float(tol), 3),
+                    "medianOnsetGapKa": None if median_gap is None else round(median_gap, 2),
+                    "pass": bool(passed),
+                }
+            )
+            ok &= passed
+            result[f"{q}/{label}"] = r
+    report = {
+        "sims": args.sims,
+        "comparison": "1-degree dt 25 vs 0.5-degree dt 6.25, same draws; 1deg_reseeded shows seed noise",
+        "criterion": "fraction reaching the region within 2 binomial SE, median onset within 1 ka",
+        "verdict": "pass" if ok else "fail",
+        "results": result,
+    }
+    RESULTS.mkdir(exist_ok=True)
+    (RESULTS / "grid-check.json").write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps(report, indent=1))
+
+
 def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -664,7 +765,7 @@ def main():
     a.add_argument("--source-max-lat", type=float, default=15.0)
     a.add_argument("--limit", type=int, default=0, help="simulate only the first N parameter draws")
     a.add_argument("--no-strait", action="store_true", help="walking only: no Bab el-Mandeb crossing")
-    a.add_argument("--strait-series", default="median", choices=["narrow", "median", "wide"])
+    a.add_argument("--strait-series", default="median", choices=["narrow", "median", "wide", "mainland"])
     a = sub.add_parser("analyze")
     a.add_argument("--table", default="table.csv")
     a.add_argument("--report", default="identifiability.json")
@@ -672,9 +773,11 @@ def main():
     a.add_argument("--subset", type=int, default=0, help="analyze only the first N simulations (stability check)")
     a.add_argument("--seed", type=int, default=7)
     sub.add_parser("designs")
+    a = sub.add_parser("gridcheck")
+    a.add_argument("--sims", type=int, default=200)
     a = sub.add_parser("structure")
     a.add_argument("--base", default="table.csv")
-    a.add_argument("--alternatives", default="table-closed.csv")
+    a.add_argument("--alternatives", default="table-closed.csv,table-mainland.csv")
     a.add_argument("--seed", type=int, default=11)
     a = sub.add_parser("timestep")
     a.add_argument("--sims", type=int, default=200)
@@ -683,6 +786,7 @@ def main():
     commands = {"prepare": prepare, "simulate": simulate, "analyze": analyze, "structure": structure}
     commands["timestep"] = timestep
     commands["designs"] = refresh_designs
+    commands["gridcheck"] = gridcheck
     commands[args.cmd](args)
 
 
