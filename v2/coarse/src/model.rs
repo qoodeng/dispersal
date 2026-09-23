@@ -2,7 +2,7 @@
 //! binomial dispersal, and a Poisson archaeological deposition process.
 
 use crate::grid::{Grid, Region, DIRECTIONS};
-use rand_distr::{Binomial, Distribution, Poisson, StandardNormal, StandardUniform};
+use rand_distr::{Distribution, Poisson, StandardNormal, StandardUniform};
 use rand_xoshiro::rand_core::SeedableRng;
 use rand_xoshiro::Xoshiro256PlusPlus;
 
@@ -149,7 +149,7 @@ pub fn capacity(grid: &Grid, p: &Params, s: &Scenario, years_bp: f64, out: &mut 
 /// Variance above which counts are drawn from the moment-matched normal
 /// approximation; exact samplers dominate run time at large counts and the
 /// approximation error there is far below the model's structural uncertainty.
-pub const NORMAL_APPROXIMATION_VARIANCE: f64 = 100.0;
+pub const NORMAL_APPROXIMATION_VARIANCE: f64 = 20.0;
 
 fn normal_count(rng: &mut Rng, mean: f64, variance: f64, max: f64) -> u64 {
     let z: f64 = StandardNormal.sample(rng);
@@ -164,20 +164,6 @@ fn poisson(rng: &mut Rng, mean: f64) -> u64 {
         return normal_count(rng, mean, mean, f64::MAX);
     }
     Poisson::new(mean).expect("finite positive mean").sample(rng) as u64
-}
-
-fn binomial(rng: &mut Rng, n: u64, p: f64) -> u64 {
-    if n == 0 || p <= 0.0 {
-        return 0;
-    }
-    if p >= 1.0 {
-        return n;
-    }
-    let (mean, variance) = (n as f64 * p, n as f64 * p * (1.0 - p));
-    if variance >= NORMAL_APPROXIMATION_VARIANCE {
-        return normal_count(rng, mean, variance, n as f64);
-    }
-    Binomial::new(n, p).expect("valid binomial").sample(rng)
 }
 
 /// Ricker–Poisson growth: N' ~ Poisson(N exp(r dt (1 - N/K))).
@@ -210,22 +196,72 @@ pub fn move_targets(grid: &Grid, snapshot: usize, southern_crossing: bool) -> Ve
         .collect()
 }
 
-/// Synchronous binomial dispersal. `probs[c]` are the per-direction move
-/// probabilities of cell c and `targets[c]` their destinations; moves toward
+/// Per-cell constants for sequential binomial dispersal: for each direction,
+/// the probability of moving that way given the person has not moved in an
+/// earlier direction, with values precomputed for inversion sampling.
+#[derive(Clone, Copy, Debug)]
+pub struct MoveTable {
+    conditional: [f64; 4],
+    ln_stay: [f64; 4],
+    odds: [f64; 4],
+}
+
+impl MoveTable {
+    pub fn new(probs: [f64; 4]) -> Self {
+        let mut unassigned = 1.0;
+        let conditional = probs.map(|p| {
+            let c = (p / unassigned).clamp(0.0, 1.0);
+            unassigned -= p;
+            c
+        });
+        MoveTable {
+            conditional,
+            ln_stay: conditional.map(|c| (1.0 - c).ln()),
+            odds: conditional.map(|c| c / (1.0 - c)),
+        }
+    }
+}
+
+/// Binomial(n, p) given p's precomputed ln(1-p) and p/(1-p). Uses inversion
+/// when the variance is small (the common case for dispersal) and the
+/// moment-matched normal otherwise. Inversion is exact up to floating point.
+fn binomial_fast(rng: &mut Rng, n: u64, p: f64, ln_q: f64, odds: f64) -> u64 {
+    if n == 0 || p <= 0.0 {
+        return 0;
+    }
+    if p >= 1.0 {
+        return n;
+    }
+    let (mean, variance) = (n as f64 * p, n as f64 * p * (1.0 - p));
+    let mut prob = (n as f64 * ln_q).exp();
+    if variance >= NORMAL_APPROXIMATION_VARIANCE || prob < 1e-300 {
+        return normal_count(rng, mean, variance, n as f64);
+    }
+    let u: f64 = StandardUniform.sample(rng);
+    let (mut k, mut cumulative) = (0u64, prob);
+    while u > cumulative && k < n {
+        prob *= odds * (n - k) as f64 / (k + 1) as f64;
+        k += 1;
+        cumulative += prob;
+    }
+    k
+}
+
+/// Synchronous binomial dispersal. `moves[c]` holds cell c's per-direction
+/// move probabilities and `targets[c]` their destinations; moves toward
 /// closed edges stay put, so the total is conserved exactly.
-pub fn disperse(pop: &[u64], next: &mut [u64], probs: &[[f64; 4]], targets: &[[usize; 4]], rng: &mut Rng) {
+pub fn disperse(pop: &[u64], next: &mut [u64], moves: &[MoveTable], targets: &[[usize; 4]], rng: &mut Rng) {
     next.iter_mut().for_each(|n| *n = 0);
     for (cell, &n) in pop.iter().enumerate() {
         if n == 0 {
             continue;
         }
+        let m = &moves[cell];
         let mut remaining = n;
-        let mut unassigned = 1.0;
-        for (&p, &target) in probs[cell].iter().zip(&targets[cell]) {
-            let movers = binomial(rng, remaining, (p / unassigned).min(1.0));
-            unassigned -= p;
+        for d in 0..4 {
+            let movers = binomial_fast(rng, remaining, m.conditional[d], m.ln_stay[d], m.odds[d]);
             remaining -= movers;
-            next[target] += movers;
+            next[targets[cell][d]] += movers;
         }
         next[cell] += remaining;
     }
@@ -257,8 +293,8 @@ pub fn simulate(
         }
     }
 
-    let probs: Vec<[f64; 4]> = (0..n)
-        .map(|c| leave_probabilities(grid, c, p.diffusion, s.dt))
+    let moves: Vec<MoveTable> = (0..n)
+        .map(|c| MoveTable::new(leave_probabilities(grid, c, p.diffusion, s.dt)))
         .collect();
     let mut targets = move_targets(grid, 0, s.southern_crossing);
     let mut targets_snapshot = 0;
@@ -282,7 +318,7 @@ pub fn simulate(
             targets_snapshot = snapshot;
         }
         grow(&mut pop, &k, p.growth, s.dt, &mut rng);
-        disperse(&pop, &mut next, &probs, &targets, &mut rng);
+        disperse(&pop, &mut next, &moves, &targets, &mut rng);
         std::mem::swap(&mut pop, &mut next);
 
         for (record, &cell) in out.sites.iter_mut().zip(sites) {
@@ -356,12 +392,12 @@ mod tests {
         let mut pop = vec![0u64; 30];
         pop[2 * 6 + 2] = 100_000;
         let mut next = vec![0u64; 30];
-        let probs: Vec<_> = (0..30)
-            .map(|c| leave_probabilities(&g, c, 2_000.0, 1.0))
+        let moves: Vec<_> = (0..30)
+            .map(|c| MoveTable::new(leave_probabilities(&g, c, 2_000.0, 1.0)))
             .collect();
         let targets = move_targets(&g, 0, false);
         for _ in 0..200 {
-            disperse(&pop, &mut next, &probs, &targets, &mut rng);
+            disperse(&pop, &mut next, &moves, &targets, &mut rng);
             std::mem::swap(&mut pop, &mut next);
             assert_eq!(pop.iter().sum::<u64>(), 100_000);
         }
@@ -371,6 +407,27 @@ mod tests {
             }
         }
         assert!(pop[2 * 6] > 0, "diffusion reached the west edge");
+    }
+
+    #[test]
+    fn fast_binomial_matches_moments() {
+        let mut rng = Rng::seed_from_u64(5);
+        for (n, p) in [(10u64, 0.3), (200, 0.01), (1_000, 0.015), (50, 0.9), (5_000, 0.2)] {
+            let draws: Vec<f64> = (0..100_000)
+                .map(|_| binomial_fast(&mut rng, n, p, (1.0 - p).ln(), p / (1.0 - p)) as f64)
+                .collect();
+            let mean = draws.iter().sum::<f64>() / draws.len() as f64;
+            let var = draws.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / draws.len() as f64;
+            let (m0, v0) = (n as f64 * p, n as f64 * p * (1.0 - p));
+            assert!(
+                (mean - m0).abs() < 4.0 * (v0 / 1e5).sqrt() + 1e-9,
+                "n {n} p {p}: mean {mean} vs {m0}"
+            );
+            assert!(
+                (var / v0 - 1.0).abs() < 0.03,
+                "n {n} p {p}: variance {var} vs {v0}"
+            );
+        }
     }
 
     #[test]
@@ -439,8 +496,8 @@ mod tests {
         let mut pop = vec![0u64; w];
         pop[0] = k[0] as u64;
         let mut next = vec![0u64; w];
-        let probs: Vec<_> = (0..w)
-            .map(|c| leave_probabilities(&g, c, p.diffusion, s.dt))
+        let moves: Vec<_> = (0..w)
+            .map(|c| MoveTable::new(leave_probabilities(&g, c, p.diffusion, s.dt)))
             .collect();
         let targets = move_targets(&g, 0, false);
         let front =
@@ -449,7 +506,7 @@ mod tests {
         let mut t = 0.0;
         while front(&pop, &k) < 100 {
             grow(&mut pop, &k, p.growth, s.dt, &mut rng);
-            disperse(&pop, &mut next, &probs, &targets, &mut rng);
+            disperse(&pop, &mut next, &moves, &targets, &mut rng);
             std::mem::swap(&mut pop, &mut next);
             t += s.dt;
             if t0.is_none() && front(&pop, &k) >= 20 {

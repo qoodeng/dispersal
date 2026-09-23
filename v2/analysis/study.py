@@ -47,7 +47,7 @@ PRIORS = {
 NO_EVIDENCE_KA = 30.0  # encoding for "nothing in 120-40 ka"; 10 ka beyond the window edge
 NEVER_KA = 30.0
 T_TESTS = 250
-ACCEPT_FRACTION = 0.01
+ACCEPT_FRACTION = 0.03  # nearest 3%: wider-than-ideal posteriors, i.e. conservative contraction
 
 
 def to_unit(name, x):
@@ -312,6 +312,8 @@ def analyze(args):
     if stale:
         sys.exit(f"{args.table} is stale: {', '.join(stale)} changed since it was simulated; rerun simulate")
     table = read_table(WORK / args.table)
+    if args.subset:
+        table = {k: v[: args.subset] for k, v in table.items()}
     params = read_table(WORK / "params.csv")
     n = len(table["id"])
     assert np.array_equal(table["id"], params["id"][:n])
@@ -331,6 +333,7 @@ def analyze(args):
         "tests": int(len(tests)),
         "acceptFraction": ACCEPT_FRACTION,
         "table": args.table,
+        "subset": args.subset,
         "priors": {
             k: {"kind": v[0], "low": v[1], "high": v[2], "units": v[3], "meaning": v[4]} for k, v in PRIORS.items()
         },
@@ -465,6 +468,7 @@ def main():
     a.add_argument("--table", default="table.csv")
     a.add_argument("--report", default="identifiability.json")
     a.add_argument("--report-dir", default="results")
+    a.add_argument("--subset", type=int, default=0, help="analyze only the first N simulations (stability check)")
     a.add_argument("--seed", type=int, default=7)
     a = sub.add_parser("timestep")
     a.add_argument("--sims", type=int, default=200)
