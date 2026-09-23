@@ -651,6 +651,85 @@ def timestep(args):
     print(json.dumps(report, indent=1))
 
 
+def gridcheck(args):
+    """G2 grid convergence: 1-degree (dt 25) against 0.5-degree (dt 6.25) on the same draws.
+
+    Also runs the 1-degree grid with different seeds to show seed noise. Passes when the fraction
+    reaching each region is within two binomial standard errors and median onset within 1 ka,
+    overall and separately for draws that can and cannot cross the strait's narrowest gap.
+    """
+    fine_grid, fine_strait = WORK / "grid-0.5.json", WORK / "strait-0.5.json"
+    subprocess.run(
+        [sys.executable, str(V2 / "analysis/prepare_grid.py"), "--cell-degrees", "0.5", "--out", str(fine_grid)],
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
+    subprocess.run(
+        [sys.executable, str(V2 / "analysis/strait.py"), "--grid", str(fine_grid), "--out", str(fine_strait)],
+        check=True,
+        stdout=subprocess.DEVNULL,
+    )
+    params = (WORK / "params.csv").read_text().splitlines()[: args.sims + 1]
+    reseeded = [params[0]] + [
+        ",".join([r.split(",")[0], str(int(r.split(",")[1]) + 1)] + r.split(",")[2:]) for r in params[1:]
+    ]
+    sites = WORK / "gridcheck-sites.csv"
+    sites.write_text("name,lat,lon\nnefud,27.42,39.40\n")
+    runs = {
+        "1deg": (params, GRID, STRAIT, 25.0),
+        "1deg_reseeded": (reseeded, GRID, STRAIT, 25.0),
+        "0.5deg": (params, fine_grid, fine_strait, 6.25),
+    }
+    tables = {}
+    for name, (rows, grid, strait, dt) in runs.items():
+        src, out = WORK / f"gridcheck-{name}.params.csv", WORK / f"gridcheck-{name}.csv"
+        src.write_text("\n".join(rows) + "\n")
+        cmd = [str(ENGINE), "--grid", str(grid), "--params", str(src), "--sites", str(sites), "--out", str(out)]
+        subprocess.run(cmd + ["--dt", str(dt), "--strait", str(strait)], check=True)
+        tables[name] = read_table(out)
+    crossing = read_table(WORK / "gridcheck-1deg.params.csv")["crossing_km"]
+    narrowest = min(s["gapKm"]["median"] for s in json.loads(STRAIT.read_text())["snapshots"])
+    subsets = {"all": crossing >= 0, "cannotCross": crossing < narrowest, "canCross": crossing >= narrowest}
+    result, ok = {}, True
+    for q in ("arabia_onset_bp", "levant_onset_bp"):
+        for label, sel in subsets.items():
+            r = {}
+            for name, t in tables.items():
+                x = t[q][sel] / 1000
+                reached = np.isfinite(x)
+                r[name] = {
+                    "draws": int(sel.sum()),
+                    "fractionReached": round(float(reached.mean()), 3),
+                    "medianOnsetKa": round(float(np.median(x[reached])), 2) if reached.any() else None,
+                }
+            p0, n = r["1deg"]["fractionReached"], int(sel.sum())
+            tol = 2 * np.sqrt(2 * max(p0 * (1 - p0), 0.25 / n) / n)
+            gap = abs(r["0.5deg"]["fractionReached"] - p0)
+            m0, m1 = r["1deg"]["medianOnsetKa"], r["0.5deg"]["medianOnsetKa"]
+            median_gap = abs(m1 - m0) if m0 is not None and m1 is not None else None
+            passed = gap <= tol and (median_gap is None or median_gap <= 1.0)
+            r.update(
+                {
+                    "fractionGap": round(gap, 3),
+                    "fractionTolerance": round(float(tol), 3),
+                    "medianOnsetGapKa": None if median_gap is None else round(median_gap, 2),
+                    "pass": bool(passed),
+                }
+            )
+            ok &= passed
+            result[f"{q}/{label}"] = r
+    report = {
+        "sims": args.sims,
+        "comparison": "1-degree dt 25 vs 0.5-degree dt 6.25, same draws; 1deg_reseeded shows seed noise",
+        "criterion": "fraction reaching the region within 2 binomial SE, median onset within 1 ka",
+        "verdict": "pass" if ok else "fail",
+        "results": result,
+    }
+    RESULTS.mkdir(exist_ok=True)
+    (RESULTS / "grid-check.json").write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps(report, indent=1))
+
+
 def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -672,6 +751,8 @@ def main():
     a.add_argument("--subset", type=int, default=0, help="analyze only the first N simulations (stability check)")
     a.add_argument("--seed", type=int, default=7)
     sub.add_parser("designs")
+    a = sub.add_parser("gridcheck")
+    a.add_argument("--sims", type=int, default=200)
     a = sub.add_parser("structure")
     a.add_argument("--base", default="table.csv")
     a.add_argument("--alternatives", default="table-closed.csv")
@@ -683,6 +764,7 @@ def main():
     commands = {"prepare": prepare, "simulate": simulate, "analyze": analyze, "structure": structure}
     commands["timestep"] = timestep
     commands["designs"] = refresh_designs
+    commands["gridcheck"] = gridcheck
     commands[args.cmd](args)
 
 

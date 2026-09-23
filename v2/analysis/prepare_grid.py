@@ -45,6 +45,13 @@ def region(lat, lon):
 
 
 def main():
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--cell-degrees", type=float, default=1.0, choices=[1.0, 0.5])
+    ap.add_argument("--out", type=Path, default=OUT)
+    args = ap.parse_args()
+    out = args.out.resolve()
     raw = SRC.read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
     assert digest == EXPECTED_SHA256, f"input checksum mismatch: {digest}"
@@ -60,28 +67,29 @@ def main():
     band = np.sin(np.deg2rad(lat + 0.25)) - np.sin(np.deg2rad(lat - 0.25))
     sub_area = EARTH_RADIUS_KM**2 * np.deg2rad(0.5) * band[:, None] * np.ones((1, 90))
 
-    ny, nx = 45, 45
+    k = int(round(args.cell_degrees / 0.5))  # source cells per model cell along each axis
+    ny, nx = 90 // k, 90 // k
     land_sub = np.isfinite(rain)
 
     def blocks(a):
-        return a.reshape(a.shape[:-2] + (ny, 2, nx, 2))
+        return a.reshape(a.shape[:-2] + (ny, k, nx, k))
 
     land_count = blocks(land_sub).sum(axis=(-3, -1))
-    land = land_count >= 2
+    land = land_count >= max(1, k * k // 2)
     area = blocks(land_sub * sub_area[None]).sum(axis=(-3, -1))
     with np.errstate(invalid="ignore"):
         precip = blocks(np.nan_to_num(rain) * land_sub).sum(axis=(-3, -1)) / land_count
     precip = np.where(land, precip, np.nan)
 
-    clat = lat.reshape(ny, 2).mean(axis=1)
-    clon = lon.reshape(nx, 2).mean(axis=1)
+    clat = lat.reshape(ny, k).mean(axis=1)
+    clon = lon.reshape(nx, k).mean(axis=1)
     regions = [[region(clat[i], clon[j]) for j in range(nx)] for i in range(ny)]
 
     grid = {
         "schema": "dispersal-v2-grid/1",
         "source": str(SRC.relative_to(ROOT)),
         "sourceSha256": digest,
-        "cellDegrees": 1.0,
+        "cellDegrees": args.cell_degrees,
         "width": nx,
         "height": ny,
         "latitudes": clat.tolist(),
@@ -102,12 +110,12 @@ def main():
             "Modern-day rivers and freshwater are not represented; precipitation is the only environmental input.",
         ],
     }
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(grid, separators=(",", ":")) + "\n")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(grid, separators=(",", ":")) + "\n")
 
     code = {"africa": "F", "levant": "L", "arabia": "A", "other_asia": "o"}
     print(
-        f"wrote {OUT.relative_to(ROOT)}; land cells per snapshot "
+        f"wrote {out.relative_to(ROOT)}; land cells per snapshot "
         f"min {land.sum((1, 2)).min()} max {land.sum((1, 2)).max()}"
     )
     snap = int(np.argmax(land.sum((1, 2))))

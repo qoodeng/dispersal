@@ -1,7 +1,7 @@
 //! Stochastic metapopulation dynamics: Ricker–Poisson growth, nearest-neighbour
 //! binomial dispersal, and a Poisson archaeological deposition process.
 
-use crate::grid::{Grid, Region, DIRECTIONS};
+use crate::grid::{Grid, Region, DIRECTIONS, KM_PER_DEGREE};
 use rand_distr::{Distribution, Gamma, Poisson, StandardNormal, StandardUniform};
 use rand_xoshiro::rand_core::SeedableRng;
 use rand_xoshiro::Xoshiro256PlusPlus;
@@ -35,7 +35,8 @@ pub struct Scenario {
     pub dt: f64,
     /// Allow Africa–Asia movement at Bab el-Mandeb.
     pub southern_crossing: bool,
-    /// People in one cell that count as an established occupation.
+    /// People that count as an established occupation, per 1-degree cell;
+    /// scaled by cell area on other grids so the threshold is a density.
     pub established: u64,
     /// Width of the suitability sigmoid as a fraction of `rain_half`.
     pub suitability_width: f64,
@@ -66,24 +67,39 @@ impl Default for Scenario {
     }
 }
 
-/// A strait crossing: two neighbouring cells and the open-water gap between
-/// them in each grid snapshot.
+/// A strait crossing: an explicit link between two cells on either side
+/// (not necessarily grid neighbours), the centre-to-centre distance used for
+/// its movement rate, and the open-water gap in each grid snapshot.
 #[derive(Clone, Debug)]
 pub struct Strait {
     pub a: usize,
     pub b: usize,
+    pub distance_km: f64,
     pub gap_km: Vec<f64>,
 }
 
 impl Strait {
     pub fn new(grid: &Grid, a: usize, b: usize, gap_km: Vec<f64>) -> Result<Self, String> {
-        if !DIRECTIONS.iter().any(|&d| grid.neighbour(a, d) == Some(b)) {
-            return Err("strait cells must be grid neighbours".into());
+        let (ra, ca) = grid.row_col(a);
+        let (rb, cb) = grid.row_col(b);
+        let (dlat, dlon) = (
+            grid.latitudes[ra] - grid.latitudes[rb],
+            grid.longitudes[ca] - grid.longitudes[cb],
+        );
+        let mid = ((grid.latitudes[ra] + grid.latitudes[rb]) / 2.0).to_radians();
+        let distance_km = KM_PER_DEGREE * (dlat.powi(2) + (dlon * mid.cos()).powi(2)).sqrt();
+        if a == b || distance_km > 3.0 * KM_PER_DEGREE * grid.cell_degrees {
+            return Err("strait cells must be distinct and within three cells".into());
         }
         if gap_km.len() != grid.snapshots_bp.len() || !gap_km.iter().all(|g| g.is_finite() && *g >= 0.0) {
             return Err("strait needs one finite, non-negative gap per snapshot".into());
         }
-        Ok(Strait { a, b, gap_km })
+        Ok(Strait {
+            a,
+            b,
+            distance_km,
+            gap_km,
+        })
     }
 
     fn open(&self, snapshot: usize, crossing_km: f64) -> Option<(usize, usize)> {
@@ -143,7 +159,7 @@ impl Params {
         }
         let worst = (0..grid.len())
             .map(|c| {
-                leave_probabilities(grid, c, self.diffusion, scenario.dt)
+                move_probabilities(grid, c, self.diffusion, scenario.dt, scenario.strait.as_ref())
                     .iter()
                     .sum::<f64>()
             })
@@ -162,6 +178,27 @@ impl Params {
 /// explicit discretisation of D∇²N on the grid.
 pub fn leave_probabilities(grid: &Grid, cell: usize, diffusion: f64, dt: f64) -> [f64; 4] {
     DIRECTIONS.map(|d| diffusion * dt / grid.spacing_km(cell, d).powi(2))
+}
+
+/// Move slots per cell: the four grid directions plus one strait link.
+pub const SLOTS: usize = 5;
+const LINK: usize = 4;
+
+/// Per-slot move probabilities: the grid directions, and the strait link for
+/// the two strait cells (D dt / L^2 over the link's centre distance L).
+pub fn move_probabilities(
+    grid: &Grid,
+    cell: usize,
+    diffusion: f64,
+    dt: f64,
+    strait: Option<&Strait>,
+) -> [f64; SLOTS] {
+    let mut p = [0.0; SLOTS];
+    p[..4].copy_from_slice(&leave_probabilities(grid, cell, diffusion, dt));
+    if let Some(st) = strait.filter(|st| cell == st.a || cell == st.b) {
+        p[LINK] = diffusion * dt / st.distance_km.powi(2);
+    }
+    p
 }
 
 /// Habitat suitability in [0, 1] as a logistic function of precipitation.
@@ -284,32 +321,30 @@ fn binomial(rng: &mut Rng, n: u64, p: f64) -> u64 {
     binomial_fast(rng, n, p, (-p).ln_1p(), p / (1.0 - p))
 }
 
-/// Destination of a move in each direction during one snapshot: the open
-/// neighbour, or the cell itself when the edge is closed.
+/// Destination of each move slot during one snapshot: the open neighbour (or
+/// the strait partner for the link slot), or the cell itself when closed.
 pub fn move_targets(
     grid: &Grid,
     snapshot: usize,
     southern_crossing: bool,
     crossing: Option<(usize, usize)>,
-) -> Vec<[usize; 4]> {
-    let mut targets: Vec<[usize; 4]> = (0..grid.len())
+) -> Vec<[usize; SLOTS]> {
+    let mut targets: Vec<[usize; SLOTS]> = (0..grid.len())
         .map(|cell| {
-            DIRECTIONS.map(|d| {
-                grid.neighbour(cell, d)
+            let mut t = [cell; SLOTS];
+            for (i, d) in DIRECTIONS.iter().enumerate() {
+                t[i] = grid
+                    .neighbour(cell, *d)
                     .filter(|&b| grid.edge_open(snapshot, cell, b, southern_crossing))
-                    .unwrap_or(cell)
-            })
+                    .unwrap_or(cell);
+            }
+            t
         })
         .collect();
     if let Some((a, b)) = crossing {
         if grid.is_land(snapshot, a) && grid.is_land(snapshot, b) {
-            for (from, to) in [(a, b), (b, a)] {
-                for (i, &d) in DIRECTIONS.iter().enumerate() {
-                    if grid.neighbour(from, d) == Some(to) {
-                        targets[from][i] = to;
-                    }
-                }
-            }
+            targets[a][LINK] = b;
+            targets[b][LINK] = a;
         }
     }
     targets
@@ -320,15 +355,18 @@ pub fn move_targets(
 /// earlier direction, with values precomputed for inversion sampling.
 #[derive(Clone, Copy, Debug)]
 pub struct MoveTable {
-    conditional: [f64; 4],
-    ln_stay: [f64; 4],
-    odds: [f64; 4],
+    conditional: [f64; SLOTS],
+    ln_stay: [f64; SLOTS],
+    odds: [f64; SLOTS],
 }
 
 impl MoveTable {
-    pub fn new(probs: [f64; 4]) -> Self {
+    /// `probs` has up to `SLOTS` per-slot probabilities; missing slots are 0.
+    pub fn new(probs: &[f64]) -> Self {
+        let mut padded = [0.0; SLOTS];
+        padded[..probs.len()].copy_from_slice(probs);
         let mut unassigned = 1.0;
-        let conditional = probs.map(|p| {
+        let conditional = padded.map(|p| {
             let c = (p / unassigned).clamp(0.0, 1.0);
             unassigned -= p;
             c
@@ -369,7 +407,13 @@ fn binomial_fast(rng: &mut Rng, n: u64, p: f64, ln_q: f64, odds: f64) -> u64 {
 /// Synchronous binomial dispersal. `moves[c]` holds cell c's per-direction
 /// move probabilities and `targets[c]` their destinations; moves toward
 /// closed edges stay put, so the total is conserved exactly.
-pub fn disperse(pop: &[u64], next: &mut [u64], moves: &[MoveTable], targets: &[[usize; 4]], rng: &mut Rng) {
+pub fn disperse(
+    pop: &[u64],
+    next: &mut [u64],
+    moves: &[MoveTable],
+    targets: &[[usize; SLOTS]],
+    rng: &mut Rng,
+) {
     next.iter_mut().for_each(|n| *n = 0);
     for (cell, &n) in pop.iter().enumerate() {
         if n == 0 {
@@ -377,7 +421,7 @@ pub fn disperse(pop: &[u64], next: &mut [u64], moves: &[MoveTable], targets: &[[
         }
         let m = &moves[cell];
         let mut remaining = n;
-        for d in 0..4 {
+        for d in 0..SLOTS {
             let movers = binomial_fast(rng, remaining, m.conditional[d], m.ln_stay[d], m.odds[d]);
             remaining -= movers;
             next[targets[cell][d]] += movers;
@@ -401,6 +445,9 @@ pub fn simulate(
         return Err("scenario needs dt > 0 and start before end".into());
     }
     let mut rng = Rng::seed_from_u64(seed);
+    let established = ((s.established as f64) * grid.cell_degrees.powi(2))
+        .round()
+        .max(1.0) as u64;
     let n = grid.len();
     let mut k = vec![0.0; n];
     let mut pop = vec![0u64; n];
@@ -413,7 +460,7 @@ pub fn simulate(
     }
 
     let moves: Vec<MoveTable> = (0..n)
-        .map(|c| MoveTable::new(leave_probabilities(grid, c, p.diffusion, s.dt)))
+        .map(|c| MoveTable::new(&move_probabilities(grid, c, p.diffusion, s.dt, s.strait.as_ref())))
         .collect();
     let crossing = |snapshot: usize| s.strait.as_ref().and_then(|st| st.open(snapshot, p.crossing_km));
     let mut targets = move_targets(grid, 0, s.southern_crossing, crossing(0));
@@ -446,7 +493,7 @@ pub fn simulate(
             if people > 0 && record.first_visit_bp.is_none() {
                 record.first_visit_bp = Some(t);
             }
-            if people >= s.established && record.first_established_bp.is_none() {
+            if people >= established && record.first_established_bp.is_none() {
                 record.first_established_bp = Some(t);
             }
             if record.oldest_find_bp.is_none() && poisson(&mut rng, p.detection * people as f64 * s.dt) > 0 {
@@ -461,8 +508,7 @@ pub fn simulate(
         .into_iter()
         .enumerate()
         {
-            let established = (0..n).any(|c| grid.regions[c] == region && pop[c] >= s.established);
-            if established {
+            if (0..n).any(|c| grid.regions[c] == region && pop[c] >= established) {
                 occupied[i] += 1;
                 summary.onset_bp.get_or_insert(t);
             }
@@ -514,7 +560,7 @@ mod tests {
         pop[2 * 6 + 2] = 100_000;
         let mut next = vec![0u64; 30];
         let moves: Vec<_> = (0..30)
-            .map(|c| MoveTable::new(leave_probabilities(&g, c, 2_000.0, 1.0)))
+            .map(|c| MoveTable::new(&leave_probabilities(&g, c, 2_000.0, 1.0)))
             .collect();
         let targets = move_targets(&g, 0, false, None);
         for _ in 0..200 {
@@ -613,12 +659,16 @@ mod tests {
         assert!(Strait::new(&g, 0, 0, vec![5.0, 5.0]).is_err());
         let closed = move_targets(&g, 0, false, strait.open(0, 4.9));
         let open = move_targets(&g, 0, false, strait.open(0, 5.0));
-        assert_eq!(closed, vec![[0, 0, 0, 0], [1, 1, 1, 1]]);
-        assert_eq!(open[0][0], 1, "Africa cell moves east across the strait");
-        assert_eq!(open[1][1], 0, "Arabia cell moves west across the strait");
+        assert_eq!(
+            closed,
+            vec![[0; SLOTS], [1; SLOTS]],
+            "grid edge severed, link closed"
+        );
+        assert_eq!(open[0][LINK], 1, "Africa cell crosses the strait link");
+        assert_eq!(open[1][LINK], 0, "Arabia cell crosses back");
         // People are conserved across an open strait.
         let moves: Vec<_> = (0..2)
-            .map(|c| MoveTable::new(leave_probabilities(&g, c, 2_000.0, 1.0)))
+            .map(|c| MoveTable::new(&move_probabilities(&g, c, 2_000.0, 1.0, Some(&strait))))
             .collect();
         let mut rng = Rng::seed_from_u64(4);
         let (mut pop, mut next) = (vec![10_000u64, 0], vec![0u64; 2]);
@@ -628,6 +678,30 @@ mod tests {
         }
         assert_eq!(pop.iter().sum::<u64>(), 10_000);
         assert!(pop[1] > 0);
+    }
+
+    #[test]
+    fn strait_link_can_span_a_sea_cell() {
+        // Africa | sea | Arabia: the link crosses the sea cell, which no one can enter.
+        let mut g = Grid::uniform(3, 1, 10_000.0, 500.0);
+        g.latitudes = vec![12.5];
+        g.regions = vec![Region::Africa, Region::Arabia, Region::Arabia];
+        g.land_area_km2[0][1] = 0.0;
+        g.precipitation_mm[0][1] = f64::NAN;
+        let strait = Strait::new(&g, 0, 2, vec![4.0, 4.0]).unwrap();
+        let targets = move_targets(&g, 0, false, strait.open(0, 5.0));
+        let moves: Vec<_> = (0..3)
+            .map(|c| MoveTable::new(&move_probabilities(&g, c, 2_000.0, 1.0, Some(&strait))))
+            .collect();
+        let mut rng = Rng::seed_from_u64(8);
+        let (mut pop, mut next) = (vec![10_000u64, 0, 0], vec![0u64; 3]);
+        for _ in 0..50 {
+            disperse(&pop, &mut next, &moves, &targets, &mut rng);
+            std::mem::swap(&mut pop, &mut next);
+        }
+        assert_eq!(pop[1], 0, "nobody enters the sea cell");
+        assert!(pop[2] > 0, "people reach Arabia over the link");
+        assert_eq!(pop.iter().sum::<u64>(), 10_000);
     }
 
     #[test]
@@ -698,7 +772,7 @@ mod tests {
         pop[0] = k[0] as u64;
         let mut next = vec![0u64; w];
         let moves: Vec<_> = (0..w)
-            .map(|c| MoveTable::new(leave_probabilities(&g, c, p.diffusion, s.dt)))
+            .map(|c| MoveTable::new(&leave_probabilities(&g, c, p.diffusion, s.dt)))
             .collect();
         let targets = move_targets(&g, 0, false, None);
         let front =

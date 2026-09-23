@@ -28,7 +28,7 @@ GRID = ROOT / "v2/data/grid.json"
 OUT = ROOT / "v2/data/strait.json"
 
 BOX = {"lat": (11.6, 14.6), "lon": (41.6, 44.6)}
-GRID_EDGE = {"africa": (12.5, 42.5), "arabia": (12.5, 43.5)}  # 1-degree cells either side of the strait
+STRAIT_POINT = (12.6, 43.35)  # Bab el-Mandeb; the grid edge is the nearest Africa-Arabia neighbour pair
 AFRICA_SEED = (12.2, 42.4)  # Djibouti/Eritrea mainland
 ARABIA_SEED = (13.4, 44.2)  # Yemen mainland
 KM_PER_ARCMIN = 1.8532
@@ -73,14 +73,38 @@ def minimax_leg_km(z, lat, lon, sea_level):
     return round(hi, 1)
 
 
+def grid_edge(grid):
+    """The Africa and Arabia cells for the strait link: land in every snapshot, south of 20N,
+    minimising their summed distance to the strait (they need not be neighbours)."""
+    w = grid["width"]
+    lat, lon = np.array(grid["latitudes"]), np.array(grid["longitudes"])
+    always_land = np.array(grid["landAreaKm2"]).min(axis=0) > 0
+
+    def candidates(region):
+        for c, r in enumerate(grid["regions"]):
+            la, lo = lat[c // w], lon[c % w]
+            if r == region and always_land[c] and la < 20:
+                yield np.hypot(la - STRAIT_POINT[0], lo - STRAIT_POINT[1]), la, lo
+
+    a = min(candidates("africa"))
+    b = min(candidates("arabia"))
+    return {"africa": {"lat": float(a[1]), "lon": float(a[2])}, "arabia": {"lat": float(b[1]), "lon": float(b[2])}}
+
+
 def sea_levels():
     rows = {int(float(r["age_ka"])): r for r in csv.DictReader(SEA_LEVEL.open())}
     return lambda ka: {k: float(rows[ka][k]) for k in ("q025", "median", "q975")}
 
 
 def main():
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--grid", type=Path, default=GRID)
+    ap.add_argument("--out", type=Path, default=OUT)
+    args = ap.parse_args()
     z, lat, lon, digest = load_bathymetry()
-    grid = json.loads(GRID.read_text())
+    grid = json.loads(args.grid.read_text())
     level = sea_levels()
     snapshots = []
     for bp in grid["snapshotsYearsBP"]:
@@ -99,14 +123,7 @@ def main():
         )
     present = minimax_leg_km(z, lat, lon, 0.0)
     sill = next(s for s in np.arange(0, -300, -1.0) if minimax_leg_km(z, lat, lon, s) == 0.0)
-    w = grid["width"]
-    ever_land = np.array(grid["landAreaKm2"]).min(axis=0) > 0
-    cells = {}
-    for side, (la, lo) in GRID_EDGE.items():
-        c = int(np.argmin(np.abs(np.array(grid["latitudes"]) - la))) * w
-        c += int(np.argmin(np.abs(np.array(grid["longitudes"]) - lo)))
-        assert grid["regions"][c] == side and ever_land[c], f"{side} crossing cell must be land in every snapshot"
-        cells[side] = {"lat": la, "lon": lo}
+    cells = grid_edge(grid)
     out = {
         "schema": "dispersal-v2-strait/1",
         "strait": "Bab el-Mandeb",
@@ -123,7 +140,7 @@ def main():
             "1-arcminute resolution cannot resolve channels narrower than about 2 km.",
         ],
     }
-    OUT.write_text(json.dumps(out, indent=1) + "\n")
+    args.out.write_text(json.dumps(out, indent=1) + "\n")
     gaps = [s["gapKm"]["median"] for s in snapshots]
     print(f"present-day gap {present} km; land bridge needs sea level below {sill} m")
     print(f"gap 120-40 ka (median sea level): min {min(gaps)} km, max {max(gaps)} km")
