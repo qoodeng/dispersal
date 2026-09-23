@@ -43,7 +43,10 @@ PRIORS = {
     "rain_half": ("uniform", 50.0, 250.0, "mm/year", "precipitation at half habitat suitability"),
     "density": ("log_uniform", 1.0, 30.0, "people/100 km^2", "carrying capacity in suitable habitat"),
     "detection": ("log_uniform", 1e-9, 1e-5, "finds/person-year", "dated-find deposition and recovery rate"),
+    # Assumption: agnostic between walking only (below the 3.8 km minimum gap) and short sea crossings.
+    "crossing_km": ("log_uniform", 1.0, 40.0, "km", "longest open-water leg people can cross"),
 }
+STRAIT = V2 / "data/strait.json"
 NO_EVIDENCE_KA = 30.0  # encoding for "nothing in 120-40 ka"; 10 ka beyond the window edge
 NEVER_KA = 30.0
 T_TESTS = 250
@@ -233,9 +236,12 @@ def simulate(args):
     cmd += ["--out", str(WORK / args.out), "--dt", str(args.dt), "--source-max-lat", str(args.source_max_lat)]
     if args.southern_crossing:
         cmd.append("--southern-crossing")
+    if not args.no_strait:
+        cmd += ["--strait", str(STRAIT), "--strait-series", args.strait_series]
     subprocess.run(cmd, check=True)
     meta = inputs_digest(args.dt, args.southern_crossing, params)
     meta["sourceMaxLat"] = args.source_max_lat
+    meta["strait"] = None if args.no_strait else {"sha256": sha(STRAIT), "series": args.strait_series}
     (WORK / f"{args.out}.meta.json").write_text(json.dumps(meta, indent=1) + "\n")
 
 
@@ -267,6 +273,8 @@ def load_checked(name):
     meta = json.loads((WORK / f"{name}.meta.json").read_text())
     current = inputs_digest(meta["dt"], meta["southernCrossing"], WORK / meta.get("paramsFile", "params.csv"))
     stale = [k for k in ("params", "sites", "grid", "engine") if meta[k] != current[k]]
+    if meta.get("strait") and meta["strait"]["sha256"] != sha(STRAIT):
+        stale.append("strait")
     if stale:
         sys.exit(f"{name} is stale: {', '.join(stale)} changed since it was simulated; rerun simulate")
     return read_table(WORK / name), meta
@@ -450,6 +458,21 @@ def analyze(args):
         },
         "designs": {},
     }
+    if meta.get("strait") and "crossing_km" in params:
+        edges = [0, 3.8, 5.2, 10.4, 15.3, 20.0, 1e9]  # observed 120-40 ka gap values (data/strait.json)
+        crossing = params["crossing_km"][ids]
+        report["priorPredictive"]["byCrossingKm"] = [
+            {
+                "crossingKm": [lo, None if hi > 1e8 else hi],
+                "draws": int(sel.sum()),
+                "fractionReachingArabia": round(float(reached[sel].mean()), 3),
+                "medianOnsetKa": round(float(np.median(table["arabia_onset_bp"][sel & reached]) / 1000), 1)
+                if (sel & reached).any()
+                else None,
+            }
+            for lo, hi in zip(edges, edges[1:], strict=False)
+            for sel in [(crossing >= lo) & (crossing < hi)]
+        ]
     rng = np.random.default_rng(args.seed)
     for name, design in designs.items():
         S = observations(table, design, rng)
@@ -640,6 +663,8 @@ def main():
     a.add_argument("--southern-crossing", action="store_true")
     a.add_argument("--source-max-lat", type=float, default=15.0)
     a.add_argument("--limit", type=int, default=0, help="simulate only the first N parameter draws")
+    a.add_argument("--no-strait", action="store_true", help="walking only: no Bab el-Mandeb crossing")
+    a.add_argument("--strait-series", default="median", choices=["narrow", "median", "wide"])
     a = sub.add_parser("analyze")
     a.add_argument("--table", default="table.csv")
     a.add_argument("--report", default="identifiability.json")
@@ -649,7 +674,7 @@ def main():
     sub.add_parser("designs")
     a = sub.add_parser("structure")
     a.add_argument("--base", default="table.csv")
-    a.add_argument("--alternatives", default="table-south.csv,table-source5.csv")
+    a.add_argument("--alternatives", default="table-closed.csv")
     a.add_argument("--seed", type=int, default=11)
     a = sub.add_parser("timestep")
     a.add_argument("--sims", type=int, default=200)

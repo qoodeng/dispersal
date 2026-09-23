@@ -2,13 +2,17 @@
 //!
 //! coarse --grid GRID.json --params PARAMS.csv --sites SITES.csv --out OUT.csv
 //!        [--dt YEARS] [--southern-crossing] [--source-max-lat DEGREES]
+//!        [--strait STRAIT.json [--strait-series narrow|median|wide]]
+//!
+//! With --strait, the optional PARAMS.csv column crossing_km sets the longest
+//! open-water leg people can cross (default 0, walking only).
 //!
 //! PARAMS.csv columns: id,seed,growth,diffusion,rain_half,density,detection
 //! SITES.csv columns:  name,lat,lon
 //! Ages in the output are years BP; empty fields mean "never happened".
 
 use dispersal_coarse::grid::Grid;
-use dispersal_coarse::model::{simulate, Params, Scenario};
+use dispersal_coarse::model::{simulate, Params, Scenario, Strait};
 use rayon::prelude::*;
 use std::collections::HashMap;
 use std::fmt::Write as _;
@@ -56,6 +60,30 @@ fn age(v: Option<f64>) -> String {
     v.map(|x| format!("{x:.1}")).unwrap_or_default()
 }
 
+fn read_strait(grid: &Grid, path: &str, series: &str) -> Result<Strait, String> {
+    let text = std::fs::read_to_string(path).map_err(|e| format!("{path}: {e}"))?;
+    let v: serde_json::Value = serde_json::from_str(&text).map_err(|e| format!("{path}: {e}"))?;
+    let cell = |side: &str| -> Result<usize, String> {
+        let e = &v["gridEdge"][side];
+        let (lat, lon) = (e["lat"].as_f64(), e["lon"].as_f64());
+        grid.cell_at(lat.ok_or("bad gridEdge")?, lon.ok_or("bad gridEdge")?)
+            .ok_or(format!("strait {side} cell outside grid"))
+    };
+    let snapshots = v["snapshots"].as_array().ok_or("strait has no snapshots")?;
+    let mut gaps = Vec::new();
+    for (s, &bp) in snapshots.iter().zip(&grid.snapshots_bp) {
+        if s["yearsBP"].as_f64() != Some(bp) {
+            return Err("strait snapshots do not match the grid".into());
+        }
+        gaps.push(
+            s["gapKm"][series]
+                .as_f64()
+                .ok_or(format!("strait series {series} missing"))?,
+        );
+    }
+    Strait::new(grid, cell("africa")?, cell("arabia")?, gaps)
+}
+
 fn run(args: &[String]) -> Result<(), String> {
     let flag = |name: &str| {
         args.iter()
@@ -74,6 +102,10 @@ fn run(args: &[String]) -> Result<(), String> {
     }
     if let Some(lat) = flag("--source-max-lat") {
         scenario.source_max_lat = lat.parse().map_err(|_| "bad --source-max-lat")?;
+    }
+    if let Some(path) = flag("--strait") {
+        let series = flag("--strait-series").unwrap_or_else(|| "median".into());
+        scenario.strait = Some(read_strait(&grid, &path, &series)?);
     }
 
     let sites = read_csv(&need("--sites")?)?;
@@ -104,6 +136,11 @@ fn run(args: &[String]) -> Result<(), String> {
                     rain_half: field(r, "rain_half")?,
                     density: field(r, "density")?,
                     detection: field(r, "detection")?,
+                    crossing_km: if r.contains_key("crossing_km") {
+                        field(r, "crossing_km")?
+                    } else {
+                        0.0
+                    },
                 },
             ))
         })
@@ -155,11 +192,12 @@ fn run(args: &[String]) -> Result<(), String> {
     let path = need("--out")?;
     std::fs::write(&path, out).map_err(|e| format!("{path}: {e}"))?;
     eprintln!(
-        "{} runs, {} sites, dt {} yr, southern crossing {}, source south of {}N: {:.1} s",
+        "{} runs, {} sites, dt {} yr, southern crossing {}, strait {}, source south of {}N: {:.1} s",
         jobs.len(),
         cells.len(),
         scenario.dt,
         scenario.southern_crossing,
+        scenario.strait.is_some(),
         scenario.source_max_lat,
         started.elapsed().as_secs_f64()
     );

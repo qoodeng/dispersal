@@ -1,0 +1,566 @@
+{
+ "schema": "dispersal-v2-strait/1",
+ "strait": "Bab el-Mandeb",
+ "gridEdge": {
+  "africa": {
+   "lat": 12.5,
+   "lon": 42.5
+  },
+  "arabia": {
+   "lat": 12.5,
+   "lon": 43.5
+  }
+ },
+ "bathymetry": {
+  "source": "research/world-v2/etopo2022-regional.nc",
+  "sha256": "9267bb335c77884ffeeb333136d02352ac25256857b28708e1fed8e746eed07a",
+  "doi": "10.25921/fd45-gt74"
+ },
+ "seaLevel": {
+  "source": "research/calibration/data/spratt2016-published-table.csv",
+  "reference": "Spratt & Lisiecki 2016"
+ },
+ "metric": "minimax open-water leg between the African and Arabian mainlands, km",
+ "presentDayGapKm": 19.9,
+ "landBridgeBelowSeaLevelM": -134.0,
+ "snapshots": [
+  {
+   "yearsBP": 120000,
+   "seaLevelM": {
+    "q025": -20.11,
+    "median": -3.73,
+    "q975": 13.96
+   },
+   "gapKm": {
+    "narrow": 15.3,
+    "median": 18.3,
+    "wide": 19.9
+   }
+  },
+  {
+   "yearsBP": 118000,
+   "seaLevelM": {
+    "q025": -33.23,
+    "median": -11.88,
+    "q975": 5.2
+   },
+   "gapKm": {
+    "narrow": 13.3,
+    "median": 16.6,
+    "wide": 19.9
+   }
+  },
+  {
+   "yearsBP": 116000,
+   "seaLevelM": {
+    "q025": -44.07,
+    "median": -23.74,
+    "q975": -4.55
+   },
+   "gapKm": {
+    "narrow": 13.1,
+    "median": 15.3,
+    "wide": 18.3
+   }
+  },
+  {
+   "yearsBP": 114000,
+   "seaLevelM": {
+    "q025": -52.11,
+    "median": -36.14,
+    "q975": -17.24
+   },
+   "gapKm": {
+    "narrow": 10.4,
+    "median": 13.3,
+    "wide": 15.5
+   }
+  },
+  {
+   "yearsBP": 112000,
+   "seaLevelM": {
+    "q025": -57.09,
+    "median": -44.94,
+    "q975": -29.37
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 110000,
+   "seaLevelM": {
+    "q025": -58.82,
+    "median": -48.33,
+    "q975": -35.63
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 10.9,
+    "wide": 13.3
+   }
+  },
+  {
+   "yearsBP": 108000,
+   "seaLevelM": {
+    "q025": -58.2,
+    "median": -47.28,
+    "q975": -36.24
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 11.5,
+    "wide": 13.3
+   }
+  },
+  {
+   "yearsBP": 106000,
+   "seaLevelM": {
+    "q025": -53.53,
+    "median": -41.91,
+    "q975": -30.24
+   },
+   "gapKm": {
+    "narrow": 7.4,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 104000,
+   "seaLevelM": {
+    "q025": -47.08,
+    "median": -35.22,
+    "q975": -22.42
+   },
+   "gapKm": {
+    "narrow": 11.5,
+    "median": 13.3,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 102000,
+   "seaLevelM": {
+    "q025": -40.61,
+    "median": -28.0,
+    "q975": -10.86
+   },
+   "gapKm": {
+    "narrow": 13.1,
+    "median": 15.3,
+    "wide": 16.6
+   }
+  },
+  {
+   "yearsBP": 100000,
+   "seaLevelM": {
+    "q025": -36.28,
+    "median": -22.77,
+    "q975": -9.29
+   },
+   "gapKm": {
+    "narrow": 13.3,
+    "median": 15.3,
+    "wide": 16.6
+   }
+  },
+  {
+   "yearsBP": 98000,
+   "seaLevelM": {
+    "q025": -38.21,
+    "median": -24.2,
+    "q975": -9.82
+   },
+   "gapKm": {
+    "narrow": 13.3,
+    "median": 15.3,
+    "wide": 16.6
+   }
+  },
+  {
+   "yearsBP": 96000,
+   "seaLevelM": {
+    "q025": -47.5,
+    "median": -32.29,
+    "q975": -16.22
+   },
+   "gapKm": {
+    "narrow": 11.5,
+    "median": 15.3,
+    "wide": 15.5
+   }
+  },
+  {
+   "yearsBP": 94000,
+   "seaLevelM": {
+    "q025": -52.39,
+    "median": -40.29,
+    "q975": -26.54
+   },
+   "gapKm": {
+    "narrow": 7.4,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 92000,
+   "seaLevelM": {
+    "q025": -56.66,
+    "median": -44.98,
+    "q975": -26.28
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 90000,
+   "seaLevelM": {
+    "q025": -59.49,
+    "median": -46.3,
+    "q975": -28.89
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 88000,
+   "seaLevelM": {
+    "q025": -59.96,
+    "median": -46.51,
+    "q975": -25.72
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 86000,
+   "seaLevelM": {
+    "q025": -56.47,
+    "median": -41.11,
+    "q975": -18.08
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 84000,
+   "seaLevelM": {
+    "q025": -49.34,
+    "median": -34.78,
+    "q975": -14.48
+   },
+   "gapKm": {
+    "narrow": 10.9,
+    "median": 13.3,
+    "wide": 15.5
+   }
+  },
+  {
+   "yearsBP": 82000,
+   "seaLevelM": {
+    "q025": -47.38,
+    "median": -33.56,
+    "q975": -15.87
+   },
+   "gapKm": {
+    "narrow": 11.5,
+    "median": 13.3,
+    "wide": 15.5
+   }
+  },
+  {
+   "yearsBP": 80000,
+   "seaLevelM": {
+    "q025": -46.3,
+    "median": -33.5,
+    "q975": -19.38
+   },
+   "gapKm": {
+    "narrow": 13.1,
+    "median": 13.3,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 78000,
+   "seaLevelM": {
+    "q025": -47.08,
+    "median": -32.14,
+    "q975": -16.64
+   },
+   "gapKm": {
+    "narrow": 11.5,
+    "median": 15.3,
+    "wide": 15.5
+   }
+  },
+  {
+   "yearsBP": 76000,
+   "seaLevelM": {
+    "q025": -48.54,
+    "median": -33.85,
+    "q975": -16.13
+   },
+   "gapKm": {
+    "narrow": 10.9,
+    "median": 13.3,
+    "wide": 15.5
+   }
+  },
+  {
+   "yearsBP": 74000,
+   "seaLevelM": {
+    "q025": -58.1,
+    "median": -40.96,
+    "q975": -21.24
+   },
+   "gapKm": {
+    "narrow": 5.2,
+    "median": 13.1,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 72000,
+   "seaLevelM": {
+    "q025": -69.63,
+    "median": -51.58,
+    "q975": -29.21
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 10.4,
+    "wide": 15.3
+   }
+  },
+  {
+   "yearsBP": 70000,
+   "seaLevelM": {
+    "q025": -79.2,
+    "median": -63.63,
+    "q975": -42.67
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 5.2,
+    "wide": 13.1
+   }
+  },
+  {
+   "yearsBP": 68000,
+   "seaLevelM": {
+    "q025": -88.56,
+    "median": -76.54,
+    "q975": -60.46
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 66000,
+   "seaLevelM": {
+    "q025": -95.62,
+    "median": -81.94,
+    "q975": -68.69
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 3.8
+   }
+  },
+  {
+   "yearsBP": 64000,
+   "seaLevelM": {
+    "q025": -97.89,
+    "median": -86.17,
+    "q975": -69.28
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 3.8
+   }
+  },
+  {
+   "yearsBP": 62000,
+   "seaLevelM": {
+    "q025": -101.28,
+    "median": -88.13,
+    "q975": -65.01
+   },
+   "gapKm": {
+    "narrow": 3.7,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 60000,
+   "seaLevelM": {
+    "q025": -101.4,
+    "median": -87.78,
+    "q975": -66.0
+   },
+   "gapKm": {
+    "narrow": 3.7,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 58000,
+   "seaLevelM": {
+    "q025": -99.32,
+    "median": -85.92,
+    "q975": -66.11
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 56000,
+   "seaLevelM": {
+    "q025": -95.37,
+    "median": -80.41,
+    "q975": -63.04
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 54000,
+   "seaLevelM": {
+    "q025": -87.88,
+    "median": -74.32,
+    "q975": -58.82
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 52000,
+   "seaLevelM": {
+    "q025": -81.7,
+    "median": -70.17,
+    "q975": -57.24
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 50000,
+   "seaLevelM": {
+    "q025": -84.91,
+    "median": -72.8,
+    "q975": -58.55
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 48000,
+   "seaLevelM": {
+    "q025": -86.89,
+    "median": -76.08,
+    "q975": -65.61
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 46000,
+   "seaLevelM": {
+    "q025": -87.56,
+    "median": -77.86,
+    "q975": -67.52
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 44000,
+   "seaLevelM": {
+    "q025": -86.65,
+    "median": -77.67,
+    "q975": -67.68
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 5.2
+   }
+  },
+  {
+   "yearsBP": 42000,
+   "seaLevelM": {
+    "q025": -90.5,
+    "median": -80.53,
+    "q975": -70.82
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 3.8
+   }
+  },
+  {
+   "yearsBP": 40000,
+   "seaLevelM": {
+    "q025": -98.89,
+    "median": -87.35,
+    "q975": -76.15
+   },
+   "gapKm": {
+    "narrow": 3.8,
+    "median": 3.8,
+    "wide": 3.8
+   }
+  }
+ ],
+ "limits": [
+  "Modern bathymetry: no tectonic, sediment or glacio-isostatic correction.",
+  "Global mean sea level, not regional relative sea level.",
+  "1-arcminute resolution cannot resolve channels narrower than about 2 km."
+ ]
+}
