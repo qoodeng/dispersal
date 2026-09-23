@@ -151,34 +151,30 @@ def prepare(args):
 
 
 def simulate(args):
-    cmd = [
-        str(ENGINE),
-        "--grid",
-        str(GRID),
-        "--params",
-        str(WORK / "params.csv"),
-        "--sites",
-        str(WORK / "sites.csv"),
-        "--out",
-        str(WORK / args.out),
-        "--dt",
-        str(args.dt),
-    ]
+    params = WORK / "params.csv"
+    if args.limit:
+        rows = params.read_text().splitlines()[: args.limit + 1]
+        params = WORK / f"{args.out}.params.csv"
+        params.write_text("\n".join(rows) + "\n")
+    cmd = [str(ENGINE), "--grid", str(GRID), "--params", str(params), "--sites", str(WORK / "sites.csv")]
+    cmd += ["--out", str(WORK / args.out), "--dt", str(args.dt), "--source-max-lat", str(args.source_max_lat)]
     if args.southern_crossing:
         cmd.append("--southern-crossing")
     subprocess.run(cmd, check=True)
-    (WORK / f"{args.out}.meta.json").write_text(
-        json.dumps(inputs_digest(args.dt, args.southern_crossing), indent=1) + "\n"
-    )
+    meta = inputs_digest(args.dt, args.southern_crossing, params)
+    meta["sourceMaxLat"] = args.source_max_lat
+    (WORK / f"{args.out}.meta.json").write_text(json.dumps(meta, indent=1) + "\n")
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def inputs_digest(dt, southern_crossing):
+def inputs_digest(dt, southern_crossing, params=None):
+    params = params or WORK / "params.csv"
     return {
-        "params": sha(WORK / "params.csv"),
+        "paramsFile": params.name,
+        "params": sha(params),
         "sites": sha(WORK / "sites.csv"),
         "grid": sha(GRID),
         "engine": sha(ENGINE),
@@ -318,7 +314,7 @@ def summarize(targets, ref, out, prior_width90):
 def analyze(args):
     designs = json.loads((WORK / "designs.resolved.json").read_text())
     meta = json.loads((WORK / f"{args.table}.meta.json").read_text())
-    current = inputs_digest(meta["dt"], meta["southernCrossing"])
+    current = inputs_digest(meta["dt"], meta["southernCrossing"], WORK / meta.get("paramsFile", "params.csv"))
     stale = [k for k in ("params", "sites", "grid", "engine") if meta[k] != current[k]]
     if stale:
         sys.exit(f"{args.table} is stale: {', '.join(stale)} changed since it was simulated; rerun simulate")
@@ -423,34 +419,32 @@ def print_report(report):
 
 
 def timestep(args):
-    """Is the dt 25 vs 10 year difference larger than seed-to-seed noise at dt 25?"""
+    """Do onset outcomes depend on the time step beyond seed-to-seed noise?
+
+    Runs the first N prior draws at each step in --dts, plus the coarsest step
+    again with different seeds. Passes when, for every step, the fraction of
+    runs establishing in Arabia is within two binomial standard errors of the
+    coarsest step and median onsets agree within 1 ka.
+    """
+    dts = [float(x) for x in args.dts.split(",")]
     params = (WORK / "params.csv").read_text().splitlines()[: args.sims + 1]
-    reseeded = [params[0]] + [
-        ",".join([r.split(",")[0], str(int(r.split(",")[1]) + 1)] + r.split(",")[2:]) for r in params[1:]
-    ]
-    runs = {"dt25": (params, 25), "dt25_reseeded": (reseeded, 25), "dt10": (params, 10)}
+
+    def reseed(row):
+        fields = row.split(",")
+        return ",".join([fields[0], str(int(fields[1]) + 1)] + fields[2:])
+
+    runs = {f"dt{d:g}": (params, d) for d in dts}
+    runs[f"dt{dts[0]:g}_reseeded"] = ([params[0]] + [reseed(r) for r in params[1:]], dts[0])
     tables = {}
     for name, (rows, dt) in runs.items():
         src, out = WORK / f"timestep-{name}.params.csv", WORK / f"timestep-{name}.csv"
         src.write_text("\n".join(rows) + "\n")
-        subprocess.run(
-            [
-                str(ENGINE),
-                "--grid",
-                str(GRID),
-                "--params",
-                str(src),
-                "--sites",
-                str(WORK / "sites.csv"),
-                "--out",
-                str(out),
-                "--dt",
-                str(dt),
-            ],
-            check=True,
-        )
+        cmd = [str(ENGINE), "--grid", str(GRID), "--params", str(src), "--sites", str(WORK / "sites.csv")]
+        subprocess.run(cmd + ["--out", str(out), "--dt", str(dt)], check=True)
         tables[name] = read_table(out)
-    result = {}
+
+    base = f"dt{dts[0]:g}"
+    result, ok = {}, True
     for q in ("arabia_onset_bp", "levant_onset_bp"):
         r = {}
         for name, t in tables.items():
@@ -460,26 +454,24 @@ def timestep(args):
                 "fractionReached": round(float(reached.mean()), 3),
                 "onsetKaQuantiles10_50_90": [round(float(v), 1) for v in np.quantile(x[reached], [0.1, 0.5, 0.9])],
             }
-        for a, b in (("dt25", "dt25_reseeded"), ("dt25", "dt10")):
-            x, y = tables[a][q], tables[b][q]
-            r[f"{a}_vs_{b}"] = {
-                "reachedAgreement": round(float((np.isfinite(x) == np.isfinite(y)).mean()), 3),
-                "medianAbsOnsetDifferenceKa": round(float(np.nanmedian(np.abs(x - y)) / 1000), 2),
-            }
+        p0 = r[base]["fractionReached"]
+        tolerance = 2 * np.sqrt(2 * p0 * (1 - p0) / args.sims)
+        for name in r:
+            if name == base:
+                continue
+            gap = abs(r[name]["fractionReached"] - p0)
+            median_gap = abs(r[name]["onsetKaQuantiles10_50_90"][1] - r[base]["onsetKaQuantiles10_50_90"][1])
+            r[name]["fractionGapVsBase"] = round(gap, 3)
+            r[name]["medianOnsetGapKa"] = round(median_gap, 2)
+            ok &= gap <= tolerance and median_gap <= 1.0
+        r["fractionTolerance"] = round(float(tolerance), 3)
         result[q] = r
-    verdict = (
-        "fail"
-        if abs(
-            result["arabia_onset_bp"]["dt25"]["fractionReached"] - result["arabia_onset_bp"]["dt10"]["fractionReached"]
-        )
-        > 0.05
-        else "pass"
-    )
     report = {
         "sims": args.sims,
-        "question": "dt 25 vs 10 years, compared with seed-to-seed noise at dt 25",
-        "criterion": "fraction of runs establishing in Arabia differs by at most 0.05 between dt 25 and dt 10",
-        "verdict": verdict,
+        "dts": dts,
+        "criterion": "each step within 2 binomial SE of the coarsest on fraction reaching the region, "
+        "and within 1 ka on median onset; the reseeded run shows seed-to-seed noise",
+        "verdict": "pass" if ok else "fail",
         "results": result,
     }
     RESULTS.mkdir(exist_ok=True)
@@ -497,6 +489,8 @@ def main():
     a.add_argument("--dt", type=float, default=25)
     a.add_argument("--out", default="table.csv")
     a.add_argument("--southern-crossing", action="store_true")
+    a.add_argument("--source-max-lat", type=float, default=15.0)
+    a.add_argument("--limit", type=int, default=0, help="simulate only the first N parameter draws")
     a = sub.add_parser("analyze")
     a.add_argument("--table", default="table.csv")
     a.add_argument("--report", default="identifiability.json")
@@ -505,6 +499,7 @@ def main():
     a.add_argument("--seed", type=int, default=7)
     a = sub.add_parser("timestep")
     a.add_argument("--sims", type=int, default=200)
+    a.add_argument("--dts", default="25,10,5", help="comma-separated steps, coarsest first")
     args = p.parse_args()
     {"prepare": prepare, "simulate": simulate, "analyze": analyze, "timestep": timestep}[args.cmd](args)
 

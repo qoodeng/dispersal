@@ -2,7 +2,7 @@
 //! binomial dispersal, and a Poisson archaeological deposition process.
 
 use crate::grid::{Grid, Region, DIRECTIONS};
-use rand_distr::{Distribution, Poisson, StandardNormal, StandardUniform};
+use rand_distr::{Distribution, Gamma, Poisson, StandardNormal, StandardUniform};
 use rand_xoshiro::rand_core::SeedableRng;
 use rand_xoshiro::Xoshiro256PlusPlus;
 
@@ -38,6 +38,10 @@ pub struct Scenario {
     pub suitability_width: f64,
     /// African land cells south of this latitude start at carrying capacity.
     pub source_max_lat: f64,
+    /// Gross birth rate b per year; sets demographic turnover (noise), not
+    /// net growth. Assumption: hunter-gatherer crude birth rates are roughly
+    /// 0.03-0.06 per year; it must be at least the largest growth rate.
+    pub birth_rate: f64,
 }
 
 impl Default for Scenario {
@@ -50,6 +54,7 @@ impl Default for Scenario {
             established: 50,
             suitability_width: 0.15,
             source_max_lat: 15.0,
+            birth_rate: 0.045,
         }
     }
 }
@@ -96,6 +101,12 @@ impl Params {
         }
         if self.rain_half <= 0.0 {
             return Err("rain_half must be positive".into());
+        }
+        if self.growth > scenario.birth_rate {
+            return Err(format!(
+                "growth {} exceeds the gross birth rate {}",
+                self.growth, scenario.birth_rate
+            ));
         }
         let worst = (0..grid.len())
             .map(|c| {
@@ -166,20 +177,78 @@ fn poisson(rng: &mut Rng, mean: f64) -> u64 {
     Poisson::new(mean).expect("finite positive mean").sample(rng) as u64
 }
 
-/// Ricker–Poisson growth: N' ~ Poisson(N exp(r dt (1 - N/K))).
-pub fn grow(pop: &mut [u64], k: &[f64], growth: f64, dt: f64, rng: &mut Rng) {
+/// Logistic birth–death step. Per-capita birth rate b and death rate
+/// d = b - r (1 - N/K) are held at their start-of-step values, and the step
+/// is then sampled exactly from the linear birth–death process (Kendall
+/// 1948). Each individual's lineage is extinct after dt with probability
+/// alpha; otherwise it has a geometric number of descendants with parameter
+/// beta. Demographic noise per unit time therefore does not depend on dt;
+/// the only step-size approximation is freezing density dependence within a
+/// step. (The earlier Ricker–Poisson step drew variance N per step, so
+/// shorter steps meant more noise per year and more extinctions.)
+pub fn grow(pop: &mut [u64], k: &[f64], growth: f64, birth_rate: f64, dt: f64, rng: &mut Rng) {
     for (n, &k) in pop.iter_mut().zip(k) {
         if *n == 0 {
             continue;
         }
-        let x = *n as f64;
-        let exponent = if k > 0.0 {
-            growth * dt * (1.0 - x / k)
+        let death_rate = if k > 0.0 {
+            (birth_rate - growth * (1.0 - *n as f64 / k)).max(0.0)
         } else {
-            f64::NEG_INFINITY
+            f64::INFINITY
         };
-        *n = poisson(rng, x * exponent.min(50.0).exp());
+        let (alpha, beta) = kendall(birth_rate, death_rate, dt);
+        let survivors = binomial(rng, *n, 1.0 - alpha);
+        *n = if survivors == 0 {
+            0
+        } else {
+            survivors + negative_binomial(rng, survivors, beta)
+        };
     }
+}
+
+/// Lineage extinction probability alpha and geometric parameter beta for a
+/// linear birth–death process with rates b and d over time t.
+pub fn kendall(b: f64, d: f64, t: f64) -> (f64, f64) {
+    if !d.is_finite() {
+        return (1.0, 0.0);
+    }
+    let x = (b - d) * t;
+    if x.abs() < 1e-9 {
+        let a = b * t / (1.0 + b * t);
+        return (a, a);
+    }
+    let em1 = x.exp_m1(); // e^{(b-d)t} - 1
+    let denominator = b * em1 + (b - d); // b e^{(b-d)t} - d
+    (
+        (d * em1 / denominator).clamp(0.0, 1.0),
+        (b * em1 / denominator).clamp(0.0, 1.0 - 1e-15),
+    )
+}
+
+/// Failures before `successes` successes with failure probability `beta`:
+/// a sum of `successes` zero-based geometric variables. Gamma–Poisson
+/// mixture for small means, moment-matched normal for large variance.
+fn negative_binomial(rng: &mut Rng, successes: u64, beta: f64) -> u64 {
+    if beta <= 0.0 {
+        return 0;
+    }
+    let s = successes as f64;
+    let mean = s * beta / (1.0 - beta);
+    let variance = mean / (1.0 - beta);
+    if variance >= NORMAL_APPROXIMATION_VARIANCE {
+        return normal_count(rng, mean, variance, f64::MAX);
+    }
+    let rate = Gamma::new(s, beta / (1.0 - beta))
+        .expect("valid gamma")
+        .sample(rng);
+    poisson(rng, rate)
+}
+
+fn binomial(rng: &mut Rng, n: u64, p: f64) -> u64 {
+    if p >= 1.0 {
+        return n;
+    }
+    binomial_fast(rng, n, p, (-p).ln_1p(), p / (1.0 - p))
 }
 
 /// Destination of a move in each direction during one snapshot: the open
@@ -317,7 +386,7 @@ pub fn simulate(
             targets = move_targets(grid, snapshot, s.southern_crossing);
             targets_snapshot = snapshot;
         }
-        grow(&mut pop, &k, p.growth, s.dt, &mut rng);
+        grow(&mut pop, &k, p.growth, s.birth_rate, s.dt, &mut rng);
         disperse(&pop, &mut next, &moves, &targets, &mut rng);
         std::mem::swap(&mut pop, &mut next);
 
@@ -431,6 +500,59 @@ mod tests {
     }
 
     #[test]
+    fn kendall_step_matches_birth_death_moments() {
+        // Linear birth–death from N0: E[N_t] = N0 e^{(b-d)t},
+        // Var[N_t] = N0 (b+d)/(b-d) e^{(b-d)t} (e^{(b-d)t} - 1).
+        let mut rng = Rng::seed_from_u64(9);
+        let (b, d, t, n0) = (0.045, 0.035, 25.0, 3u64);
+        let draws: Vec<f64> = (0..200_000)
+            .map(|_| {
+                let (alpha, beta) = kendall(b, d, t);
+                let s = binomial(&mut rng, n0, 1.0 - alpha);
+                (if s == 0 {
+                    0
+                } else {
+                    s + negative_binomial(&mut rng, s, beta)
+                }) as f64
+            })
+            .collect();
+        let mean = draws.iter().sum::<f64>() / draws.len() as f64;
+        let var = draws.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / draws.len() as f64;
+        let e = ((b - d) * t).exp();
+        let (m0, v0) = (n0 as f64 * e, n0 as f64 * (b + d) / (b - d) * e * (e - 1.0));
+        assert!((mean / m0 - 1.0).abs() < 0.01, "mean {mean} vs {m0}");
+        assert!((var / v0 - 1.0).abs() < 0.03, "variance {var} vs {v0}");
+    }
+
+    #[test]
+    fn small_population_extinction_does_not_depend_on_time_step() {
+        // One cell with K = 20 for 2,000 years: extinction risk is set by
+        // demographic noise per year, so it must agree between dt 25 and 5.
+        let extinct = |dt: f64, seed: u64| {
+            let mut rng = Rng::seed_from_u64(seed);
+            let k = [20.0];
+            let runs = 4_000;
+            let mut dead = 0;
+            for _ in 0..runs {
+                let mut pop = [20u64];
+                let mut t = 0.0;
+                while t < 2_000.0 && pop[0] > 0 {
+                    grow(&mut pop, &k, 0.01, 0.045, dt, &mut rng);
+                    t += dt;
+                }
+                dead += (pop[0] == 0) as u32;
+            }
+            dead as f64 / runs as f64
+        };
+        let (coarse, fine) = (extinct(25.0, 1), extinct(5.0, 2));
+        eprintln!("extinction by 2 ka: dt 25 {coarse:.3}, dt 5 {fine:.3}");
+        assert!(
+            (coarse - fine).abs() < 0.05,
+            "dt 25 {coarse:.3} vs dt 5 {fine:.3}"
+        );
+    }
+
+    #[test]
     fn southern_strait_is_closed_unless_crossing_scenario() {
         let mut g = Grid::uniform(2, 1, 10_000.0, 500.0);
         g.latitudes = vec![12.0];
@@ -471,7 +593,7 @@ mod tests {
         let mut k = vec![0.0; 16];
         capacity(&g, &p, &s, 500.0, &mut k);
         for _ in 0..50 {
-            grow(&mut pop, &k, p.growth, s.dt, &mut rng);
+            grow(&mut pop, &k, p.growth, s.birth_rate, s.dt, &mut rng);
         }
         assert_eq!(pop.iter().sum::<u64>(), 0);
     }
@@ -505,7 +627,7 @@ mod tests {
         let (mut t0, mut x0) = (None, 0);
         let mut t = 0.0;
         while front(&pop, &k) < 100 {
-            grow(&mut pop, &k, p.growth, s.dt, &mut rng);
+            grow(&mut pop, &k, p.growth, s.birth_rate, s.dt, &mut rng);
             disperse(&pop, &mut next, &moves, &targets, &mut rng);
             std::mem::swap(&mut pop, &mut next);
             t += s.dt;
