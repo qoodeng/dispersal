@@ -91,6 +91,17 @@ def grid_edge(grid):
     return {"africa": {"lat": float(a[1]), "lon": float(a[2])}, "arabia": {"lat": float(b[1]), "lon": float(b[2])}}
 
 
+def mainland_gap_km(z, lat, lon, sea_level):
+    """Straight mainland-to-mainland distance, using no islands (a conservative alternative)."""
+    land = z > sea_level
+    labels, _ = ndimage.label(land, structure=np.ones((3, 3)))
+    a, b = labels[seed_index(lat, lon, AFRICA_SEED)], labels[seed_index(lat, lon, ARABIA_SEED)]
+    if a == b:
+        return 0.0
+    sampling = (KM_PER_ARCMIN, KM_PER_ARCMIN * np.cos(np.deg2rad(lat.mean())))
+    return round(float(ndimage.distance_transform_edt(labels != a, sampling=sampling)[labels == b].min()), 1)
+
+
 def sea_levels():
     rows = {int(float(r["age_ka"])): r for r in csv.DictReader(SEA_LEVEL.open())}
     return lambda ka: {k: float(rows[ka][k]) for k in ("q025", "median", "q975")}
@@ -118,10 +129,12 @@ def main():
                     "narrow": minimax_leg_km(z, lat, lon, sl["q025"]),
                     "median": minimax_leg_km(z, lat, lon, sl["median"]),
                     "wide": minimax_leg_km(z, lat, lon, sl["q975"]),
+                    "mainland": mainland_gap_km(z, lat, lon, sl["median"]),
                 },
             }
         )
     present = minimax_leg_km(z, lat, lon, 0.0)
+    present_mainland = mainland_gap_km(z, lat, lon, 0.0)
     sill = next(s for s in np.arange(0, -300, -1.0) if minimax_leg_km(z, lat, lon, s) == 0.0)
     cells = grid_edge(grid)
     out = {
@@ -130,8 +143,10 @@ def main():
         "gridEdge": cells,
         "bathymetry": {"source": str(ETOPO.relative_to(ROOT)), "sha256": digest, "doi": "10.25921/fd45-gt74"},
         "seaLevel": {"source": str(SEA_LEVEL.relative_to(ROOT)), "reference": "Spratt & Lisiecki 2016"},
-        "metric": "minimax open-water leg between the African and Arabian mainlands, km",
+        "metric": "minimax open-water leg between the African and Arabian mainlands, km (island-hopping); "
+        "'mainland' is the straight mainland-to-mainland distance at median sea level, using no islands",
         "presentDayGapKm": present,
+        "presentDayMainlandKm": present_mainland,
         "landBridgeBelowSeaLevelM": float(sill),
         "snapshots": snapshots,
         "limits": [
@@ -142,7 +157,10 @@ def main():
     }
     args.out.write_text(json.dumps(out, indent=1) + "\n")
     gaps = [s["gapKm"]["median"] for s in snapshots]
-    print(f"present-day gap {present} km; land bridge needs sea level below {sill} m")
+    print(
+        f"present-day gap {present} km (mainland to mainland {present_mainland} km); "
+        f"land bridge needs sea level below {sill} m"
+    )
     print(f"gap 120-40 ka (median sea level): min {min(gaps)} km, max {max(gaps)} km")
     for s in snapshots[::4]:
         print(f"  {s['yearsBP'] / 1000:>5.0f} ka  sea {s['seaLevelM']['median']:>7.1f} m  gap {s['gapKm']}")

@@ -28,6 +28,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from scipy.stats import norm
 
 V2 = Path(__file__).resolve().parents[1]
 GRID = V2 / "data/grid.json"
@@ -43,8 +44,15 @@ PRIORS = {
     "rain_half": ("uniform", 50.0, 250.0, "mm/year", "precipitation at half habitat suitability"),
     "density": ("log_uniform", 1.0, 30.0, "people/100 km^2", "carrying capacity in suitable habitat"),
     "detection": ("log_uniform", 1e-9, 1e-5, "finds/person-year", "dated-find deposition and recovery rate"),
-    # Assumption: agnostic between walking only (below the 3.8 km minimum gap) and short sea crossings.
-    "crossing_km": ("log_uniform", 1.0, 40.0, "km", "longest open-water leg people can cross"),
+    # LogNormal(median 8 km, sigma_ln 0.8) truncated to 1-100 km; sources in research/evidence/crossing-evidence.md.
+    "crossing_km": (
+        "truncated_log_normal",
+        1.0,
+        100.0,
+        "km",
+        "longest open-water leg people can cross",
+        {"median": 8.0, "sigmaLn": 0.8},
+    ),
 }
 STRAIT = V2 / "data/strait.json"
 NO_EVIDENCE_KA = 30.0  # encoding for "nothing in 120-40 ka"; 10 ka beyond the window edge
@@ -55,13 +63,27 @@ MAX_PER_SITE_SUMMARIES = 12  # above this, observations are reduced to summary s
 ACCEPT_FRACTION = 0.03  # nearest 3%: wider-than-ideal posteriors, i.e. conservative contraction
 
 
+def _log_normal_bounds(name):
+    lo, hi, shape = PRIORS[name][1], PRIORS[name][2], PRIORS[name][5]
+    mu, sd = np.log(shape["median"]), shape["sigmaLn"]
+    return mu, sd, norm.cdf((np.log(lo) - mu) / sd), norm.cdf((np.log(hi) - mu) / sd)
+
+
 def to_unit(name, x):
+    """Prior CDF: maps a parameter value to [0, 1]."""
     kind, lo, hi = PRIORS[name][:3]
+    if kind == "truncated_log_normal":
+        mu, sd, c0, c1 = _log_normal_bounds(name)
+        return (norm.cdf((np.log(x) - mu) / sd) - c0) / (c1 - c0)
     return (np.log(x) - np.log(lo)) / (np.log(hi) - np.log(lo)) if kind == "log_uniform" else (x - lo) / (hi - lo)
 
 
 def from_unit(name, u):
+    """Inverse prior CDF."""
     kind, lo, hi = PRIORS[name][:3]
+    if kind == "truncated_log_normal":
+        mu, sd, c0, c1 = _log_normal_bounds(name)
+        return float(np.exp(mu + sd * norm.ppf(c0 + u * (c1 - c0))))
     return np.exp(np.log(lo) + u * (np.log(hi) - np.log(lo))) if kind == "log_uniform" else lo + u * (hi - lo)
 
 
@@ -743,7 +765,7 @@ def main():
     a.add_argument("--source-max-lat", type=float, default=15.0)
     a.add_argument("--limit", type=int, default=0, help="simulate only the first N parameter draws")
     a.add_argument("--no-strait", action="store_true", help="walking only: no Bab el-Mandeb crossing")
-    a.add_argument("--strait-series", default="median", choices=["narrow", "median", "wide"])
+    a.add_argument("--strait-series", default="median", choices=["narrow", "median", "wide", "mainland"])
     a = sub.add_parser("analyze")
     a.add_argument("--table", default="table.csv")
     a.add_argument("--report", default="identifiability.json")
@@ -755,7 +777,7 @@ def main():
     a.add_argument("--sims", type=int, default=200)
     a = sub.add_parser("structure")
     a.add_argument("--base", default="table.csv")
-    a.add_argument("--alternatives", default="table-closed.csv")
+    a.add_argument("--alternatives", default="table-closed.csv,table-mainland.csv")
     a.add_argument("--seed", type=int, default=11)
     a = sub.add_parser("timestep")
     a.add_argument("--sims", type=int, default=200)
