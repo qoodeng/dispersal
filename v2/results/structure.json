@@ -1,0 +1,54 @@
+{
+ "schema": "dispersal-v2-structure/1",
+ "base": "table.csv",
+ "alternatives": {
+  "table-closed.csv": {
+   "scenario": {
+    "southernCrossing": false,
+    "sourceMaxLat": 15.0,
+    "dt": 25
+   },
+   "draws": 1000,
+   "sensitivity": {
+    "arabia_onset_bp": {
+     "fractionReachedBase": 0.825,
+     "fractionReachedAlternative": 0.489,
+     "drawsWhereReachedDiffers": 0.336,
+     "medianOnsetShiftKa": 0.0
+    },
+    "levant_onset_bp": {
+     "fractionReachedBase": 0.749,
+     "fractionReachedAlternative": 0.491,
+     "drawsWhereReachedDiffers": 0.258,
+     "medianOnsetShiftKa": 0.0
+    }
+   },
+   "discrimination": {
+    "ingested": {
+     "brierSkill": -0.011,
+     "accuracy": 0.53
+    },
+    "illustrative": {
+     "brierSkill": 0.1,
+     "accuracy": 0.66
+    },
+    "dense": {
+     "brierSkill": 0.137,
+     "accuracy": 0.685
+    },
+    "register_sapiens": {
+     "brierSkill": 0.024,
+     "accuracy": 0.588
+    },
+    "register_all": {
+     "brierSkill": 0.095,
+     "accuracy": 0.63
+    },
+    "oracle": {
+     "brierSkill": 0.233,
+     "accuracy": 0.693
+    }
+   }
+  }
+ }
+}
