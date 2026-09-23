@@ -300,6 +300,12 @@ def observations(table, design, rng):
     return np.column_stack(reduced)
 
 
+def tie_break(n, seed):
+    """Tiny random offsets so exact distance ties (common when many runs share "no evidence")
+    are broken at random, not by row order."""
+    return np.random.default_rng(seed).uniform(0, 1e-9, n)
+
+
 def weighted_quantile(x, w, q):
     order = np.argsort(x)
     cw = np.cumsum(w[order])
@@ -328,6 +334,7 @@ def abc(S, targets, tests):
     }
     for t in tests:
         d = np.sqrt((((S[ref] - S[t]) / scale) ** 2).sum(axis=1))
+        d = d + tie_break(len(d), t)
         idx = np.argpartition(d, k)[:k]
         h = d[idx].max() * 1.0000001 + 1e-12
         w = 1.0 - (d[idx] / h) ** 2
@@ -537,6 +544,7 @@ def structure(args):
             p_alt = []
             for t in tests:
                 d = np.sqrt((((S[ref_all] - S[t]) / scale) ** 2).sum(axis=1))
+                d = d + tie_break(len(d), t)
                 idx = np.argpartition(d, k)[:k]
                 h = d[idx].max() * 1.0000001 + 1e-12
                 w = 1.0 - (d[idx] / h) ** 2
